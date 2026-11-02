@@ -1,0 +1,88 @@
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+html,body{margin:0;height:100%}
+body{font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;color:#4a2c10;text-align:center;
+ background:linear-gradient(#bfe8ff 0%,#e8f8d8 55%,#9fd77a 100%);overflow-x:hidden}
+#app{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;gap:14px;padding-bottom:calc(16px + env(safe-area-inset-bottom))}
+h1{margin:0;font-size:2.2rem;color:#c0392b;text-shadow:0 2px 0 #fff}
+.btn{border:none;border-radius:28px;font-size:1.7rem;padding:18px 30px;min-height:76px;min-width:150px;color:#fff;font-weight:bold;
+ box-shadow:0 6px 0 rgba(0,0,0,.2);cursor:pointer;font-family:inherit;background:#e67e22}
+.btn:active{transform:translateY(4px);box-shadow:0 2px 0 rgba(0,0,0,.2)}
+.big{font-size:2.4rem;padding:24px 56px}
+.red{background:#e74c3c}.blue{background:#3498db}.green{background:#27ae60}.gold{background:#f1b31c;color:#5a3300}.gray{background:#95a5a6}
+.row{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;align-items:center}
+.panel{background:rgba(255,255,255,.92);border-radius:28px;padding:16px;width:min(94vw,640px);box-shadow:0 8px 24px rgba(0,0,0,.12)}
+.say{font-size:1.5rem;min-height:2.2em;color:#7b3fbf}
+.step{font-size:1.1rem;color:#8a6a3a}
+.wukong{height:180px}
+.monster{width:150px;height:150px;border-radius:50%;object-fit:cover;border:6px solid #fff;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+.card{background:#fffaf0;border:5px solid #f1b31c;border-radius:24px;min-width:120px;min-height:120px;padding:10px;font-size:4rem;font-weight:bold;
+ display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;color:#4a2c10;font-family:inherit}
+.card small{font-size:1.2rem;font-weight:normal}
+.card.done{border-color:#27ae60;background:#eaffea}
+.sym{font-size:5rem;color:#c0392b}
+.emo{font-size:3.4rem;line-height:1.1}
+.sent{font-size:2.2rem;display:flex;flex-wrap:wrap;justify-content:center;gap:2px}
+.sent ruby{padding:2px 4px;border-radius:8px;transition:background .2s}
+.sent rt{font-size:.9rem;color:#c0392b}
+.sent .lit{background:#ffe066}
+.choice{flex:1;min-width:120px;font-size:4rem;min-height:140px;border-radius:28px;background:#fffaf0;color:#4a2c10;border:5px solid #f1b31c;box-shadow:0 6px 0 rgba(0,0,0,.15)}
+.choice.small{font-size:2.6rem}
+.choice.fade{opacity:.3;pointer-events:none}
+.choice.glow{animation:glow 1s infinite;border-color:#27ae60}
+@keyframes glow{50%{box-shadow:0 0 0 10px rgba(39,174,96,.4)}}
+.shake{animation:shake .5s}@keyframes shake{25%{transform:translateX(-10px)}75%{transform:translateX(10px)}}
+.pop{animation:pop .5s}@keyframes pop{50%{transform:scale(1.2)}}
+.arena{position:relative;width:min(94vw,560px);height:260px;margin-top:20px}
+.arena .monster{position:absolute;left:50%;top:70px;transform:translateX(-50%)}
+.clone{position:absolute;height:84px;transition:all .6s;animation:jumpin .6s}
+@keyframes jumpin{from{transform:translateY(-80px) scale(.3);opacity:0}}
+.arena.circle .ring{position:absolute;inset:0;animation:spin 4s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.laugh{animation:laugh .4s infinite}@keyframes laugh{0%,100%{transform:translateX(-50%) rotate(-8deg)}50%{transform:translateX(-50%) rotate(8deg)}}
+.count{font-size:1.4rem}
+.drag{touch-action:none;position:relative;z-index:2}
+.dragging{z-index:10;opacity:.9}
+.stamp{font-size:5rem;animation:stamp .6s}@keyframes stamp{from{transform:scale(3) rotate(-30deg);opacity:0}}
+.map{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;width:min(94vw,560px)}
+.station{border-radius:22px;padding:14px 6px;font-size:1.3rem;font-weight:bold;background:#ddd;color:#888;min-height:90px;border:none;font-family:inherit}
+.station.open{background:#f1b31c;color:#5a3300;box-shadow:0 6px 0 rgba(0,0,0,.2);cursor:pointer}
+.credit{font-size:.7rem;color:#777;max-width:90vw}
+.fly{position:fixed;font-size:2.6rem;pointer-events:none;animation:fly 1s ease-out forwards}
+@keyframes fly{to{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1.6) rotate(360deg)}}
+/* batch 1 美術 */
+body{background-size:cover;background-position:center bottom;background-attachment:fixed;background-color:#bfe8ff}
+.wukong.sm{height:110px}
+.step.tag{background:rgba(255,255,255,.85);border-radius:16px;padding:8px 14px}
+.monster{border-radius:0;border:none;box-shadow:none;object-fit:contain;filter:drop-shadow(0 4px 6px rgba(0,0,0,.25))}
+.arena{height:290px}
+.arena.circle{height:min(94vw,400px)}
+.arena.circle .monster{top:50%;transform:translate(-50%,-50%)}
+.arena.circle .laugh{animation:laugh2 .4s infinite}
+@keyframes laugh2{0%,100%{transform:translate(-50%,-50%) rotate(-8deg)}50%{transform:translate(-50%,-50%) rotate(8deg)}}
+.clone{height:80px}
+.memo{position:relative;width:130px;height:130px;display:flex;align-items:center;justify-content:center}
+.memo img{max-width:100%;max-height:100%;object-fit:contain;opacity:.85}
+.memo b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:4.2rem;color:#c0392b;
+ text-shadow:0 0 6px #fff,0 0 6px #fff,0 0 10px #fff}
+img.stamp{width:160px;height:160px;object-fit:contain}
+.panel,.say{border-radius:18px}
+.say{background:rgba(255,255,255,.85);padding:6px 12px}
+/* 符號放左上角小徽章，避免 ㄨ 疊在烏鴉上像「打叉」 */
+.memo b{inset:auto;left:-8px;top:-8px;width:62px;height:62px;font-size:2.6rem;background:#fff;border:4px solid #c0392b;border-radius:50%;text-shadow:none}
+.memo img{opacity:1}
+/* batch 2 */
+.memo b{left:-6px;top:-6px;width:60px;height:60px;border-radius:16px;background:#FFF6E0;border:5px solid #F2B53A;color:#c0392b}
+.pic{width:90px;height:90px;object-fit:contain;vertical-align:middle}
+.choice .pic{width:80px;height:80px}
+#rep .pic{width:70px;height:70px}
+#res .pic{width:110px;height:110px}
+.mapimg{position:relative;width:min(94vw,calc((100vh - 90px)*0.5625));aspect-ratio:9/16;background-size:100% 100%;border-radius:20px;box-shadow:0 6px 18px rgba(0,0,0,.2)}
+.mapimg .station{position:absolute;transform:translate(-50%,-50%);min-height:0;padding:6px 10px;font-size:.95rem;border-radius:16px;background:#FFF6E0;border:3px solid #ccc;color:#999;white-space:nowrap}
+.mapimg .station.open{background:#F2B53A;border-color:#fff;color:#5a3300;font-size:1.3rem;padding:12px 16px;min-width:120px;animation:glow 1.2s infinite}
+.poof{position:absolute;width:100px;height:100px;margin:-10px 0 0 -20px;pointer-events:none;animation:poof .7s forwards}
+@keyframes poof{from{transform:scale(.3);opacity:1}to{transform:scale(1.4);opacity:0}}
+/* 內容比螢幕高時不要把上方切掉（取代 justify-content:center） */
+#app{justify-content:flex-start}
+#app>:first-child{margin-top:auto}
+#app>:last-child{margin-bottom:auto}
+.wukong{height:150px}
