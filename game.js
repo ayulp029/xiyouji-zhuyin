@@ -1,4 +1,5 @@
 // 西遊記注音大冒險：多關卡版（關卡資料在 data.js 的 LEVELS）
+const VERSION = "v2（第 2 關）";
 let L = LEVELS[0];
 // 妖怪圖：有美術圖用圖，沒有就用大 emoji 代替
 const monSrc = state=>{ const a=L.monster.art; return a ? (a[state]||a.normal||null) : null; };
@@ -26,7 +27,7 @@ function startScreen(){
   el(`<h1>西遊記注音大冒險</h1>${W}
   <button class="btn red big" id="go">開始 ▶</button>
   <div class="step">🔔 iPhone 請把側邊靜音開關關掉，才聽得到聲音</div>
-  <div class="credit">注音發音：2017 © 教育部，國語注音符號手冊-開放部件 CC BY 4.0；詞語發音：Wikimedia Commons（Wei Gao &amp; Vion Nicolas CC BY 2.0 FR、Yue Tan CC BY-SA 3.0）</div>`);
+  <div class="credit">版本 ${VERSION}<br>注音發音：2017 © 教育部，國語注音符號手冊-開放部件 CC BY 4.0；詞語發音：Wikimedia Commons（Wei Gao &amp; Vion Nicolas CC BY 2.0 FR、Yue Tan CC BY-SA 3.0）</div>`);
   $('#go').onclick=()=>{ unlockAudio(); sfx.ding(); mapScreen(); };
 }
 
