@@ -86,3 +86,5 @@ img.stamp{width:160px;height:160px;object-fit:contain}
 #app>:first-child{margin-top:auto}
 #app>:last-child{margin-bottom:auto}
 .wukong{height:150px}
+/* 沒有美術圖的妖怪：用大 emoji 代替 */
+.emo-mon{display:flex;align-items:center;justify-content:center;font-size:110px;line-height:1}
