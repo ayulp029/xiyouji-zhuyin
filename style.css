@@ -13,8 +13,6 @@ h1{margin:0;font-size:2.2rem;color:#c0392b;text-shadow:0 2px 0 #fff}
 .panel{background:rgba(255,255,255,.92);border-radius:28px;padding:16px;width:min(94vw,640px);box-shadow:0 8px 24px rgba(0,0,0,.12)}
 .say{font-size:1.5rem;min-height:2.2em;color:#7b3fbf}
 .step{font-size:1.1rem;color:#8a6a3a}
-.wukong{height:180px}
-.monster{width:150px;height:150px;border-radius:50%;object-fit:cover;border:6px solid #fff;box-shadow:0 4px 12px rgba(0,0,0,.2)}
 .card{background:#fffaf0;border:5px solid #f1b31c;border-radius:24px;min-width:120px;min-height:120px;padding:10px;font-size:4rem;font-weight:bold;
  display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;color:#4a2c10;font-family:inherit}
 .card small{font-size:1.2rem;font-weight:normal}
@@ -32,13 +30,7 @@ h1{margin:0;font-size:2.2rem;color:#c0392b;text-shadow:0 2px 0 #fff}
 @keyframes glow{50%{box-shadow:0 0 0 10px rgba(39,174,96,.4)}}
 .shake{animation:shake .5s}@keyframes shake{25%{transform:translateX(-10px)}75%{transform:translateX(10px)}}
 .pop{animation:pop .5s}@keyframes pop{50%{transform:scale(1.2)}}
-.arena{position:relative;width:min(94vw,560px);height:260px;margin-top:20px}
-.arena .monster{position:absolute;left:50%;top:70px;transform:translateX(-50%)}
-.clone{position:absolute;height:84px;transition:all .6s;animation:jumpin .6s}
-@keyframes jumpin{from{transform:translateY(-80px) scale(.3);opacity:0}}
-.arena.circle .ring{position:absolute;inset:0;animation:spin 4s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.laugh{animation:laugh .4s infinite}@keyframes laugh{0%,100%{transform:translateX(-50%) rotate(-8deg)}50%{transform:translateX(-50%) rotate(8deg)}}
 .count{font-size:1.4rem}
 .drag{touch-action:none;position:relative;z-index:2}
 .dragging{z-index:10;opacity:.9}
@@ -53,13 +45,6 @@ h1{margin:0;font-size:2.2rem;color:#c0392b;text-shadow:0 2px 0 #fff}
 body{background-size:cover;background-position:center bottom;background-attachment:fixed;background-color:#bfe8ff}
 .wukong.sm{height:110px}
 .step.tag{background:rgba(255,255,255,.85);border-radius:16px;padding:8px 14px}
-.monster{border-radius:0;border:none;box-shadow:none;object-fit:contain;filter:drop-shadow(0 4px 6px rgba(0,0,0,.25))}
-.arena{height:290px}
-.arena.circle{height:min(94vw,400px)}
-.arena.circle .monster{top:50%;transform:translate(-50%,-50%)}
-.arena.circle .laugh{animation:laugh2 .4s infinite}
-@keyframes laugh2{0%,100%{transform:translate(-50%,-50%) rotate(-8deg)}50%{transform:translate(-50%,-50%) rotate(8deg)}}
-.clone{height:80px}
 .memo{position:relative;width:130px;height:130px;display:flex;align-items:center;justify-content:center}
 .memo img{max-width:100%;max-height:100%;object-fit:contain;opacity:.85}
 .memo b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:4.2rem;color:#c0392b;
@@ -79,10 +64,129 @@ img.stamp{width:160px;height:160px;object-fit:contain}
 .mapimg{position:relative;width:min(94vw,calc((100vh - 90px)*0.5625));aspect-ratio:9/16;background-size:100% 100%;border-radius:20px;box-shadow:0 6px 18px rgba(0,0,0,.2)}
 .mapimg .station{position:absolute;transform:translate(-50%,-50%);min-height:0;padding:6px 10px;font-size:.95rem;border-radius:16px;background:#FFF6E0;border:3px solid #ccc;color:#999;white-space:nowrap}
 .mapimg .station.open{background:#F2B53A;border-color:#fff;color:#5a3300;font-size:1.3rem;padding:12px 16px;min-width:120px;animation:glow 1.2s infinite}
-.poof{position:absolute;width:100px;height:100px;margin:-10px 0 0 -20px;pointer-events:none;animation:poof .7s forwards}
 @keyframes poof{from{transform:scale(.3);opacity:1}to{transform:scale(1.4);opacity:0}}
 /* 內容比螢幕高時不要把上方切掉（取代 justify-content:center） */
 #app{justify-content:flex-start}
 #app>:first-child{margin-top:auto}
 #app>:last-child{margin-bottom:auto}
-.wukong{height:150px}
+.wukong{height:150px}  /* 唐僧等靜態人物圖 */
+.wukong.sm{height:110px}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes poof{from{transform:scale(.3);opacity:1}to{transform:scale(1.4);opacity:0}}
+.ver{position:fixed;right:10px;bottom:calc(6px + env(safe-area-inset-bottom));font-size:.8rem;color:#6b5a3a;background:rgba(255,255,255,.7);border-radius:10px;padding:2px 8px}
+
+/* ===== 悟空：sway(輕晃) > act(動作) > body(呼吸) > img + 眼皮 ===== */
+.wk{position:relative;display:inline-block;line-height:0;--wk-h:150px;flex:none}
+.wk.sm{--wk-h:110px}
+.wk.lg{--wk-h:clamp(150px,28vh,230px)}
+.wk.battle{--wk-h:clamp(120px,min(26vh,22vw),190px)}
+.wk-img{height:var(--wk-h);width:auto;display:block;pointer-events:none;-webkit-user-drag:none}
+.wk-sway{transform-origin:50% 100%;animation:wkSway 3.8s ease-in-out infinite}
+.wk-act{transform-origin:50% 100%}
+.wk-body{position:relative;transform-origin:50% 100%;animation:wkBreathe 2.6s ease-in-out infinite}
+@keyframes wkSway{0%,100%{transform:rotate(-1.8deg)}50%{transform:rotate(1.8deg)}}
+@keyframes wkBreathe{0%,100%{transform:scale(1,1)}50%{transform:scale(1.012,1.035)}}
+/* 眨眼：皮膚色眼皮由上往下蓋，閉眼時下緣是一條眼線 */
+.lid{position:absolute;border-radius:50%;background:#FFCD93;border-bottom:2px solid #6b3a14;transform-origin:50% 0;transform:scaleY(0);
+ animation:blink var(--blink,5s) linear infinite;animation-delay:var(--bd,0s);pointer-events:none}
+@keyframes blink{0%,92%,100%{transform:scaleY(0)}94.5%,96%{transform:scaleY(1)}}
+.wk.busy .wk-body,.wk.busy .wk-sway{animation-play-state:paused}
+/* 答對：跳起來 + 金箍棒揮出的弧光 */
+.wk-act.jump{animation:wkJump .8s cubic-bezier(.3,.6,.4,1)}
+@keyframes wkJump{0%{transform:scale(1.08,.9)}14%{transform:scale(.92,1.1)}42%{transform:translateY(-58px) rotate(-10deg)}68%{transform:translateY(-22px) rotate(6deg)}86%{transform:scale(1.08,.92)}100%{transform:none}}
+.swoosh{position:absolute;left:50%;top:42%;width:150%;aspect-ratio:1;border-radius:50%;border:7px solid transparent;border-top-color:#ffd54a;border-right-color:rgba(255,213,74,.55);
+ transform:translate(-50%,-50%);animation:swoosh .55s ease-out .12s both;pointer-events:none;filter:drop-shadow(0 0 6px #fff3b0);z-index:2}
+.swoosh.s2{width:115%;border-width:5px;border-top-color:#fff6c8;border-right-color:transparent;border-left-color:rgba(255,213,74,.6);animation-delay:.25s}
+@keyframes swoosh{from{transform:translate(-50%,-50%) rotate(-140deg) scale(.6);opacity:1}to{transform:translate(-50%,-50%) rotate(250deg) scale(1.1);opacity:0}}
+/* 答錯：左右歪頭 + 冒問號 */
+.wk-act.confused{animation:wkTilt 1.3s ease-in-out}
+@keyframes wkTilt{0%,100%{transform:none}18%{transform:rotate(-9deg)}40%{transform:rotate(7deg) translateY(-3px)}62%{transform:rotate(-7deg)}82%{transform:rotate(4deg)}}
+.wk-q{position:absolute;left:66%;top:-4%;font-size:calc(var(--wk-h)*.26);font-weight:900;color:#7b3fbf;line-height:1;pointer-events:none;z-index:3;
+ text-shadow:0 0 4px #fff,0 0 4px #fff,0 2px 0 #fff;animation:qUp 1.4s ease-out both}
+.wk-q.q2{left:20%;top:2%;font-size:calc(var(--wk-h)*.18);animation-delay:.3s;color:#e67e22}
+@keyframes qUp{0%{opacity:0;transform:translateY(12px) scale(.4) rotate(-20deg)}25%{opacity:1;transform:translateY(-6px) scale(1.15) rotate(12deg)}55%{transform:translateY(-14px) rotate(-8deg)}100%{opacity:0;transform:translateY(-34px) rotate(0)}}
+/* 拔毫毛 → 吹氣 */
+.wk-act.pluck{animation:wkPluck .55s ease-in-out}
+@keyframes wkPluck{0%,100%{transform:none}35%{transform:rotate(-4deg) scale(.97,1.03)}60%{transform:translateY(-8px) rotate(-6deg) scale(1.02,1.06)}80%{transform:rotate(2deg)}}
+.wk-hair{position:absolute;left:48%;top:3%;width:4px;height:calc(var(--wk-h)*.12);border-radius:3px;background:linear-gradient(#fff2a8,#e0a020);
+ box-shadow:0 0 6px #ffe680;transform-origin:50% 100%;animation:hairPull .7s ease-out both;z-index:3;pointer-events:none}
+@keyframes hairPull{0%{opacity:0;transform:translateY(8px) rotate(0)}30%{opacity:1;transform:translateY(0) rotate(-5deg)}70%{opacity:1;transform:translateY(-22px) rotate(25deg)}100%{opacity:0;transform:translateY(-30px) rotate(40deg)}}
+.wk-act.blow{animation:wkBlow .65s ease-in-out}
+@keyframes wkBlow{0%{transform:none}30%{transform:scale(1.05,.96)}55%{transform:scale(.97,1.04) translateX(5px)}100%{transform:none}}
+.wind{position:absolute;left:58%;top:30%;width:calc(var(--wk-h)*.32);height:calc(var(--wk-h)*.12);border-radius:50%;pointer-events:none;z-index:2;
+ background:radial-gradient(closest-side,rgba(255,255,255,.95),rgba(255,255,255,0));animation:wind .7s ease-out both}
+.wind.w2{top:38%;animation-delay:.15s}
+@keyframes wind{from{opacity:0;transform:translateX(0) scale(.4)}30%{opacity:1}to{opacity:0;transform:translateX(calc(var(--wk-h)*.5)) scale(1.4)}}
+.hairfly{position:fixed;width:5px;height:22px;margin:-11px 0 0 -2px;border-radius:3px;background:linear-gradient(#fff6c0,#e5a51e);box-shadow:0 0 10px 3px rgba(255,220,90,.75);pointer-events:none;z-index:50}
+.poofx{position:fixed;pointer-events:none;z-index:40;animation:poof .75s ease-out forwards}
+
+/* ===== 妖怪：float(浮動晃) > act(動作) > img(表情) ===== */
+.mon{position:relative;display:inline-block;line-height:0;--mon-h:150px}
+.mon.solo{--mon-h:clamp(130px,24vh,190px)}
+.mon-img{height:var(--mon-h);width:auto;display:block;filter:drop-shadow(0 4px 6px rgba(0,0,0,.25));pointer-events:none}
+.mon-float{transform-origin:50% 100%;animation:monFloat 3.2s ease-in-out infinite}
+@keyframes monFloat{0%,100%{transform:translate(-5px,0) rotate(-3deg)}25%{transform:translate(0,-9px) rotate(0)}50%{transform:translate(5px,0) rotate(3deg)}75%{transform:translate(0,-9px) rotate(0)}}
+.mon-act{transform-origin:50% 90%}
+.mon-act.roar{animation:monRoar .9s ease-in-out}
+@keyframes monRoar{0%,100%{transform:none}20%{transform:scale(1.15) rotate(-8deg)}40%{transform:scale(1.1) rotate(8deg)}60%{transform:scale(1.15) rotate(-6deg)}80%{transform:scale(1.05) rotate(3deg)}}
+.mon-act.hit{animation:monHit .7s ease-out}
+@keyframes monHit{0%{transform:none;filter:none}10%{transform:translateX(18px) rotate(8deg);filter:brightness(3) saturate(0)}20%{transform:translateX(26px) rotate(10deg);filter:none}
+ 30%{transform:translateX(20px) rotate(-4deg);filter:brightness(3) saturate(0)}42%{transform:translateX(28px) rotate(6deg);filter:none}55%{transform:translateX(22px) rotate(-3deg);filter:brightness(2.2) saturate(0)}
+ 70%{transform:translateX(10px);filter:none}100%{transform:none;filter:none}}
+.mon-act.mock{animation:monMock .9s ease-in-out}
+@keyframes monMock{0%,100%{transform:none}20%{transform:translateY(-14px) rotate(-6deg)}40%{transform:translateY(0) scale(1.05,.95)}60%{transform:translateY(-12px) rotate(6deg)}80%{transform:translateY(0) scale(1.04,.96)}}
+.mon-act.defeat{animation:monDefeat 1s ease-in forwards}
+@keyframes monDefeat{0%{transform:none;opacity:1}30%{transform:rotate(240deg) scale(.85);filter:brightness(2) saturate(0)}100%{transform:rotate(900deg) scale(.05);opacity:0}}
+.mon-act.tamein{animation:monTame .7s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes monTame{0%{transform:scale(.1);opacity:0}100%{transform:none;opacity:1}}
+
+/* ===== 對戰舞台：悟空在左、妖怪在中，分身圍成弧形/圓形 ===== */
+.stage{display:flex;align-items:center;justify-content:center;gap:4px;width:min(98vw,800px)}
+.arena{position:relative;flex:none;width:min(calc(96vw - var(--wk-w,150px)),600px);height:clamp(240px,40vh,400px)}
+.arena .mon.in-arena{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);--mon-h:min(42%,180px);height:var(--mon-h)}
+.arena .mon.in-arena .mon-img{height:100%}
+.arena .mon.in-arena .mon-float,.arena .mon.in-arena .mon-act{height:100%}
+.ring{position:absolute;inset:0;pointer-events:none}
+.clone{position:absolute;transition:left .5s ease,top .5s ease,width .5s ease,height .5s ease}
+.clone.hide{visibility:hidden}
+.clone-spin,.clone-pop{width:100%;height:100%}
+.clone img{width:100%;height:100%;object-fit:contain;display:block;filter:drop-shadow(0 3px 3px rgba(0,0,0,.25));animation:bob 1.8s ease-in-out infinite;animation-delay:var(--d,0s)}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-6px) rotate(3deg)}}
+.clone.new .clone-pop{animation:clonePop .55s cubic-bezier(.3,1.7,.5,1)}
+@keyframes clonePop{0%{transform:scale(0) translateY(30%)}100%{transform:none}}
+/* 勝利：正方形場地，整圈轉，分身自己反轉保持站直 */
+.arena.circle{height:auto;width:min(86vw,calc(100vh - 320px),480px);aspect-ratio:1}
+.arena.spin .ring{animation:spin 14s linear infinite}
+.arena.spin .clone-spin{animation:spin 14s linear infinite reverse}
+img.stamp.mini{width:96px;height:96px}div.stamp.mini{font-size:3rem}
+.count{font-size:1.3rem;background:rgba(255,255,255,.85);border-radius:16px;padding:4px 14px}
+.prompt{flex-wrap:nowrap;width:min(96vw,640px)}
+.prompt .say{flex:1;margin:0}
+#rep{font-size:1.7rem;padding:8px 18px;min-height:64px;white-space:nowrap}
+#rep .pic{width:52px;height:52px}
+.choices{width:min(96vw,600px);flex-wrap:nowrap}
+.choice .pic{width:72px;height:72px}
+/* iPad 橫放（高度較矮）：壓縮垂直空間 */
+@media (orientation:landscape) and (max-height:820px){
+ #app{gap:10px;padding-top:10px;padding-bottom:calc(10px + env(safe-area-inset-bottom))}
+ .choice{min-height:108px;font-size:3.4rem}.choice.small{font-size:2.2rem}
+ .choice .pic{width:58px;height:58px}
+}
+@media (max-width:600px){ .wk.battle{--wk-h:110px} }
+
+/* 減少動態：關掉待機/循環動畫，動作改成很短的淡入淡出 */
+@media (prefers-reduced-motion: reduce){
+ .wk-sway,.wk-body,.lid,.mon-float,.clone img,.arena.spin .ring,.arena.spin .clone-spin,.choice.glow,.mapimg .station.open,.swoosh,.wind,.wk-hair{animation:none!important}
+ .swoosh,.wind,.wk-hair{display:none}
+ .wk-act.jump,.wk-act.confused,.wk-act.pluck,.wk-act.blow,.mon-act.roar,.mon-act.mock,.clone.new .clone-pop,.fly{animation:none}
+ .fly{display:none}
+ .wk-q{animation:fadeIO 1.2s both}
+ .mon-act.hit{animation:monFlash .35s}
+ .mon-act.defeat{animation:fadeOut .35s forwards}
+ .mon-act.tamein{animation:fadeIn .3s both}
+ .clone{transition:none}
+}
+@keyframes monFlash{50%{filter:brightness(2.6) saturate(0)}}
+@keyframes fadeOut{to{opacity:0}}
+@keyframes fadeIn{from{opacity:0}}
+@keyframes fadeIO{0%,100%{opacity:0}20%,80%{opacity:1}}
