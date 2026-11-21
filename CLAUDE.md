@@ -24,3 +24,4 @@
 - 對話／說明／兒歌／單詞：ElevenLabs Stacy（eleven_multilingual_v2）的 mp3，key 見 `audio/lines.json`；不要重生成。
 - 注音單音 ㄧ ㄨ ㄅ ㄇ 仍用教育部錄音（AI 版會多唸衣／烏／玻／摸），不要覆蓋。
 - 發布一律先上測試網址。
+- 語速已放慢（ffmpeg 0.8 倍、逗號停頓、句間 400ms）

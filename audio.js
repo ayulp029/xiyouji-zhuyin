@@ -151,7 +151,7 @@ function say(parts){
     for(let i = 0; i < parts.length; i++){
       if(tk !== sayToken) return false;
       await speakOne(parts[i], tk);
-      if(i < parts.length - 1) await wait(220);
+      if(i < parts.length - 1) await wait(400);
     }
     return tk === sayToken;
   })().catch(()=>false).finally(()=>{ if(tk === sayToken) speaking = false; });
