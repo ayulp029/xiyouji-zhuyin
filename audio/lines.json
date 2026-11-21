@@ -1,0 +1,317 @@
+{
+ "notes": "每個 key 對應 audio/<key>.mp3；ElevenLabs 用 tts_text 生成，遊戲播檔時用 key。去重後 52 句，tts_text 共 357 字。注音符號 tts_text 為「符號，讀音提示」，兒歌/說明裡的注音符號已改寫成同音字（玻摸衣烏）送 TTS。遊戲沒有的檔會自動退回裝置語音。audio/ 內舊檔 爸爸、貓咪 目前第 1 關未使用，先保留。",
+ "lines": [
+  {
+   "key": "ㄧ",
+   "tts_text": "ㄧ，衣",
+   "used_as": "say('ㄧ')：認符號/對戰題幹/拼讀/誇獎前",
+   "kind": "symbol"
+  },
+  {
+   "key": "ㄨ",
+   "tts_text": "ㄨ，烏",
+   "used_as": "say('ㄨ')：認符號/對戰題幹/拼讀/誇獎前",
+   "kind": "symbol"
+  },
+  {
+   "key": "ㄅ",
+   "tts_text": "ㄅ，玻",
+   "used_as": "say('ㄅ')：認符號/對戰題幹/拼讀/誇獎前",
+   "kind": "symbol"
+  },
+  {
+   "key": "ㄇ",
+   "tts_text": "ㄇ，摸",
+   "used_as": "say('ㄇ')：認符號/對戰題幹/拼讀/誇獎前",
+   "kind": "symbol"
+  },
+  {
+   "key": "花果山",
+   "tts_text": "花果山",
+   "used_as": "地圖點花果山 say('花果山')",
+   "kind": "word"
+  },
+  {
+   "key": "點一點發亮的花果山",
+   "tts_text": "點一點發亮的花果山",
+   "used_as": "地圖進入 0.5 秒後",
+   "kind": "instruction"
+  },
+  {
+   "key": "點一點，我們一起來學注音",
+   "tts_text": "點一點，我們一起來學注音",
+   "used_as": "關卡選單（尚未學過）",
+   "kind": "instruction"
+  },
+  {
+   "key": "想再學一次，還是去打妖怪？",
+   "tts_text": "想再學一次，還是去打妖怪？",
+   "used_as": "關卡選單（學過）",
+   "kind": "instruction"
+  },
+  {
+   "key": "你看，小石猴在做什麼呀？",
+   "tts_text": "你看，小石猴在做什麼呀？",
+   "used_as": "教學1 看圖說話",
+   "kind": "dialogue"
+  },
+  {
+   "key": "小石猴拿木頭，鼻子好癢。",
+   "tts_text": "小石猴拿木頭，鼻子好癢。",
+   "used_as": "教學1 / 教學2 整句",
+   "kind": "dialogue"
+  },
+  {
+   "key": "小石猴",
+   "tts_text": "小石猴",
+   "used_as": "教學 點卡片 say('小石猴')",
+   "kind": "word"
+  },
+  {
+   "key": "木頭",
+   "tts_text": "木頭",
+   "used_as": "教學 點卡片 say('木頭')",
+   "kind": "word"
+  },
+  {
+   "key": "鼻子",
+   "tts_text": "鼻子",
+   "used_as": "教學 點卡片 say('鼻子')",
+   "kind": "word"
+  },
+  {
+   "key": "找一找，木頭在哪裡？",
+   "tts_text": "找一找，木頭在哪裡？",
+   "used_as": "教學3 找詞（不先講答案）",
+   "kind": "instruction"
+  },
+  {
+   "key": "鼻子在哪裡？",
+   "tts_text": "鼻子在哪裡？",
+   "used_as": "教學3 找詞",
+   "kind": "instruction"
+  },
+  {
+   "key": "木頭的木",
+   "tts_text": "木頭的木",
+   "used_as": "教學4 找字 / 點卡片",
+   "kind": "word"
+  },
+  {
+   "key": "鼻子的鼻",
+   "tts_text": "鼻子的鼻",
+   "used_as": "教學4 找字 / 點卡片",
+   "kind": "word"
+  },
+  {
+   "key": "點一點每個符號，聽它的聲音",
+   "tts_text": "點一點每個符號，聽它的聲音",
+   "used_as": "教學5 認符號開場",
+   "kind": "instruction"
+  },
+  {
+   "key": "一",
+   "tts_text": "一",
+   "used_as": "教學5 記憶圖詞（ㄧ一根筷子/ㄨ烏鴉/ㄅ包包/ㄇ門）；ㄇ門 也用於教學6",
+   "kind": "word"
+  },
+  {
+   "key": "烏鴉",
+   "tts_text": "烏鴉",
+   "used_as": "教學5 記憶圖詞（ㄧ一根筷子/ㄨ烏鴉/ㄅ包包/ㄇ門）；ㄇ門 也用於教學6",
+   "kind": "word"
+  },
+  {
+   "key": "包包",
+   "tts_text": "包包",
+   "used_as": "教學5 記憶圖詞（ㄧ一根筷子/ㄨ烏鴉/ㄅ包包/ㄇ門）；ㄇ門 也用於教學6",
+   "kind": "word"
+  },
+  {
+   "key": "門",
+   "tts_text": "門",
+   "used_as": "教學5 記憶圖詞（ㄧ一根筷子/ㄨ烏鴉/ㄅ包包/ㄇ門）；ㄇ門 也用於教學6",
+   "kind": "word"
+  },
+  {
+   "key": "ㄅ有一個小勾勾，ㄇ是一扇門。",
+   "tts_text": "玻有一個小勾勾，摸是一扇門。",
+   "used_as": "教學6 比一比",
+   "kind": "instruction"
+  },
+  {
+   "key": "哪個是門？",
+   "tts_text": "哪個是門？",
+   "used_as": "教學6 比一比",
+   "kind": "instruction"
+  },
+  {
+   "key": "再看看，門有兩根柱子喔",
+   "tts_text": "再看看，門有兩根柱子喔",
+   "used_as": "教學6 選錯",
+   "kind": "oops"
+  },
+  {
+   "key": "把兩張卡拖在一起，或是先點左邊，再點右邊",
+   "tts_text": "把兩張卡拖在一起，或是先點左邊，再點右邊",
+   "used_as": "教學7 拼一拼開場",
+   "kind": "instruction"
+  },
+  {
+   "key": "再點右邊這一張",
+   "tts_text": "再點右邊這一張",
+   "used_as": "教學7 先點左邊卡之後",
+   "kind": "instruction"
+  },
+  {
+   "key": "木",
+   "tts_text": "木",
+   "used_as": "教學7 拼出 / 對戰 T6、T7 題幹與答對後（木）",
+   "kind": "blend"
+  },
+  {
+   "key": "鼻",
+   "tts_text": "鼻",
+   "used_as": "教學7 拼出 / 對戰 T6、T7 題幹與答對後（鼻）",
+   "kind": "blend"
+  },
+  {
+   "key": "米",
+   "tts_text": "米",
+   "used_as": "教學7 拼出 / 對戰 T6、T7 題幹與答對後（米）",
+   "kind": "blend"
+  },
+  {
+   "key": "ㄅㄅㄅ，鼻子癢",
+   "tts_text": "玻玻玻，鼻子癢",
+   "used_as": "教學8 兒歌（勝利畫面前兩句也用）",
+   "kind": "song"
+  },
+  {
+   "key": "ㄇㄇㄇ，米飯香",
+   "tts_text": "摸摸摸，米飯香",
+   "used_as": "教學8 兒歌（勝利畫面前兩句也用）",
+   "kind": "song"
+  },
+  {
+   "key": "ㄧㄧㄧ，一二三",
+   "tts_text": "衣衣衣，一二三",
+   "used_as": "教學8 兒歌（勝利畫面前兩句也用）",
+   "kind": "song"
+  },
+  {
+   "key": "ㄨㄨㄨ，烏鴉唱",
+   "tts_text": "烏烏烏，烏鴉唱",
+   "used_as": "教學8 兒歌（勝利畫面前兩句也用）",
+   "kind": "song"
+  },
+  {
+   "key": "教學完成了，你好棒！",
+   "tts_text": "教學完成了，你好棒！",
+   "used_as": "休息點",
+   "kind": "praise"
+  },
+  {
+   "key": "要繼續去打妖怪，還是下次再來？",
+   "tts_text": "要繼續去打妖怪，還是下次再來？",
+   "used_as": "休息點",
+   "kind": "instruction"
+  },
+  {
+   "key": "嘿嘿！想離開花果山？先陪我玩注音遊戲！",
+   "tts_text": "嘿嘿！想離開花果山？先陪我玩注音遊戲！",
+   "used_as": "對戰開場（石頭頭）",
+   "kind": "dialogue"
+  },
+  {
+   "key": "哪一個是",
+   "tts_text": "哪一個是",
+   "used_as": "對戰 T1/T2 題幹（+注音符號）",
+   "kind": "instruction"
+  },
+  {
+   "key": "差一點點！再聽一次",
+   "tts_text": "差一點點！再聽一次",
+   "used_as": "對戰答錯第一次（+題幹重念）",
+   "kind": "oops"
+  },
+  {
+   "key": "烏龜",
+   "tts_text": "烏龜",
+   "used_as": "對戰 T3 題幹",
+   "kind": "word"
+  },
+  {
+   "key": "媽媽",
+   "tts_text": "媽媽",
+   "used_as": "對戰 T3 題幹",
+   "kind": "word"
+  },
+  {
+   "key": "是什麼開頭的音？",
+   "tts_text": "是什麼開頭的音？",
+   "used_as": "對戰 T3 題幹",
+   "kind": "instruction"
+  },
+  {
+   "key": "哪一個是門的",
+   "tts_text": "哪一個是門的",
+   "used_as": "對戰 T5 題幹（+ㄇ）",
+   "kind": "instruction"
+  },
+  {
+   "key": "拼起來是什麼？",
+   "tts_text": "拼起來是什麼？",
+   "used_as": "對戰 T6 題幹（+兩個符號）",
+   "kind": "instruction"
+  },
+  {
+   "key": "要怎麼拼？",
+   "tts_text": "要怎麼拼？",
+   "used_as": "對戰 T7 題幹（+字）",
+   "kind": "instruction"
+  },
+  {
+   "key": "好棒！",
+   "tts_text": "好棒！",
+   "used_as": "對戰答對隨機誇獎",
+   "kind": "praise"
+  },
+  {
+   "key": "答對了！",
+   "tts_text": "答對了！",
+   "used_as": "對戰答對隨機誇獎",
+   "kind": "praise"
+  },
+  {
+   "key": "你好厲害！",
+   "tts_text": "你好厲害！",
+   "used_as": "對戰答對隨機誇獎",
+   "kind": "praise"
+  },
+  {
+   "key": "分身們，出來吧！",
+   "tts_text": "分身們，出來吧！",
+   "used_as": "過關 拔毫毛",
+   "kind": "dialogue"
+  },
+  {
+   "key": "哇，好多個悟空！我被包圍了啦，哈哈，我也要當乖猴子！",
+   "tts_text": "哇，好多個悟空！我被包圍了啦，哈哈，我也要當乖猴子！",
+   "used_as": "過關 妖怪投降",
+   "kind": "dialogue"
+  },
+  {
+   "key": "看我的金箍棒！",
+   "tts_text": "看我的金箍棒！",
+   "used_as": "過關 最後一棒",
+   "kind": "dialogue"
+  },
+  {
+   "key": "花果山過關！",
+   "tts_text": "花果山過關！",
+   "used_as": "過關畫面",
+   "kind": "praise"
+  }
+ ]
+}

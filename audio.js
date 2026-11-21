@@ -3,7 +3,7 @@
 // 播放策略：Web Audio API 解碼成 buffer（iOS 最穩）→ 失敗退回 <audio> → 再失敗用 speechSynthesis。
 const AC = window.AudioContext || window.webkitAudioContext;
 let ac = null, sayToken = 0, curStop = null, unlocked = false;
-const bufCache = {}, elCache = {}, loading = {};
+const bufCache = {}, elCache = {}, loading = {}, missing = {}; // missing：audio/ 裡沒有的檔，直接用裝置語音
 const wait = ms => new Promise(r => setTimeout(r, ms));
 const audioUrl = k => 'audio/' + encodeURIComponent(k) + '.mp3';
 function ctx(){ if(!ac && AC){ try{ ac = new AC(); }catch(e){ ac = null; } } return ac; }
@@ -23,7 +23,7 @@ function loadOne(k){
   if(!loading[k]) loading[k] = (async()=>{
     try{
       if(!ctx()) throw new Error('no WebAudio');
-      const r = await fetch(audioUrl(k)); if(!r.ok) throw new Error('HTTP ' + r.status);
+      const r = await fetch(audioUrl(k)); if(!r.ok){ missing[k] = true; return; } // 沒這個檔：之後不再嘗試
       bufCache[k] = await decode(await r.arrayBuffer());
     }catch(e){ makeEl(k); } // 退回 HTMLAudioElement
   })();
@@ -117,12 +117,12 @@ function playEl(a){ return new Promise((res, rej)=>{
 }); }
 
 async function speakOne(p, tk){
-  if(AUDIO_FILES.includes(p)){
+  if(!missing[p]){ // 先試 audio/<句子>.mp3（不必列在 AUDIO_FILES）；沒有檔就退回 TTS
     if(!bufCache[p] && !elCache[p]) await Promise.race([loadOne(p), wait(1500)]);
     if(tk !== sayToken) return;
-    if(bufCache[p] && await ensureRunning()){ if(tk !== sayToken) return; return playBuf(bufCache[p]); }
+    if(!missing[p] && bufCache[p] && await ensureRunning()){ if(tk !== sayToken) return; return playBuf(bufCache[p]); }
     if(tk !== sayToken) return;
-    try{ await playEl(makeEl(p)); return; }catch(e){}
+    if(!missing[p] && elCache[p]) try{ await playEl(elCache[p]); return; }catch(e){}
   }
   if(tk !== sayToken) return;
   return tts(p, tk);

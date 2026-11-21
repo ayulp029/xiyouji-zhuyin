@@ -102,7 +102,7 @@ function startScreen(){
   el(`<h1>西遊記注音大冒險</h1>${wkHTML('stand','lg','wks')}
   <button class="btn red big" id="go">開始 ▶</button>
   <div class="step">🔔 iPhone 請把側邊靜音開關關掉，才聽得到聲音</div>
-  <div class="credit">注音發音：2017 © 教育部，國語注音符號手冊-開放部件 CC BY 4.0；詞語發音：Wikimedia Commons（Wei Gao &amp; Vion Nicolas CC BY 2.0 FR、Yue Tan CC BY-SA 3.0）</div>
+  <details class="credit"><summary>ⓘ 聲音來源</summary>注音發音：2017 © 教育部，國語注音符號手冊-開放部件 CC BY 4.0；詞語發音：Wikimedia Commons（Wei Gao &amp; Vion Nicolas CC BY 2.0 FR、Yue Tan CC BY-SA 3.0）</details>
   ${APP_VERSION?`<div class="ver">v${APP_VERSION}</div>`:''}`);
   setPhase('start');
   $('#go').onclick=()=>{ unlockAudio(); sfx.ding(); mapScreen(); };
@@ -117,6 +117,8 @@ function mapScreen(){
   el(`<h1>取經地圖</h1>`+(IMG.map?`<div class="mapimg" style="background-image:url(${IMG.map})">${btns}</div>`:`<div class="map">${btns}</div>`));
   setPhase('map');
   $('.station.open').onclick=()=>{ say('花果山'); levelMenu(); };
+  later(()=>say('點一點發亮的花果山'), 500);
+  later(()=>{ const o=$('.station.open'); if(o) o.classList.add('nudge'); }, 5000);
 }
 function levelMenu(){
   const st=levelState(1);
@@ -125,6 +127,8 @@ function levelMenu(){
   ${st.learned?'<button class="btn red big" id="fight">🐒 對戰場</button>':''}</div>
   <button class="btn gray" id="back">◀ 地圖</button>`);
   setPhase('menu'); monIdle($('#mon'));
+  if(!st.learned) $('#learn').classList.add('nudge');
+  later(()=>say(st.learned?'想再學一次，還是去打妖怪？':'點一點，我們一起來學注音'), 400);
   $('#learn').onclick=()=>tutorial(0);
   if(st.learned) $('#fight').onclick=battleStart;
   $('#back').onclick=mapScreen;
@@ -160,7 +164,7 @@ function stepSentence(){
 function stepWords(){
   frame('找詞', `<div class="panel sent">${L.sentence.map(([c])=>c).join('')}</div>
    <div class="row">${L.words.map(w=>`<button class="card" data-w="${w.w}"><span class="emo">${w.e}</span>${w.w}</button>`).join('')}</div>`, '找一找：「木頭」在哪裡？「鼻子」在哪裡？');
-  say('找到了，木頭！鼻子！'); let n=0;
+  say(['找一找，木頭在哪裡？','鼻子在哪裡？']); let n=0;
   $$('.card').forEach(b=>b.onclick=()=>{ if(!b.classList.contains('done')){ b.classList.add('done','pop'); sfx.ding(); n++; } say(b.dataset.w); if(n>=2) showNext(); });
 }
 function stepChars(){
@@ -172,7 +176,7 @@ function stepSymbols(){
   const order=['ㄇ','ㄨ','ㄅ','ㄧ'];
   frame('認符號', `<div class="step tag">木 = ㄇ ㄨˋ　鼻 = ㄅ ㄧˊ</div><div class="row">${order.map(s=>`<button class="card" data-s="${s}">${IMG.memo[s]?`<span class="memo"><img src="${IMG.memo[s]}" alt=""><b>${s}</b></span>`:`<span class="sym">${s}</span><span class="emo" style="opacity:.6">${L.memo[s].e}</span>`}<small>${L.memo[s].w}</small></button>`).join('')}</div>`,
    '點一點每個符號，聽它的聲音');
-  const seen=new Set();
+  const seen=new Set(); say('點一點每個符號，聽它的聲音');
   $$('.card').forEach(b=>b.onclick=()=>{ const s=b.dataset.s; b.classList.add('done','pop'); seen.add(s);
     $('#say').textContent=`這是 ${s}，${s}～${L.memo[s].w}的 ${s}`; say([s, L.memo[s].say]); if(seen.size>=4) showNext(); });
 }
@@ -185,16 +189,17 @@ function stepContrast(){
 }
 function stepBlend(){
   const todo=[L.blends[0],L.blends[1],L.blends[2]]; let k=0;
-  frame('拼一拼', `<div id="bz"></div>`, '把兩張卡拖在一起！');
+  frame('拼一拼', `<div id="bz"></div>`, '拖一拖，或先點左邊、再點右邊！');
   const one=()=>{ const b=todo[k];
     $('#bz').innerHTML=`<div class="step">第 ${k+1} / ${todo.length} 個</div><div class="row" style="gap:60px">
       <div class="card drag" id="da"><span class="sym">${b.a}</span></div><div class="card" id="db"><span class="sym">${b.b}</span></div></div>
       <div class="emo" id="res" style="min-height:90px"></div>`;
+    $('#da').classList.add('nudge');
     dragOnto($('#da'),$('#db'),()=>{ sfx.poof(); $('#res').innerHTML=`${blPic(b.ch)} <b style="font-size:3.5rem">${b.ch}</b>`; $('#res').classList.add('pop');
-      $('#say').textContent=`${b.a} 和 ${b.b} 碰一起，就是「${b.ch}」！`; say(b.ch);
+      $('#say').textContent=`${b.a} 和 ${b.b} 碰一起，就是「${b.ch}」！`; say([b.a,b.b,b.ch]);
       k++; later(()=>{ if(k<todo.length) one(); else { $('#say').textContent='你會拼了！'; showNext(); } },1800); });
   };
-  say('把兩張卡拖在一起'); one();
+  say('把兩張卡拖在一起，或是先點左邊，再點右邊'); one();
 }
 // 拖曳：把 a 拖到 b 上；也可以先點 a 再點 b（小手拖不好時的備案）
 function dragOnto(a,b,done){
@@ -205,9 +210,9 @@ function dragOnto(a,b,done){
   a.addEventListener('pointerup',e=>{ if(!on) return; on=false; a.classList.remove('dragging');
     const r=b.getBoundingClientRect(), moved=Math.hypot(e.clientX-sx,e.clientY-sy);
     if(e.clientX>r.left-40&&e.clientX<r.right+40&&e.clientY>r.top-40&&e.clientY<r.bottom+40) finish();
-    else { a.style.transform=''; if(moved<10){ a.classList.add('done'); a.dataset.picked='1'; } } });
+    else { a.style.transform=''; if(moved<10){ a.classList.add('done'); a.dataset.picked='1'; a.classList.remove('nudge'); b.classList.add('nudge'); say('再點右邊這一張'); } } });
   a.addEventListener('pointercancel',()=>{ on=false; a.style.transform=''; a.classList.remove('dragging'); });
-  b.addEventListener('click',()=>{ if(a.dataset.picked) finish(); });
+  b.addEventListener('click',()=>{ if(a.dataset.picked){ b.classList.remove('nudge'); finish(); } });
 }
 function stepSong(){
   frame('兒歌', `<div class="panel" id="song">${L.song.map(([s,t])=>`<div class="sent" style="font-size:1.9rem;margin:6px 0">${t}</div>`).join('')}</div>
@@ -222,7 +227,7 @@ function restPoint(){
   el(`<div class="row">${IMG.tangseng?pic(IMG.tangseng.rest,'唐僧','wukong'):''}${wkHTML('happy')}</div><h1>教學完成！</h1>${IMG.sticker?pic(IMG.sticker,'貼紙','stamp'):'<div class="stamp">🏵️</div>'}<div class="say">得到一張「學會了」貼紙！要繼續去打妖怪，還是下次再來？</div>
    <div class="row"><button class="btn red big" id="fight">🐒 去打妖怪</button><button class="btn gray big" id="later">🏠 下次再來</button></div>`);
   setPhase('rest');
-  say('要繼續去打妖怪，還是下次再來？');
+  say(['教學完成了，你好棒！','要繼續去打妖怪，還是下次再來？']);
   $('#fight').onclick=battleStart; $('#later').onclick=mapScreen;
 }
 
@@ -330,7 +335,7 @@ async function victory(){
   await wait(D(300)); await wkPluck(wkN, cs, i=>revealClone(cs[i]), 180); if(!alive(sid)) return;
   setPhase('clones');
   $('#arena').classList.add('spin'); $('#say').textContent='分身們手牽手轉圈圈～'; sfx.win();
-  monFace(mon,'cheeky'); await Promise.all([sayUpTo(say('ㄅㄅㄅ，鼻子癢；ㄇㄇㄇ，米飯香'), D(5000)), wait(D(2500))]); // 語音失敗時畫面也至少停一下 if(!alive(sid)) return;
+  monFace(mon,'cheeky'); await Promise.all([sayUpTo(say([L.song[0][1],L.song[1][1]]), D(7000)), wait(D(2500))]); if(!alive(sid)) return; // 語音失敗時畫面也至少停一下
   // 2) 妖怪投降
   monFace(mon,'laugh'); monAnim(mon,'mock',900); $('#say').textContent='石頭頭：'+L.monster.surrender;
   await Promise.all([sayUpTo(say(L.monster.surrender), D(6000)), wait(D(2800))]); if(!alive(sid)) return;

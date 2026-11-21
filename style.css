@@ -39,6 +39,9 @@ h1{margin:0;font-size:2.2rem;color:#c0392b;text-shadow:0 2px 0 #fff}
 .station{border-radius:22px;padding:14px 6px;font-size:1.3rem;font-weight:bold;background:#ddd;color:#888;min-height:90px;border:none;font-family:inherit}
 .station.open{background:#f1b31c;color:#5a3300;box-shadow:0 6px 0 rgba(0,0,0,.2);cursor:pointer}
 .credit{font-size:.7rem;color:#777;max-width:90vw}
+.credit summary{cursor:pointer;list-style:none;opacity:.6;text-align:center}
+.nudge{animation:nudge 1.1s ease-in-out infinite}
+@keyframes nudge{50%{box-shadow:0 0 0 14px rgba(241,179,28,.65)}}
 .fly{position:fixed;font-size:2.6rem;pointer-events:none;animation:fly 1s ease-out forwards}
 @keyframes fly{to{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1.6) rotate(360deg)}}
 /* batch 1 美術 */
@@ -176,6 +179,7 @@ img.stamp.mini{width:96px;height:96px}div.stamp.mini{font-size:3rem}
 
 /* 減少動態：關掉待機/循環動畫，動作改成很短的淡入淡出 */
 @media (prefers-reduced-motion: reduce){
+ .nudge{animation:none!important;outline:6px solid #f1b31c}
  .wk-sway,.wk-body,.lid,.mon-float,.clone img,.arena.spin .ring,.arena.spin .clone-spin,.choice.glow,.mapimg .station.open,.swoosh,.wind,.wk-hair{animation:none!important}
  .swoosh,.wind,.wk-hair{display:none}
  .wk-act.jump,.wk-act.confused,.wk-act.pluck,.wk-act.blow,.mon-act.roar,.mon-act.mock,.clone.new .clone-pop,.fly{animation:none}

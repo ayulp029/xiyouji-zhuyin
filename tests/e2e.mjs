@@ -57,11 +57,11 @@ const URL0 = `http://127.0.0.1:${server.address().port}/index.html`;
 const errors = [];
 const log = (...a)=>console.log('  ·', ...a);
 function watch(page, tag){
-  page.on('console', m=>{ if(m.type() === 'error') errors.push(`[${tag}] console.error: ${m.text()}`); });
+  page.on('console', m=>{ if(m.type() === 'error' && !/audio\//.test(m.location().url || '') && !/status of 404/.test(m.text())) errors.push(`[${tag}] console.error: ${m.text()}`); });
   page.on('pageerror', e=>errors.push(`[${tag}] pageerror: ${e.message}`));
   // ERR_ABORTED = 圖片切換時瀏覽器自己取消舊請求，不算錯誤
   page.on('requestfailed', r=>{ if(!/favicon/.test(r.url()) && !/ERR_ABORTED/.test(r.failure()?.errorText || '')) errors.push(`[${tag}] requestfailed: ${r.url()} ${r.failure()?.errorText}`); });
-  page.on('response', r=>{ if(r.status() >= 400) errors.push(`[${tag}] HTTP ${r.status()}: ${r.url()}`); });
+  page.on('response', r=>{ if(r.status() >= 400 && !/\/audio\//.test(r.url())) errors.push(`[${tag}] HTTP ${r.status()}: ${r.url()}`); });
 }
 const phase = (page, p, timeout = 30000)=>page.waitForFunction(x=>document.body.dataset.phase === x, p, { timeout });
 const shot = (page, name)=>page.screenshot({ path: path.join(OUT, name) }).then(()=>log('截圖', name));
@@ -185,6 +185,47 @@ log('browser', browser.version());
   await page.click('#go'); await phase(page, 'map'); await page.click('.station.open'); await phase(page, 'menu');
   await intoBattle(page); await answer(page, false); await finishBattle(page, 0);
   await phase(page, 'victory', 40000);
+  await ctx.close();
+}
+
+// ================= D. iPad（直向 820x1180 / 橫向 1180x820）：本次修改處 + 語音不重疊 + 按鈕都在畫面內 =================
+for(const [tag, vw, vh] of [['ipad-portrait', 820, 1180], ['ipad-landscape', 1180, 820]]){
+  const ctx = await browser.newContext({ viewport: { width: vw, height: vh }, deviceScaleFactor: 2, hasTouch: true, isMobile: true, locale: 'zh-TW' });
+  const page = await ctx.newPage(); watch(page, tag);
+  await page.addInitScript(()=>{ // 追蹤同時在念的語音數量（>1 代表兩句疊在一起）
+    window.__sp = { cur: 0, max: 0, log: [] };
+    const hook = ()=>{ if(typeof speakOne !== 'function'){ return setTimeout(hook, 20); } const o = speakOne;
+      window.speakOne = async function(p, tk){ window.__sp.cur++; window.__sp.max = Math.max(window.__sp.max, window.__sp.cur); window.__sp.log.push(p);
+        try{ return await o(p, tk); } finally{ window.__sp.cur--; } }; };
+    window.addEventListener('DOMContentLoaded', hook);
+  });
+  await page.goto(URL0); await phase(page, 'start');
+  await page.evaluate(()=>localStorage.clear()); await page.reload(); await phase(page, 'start');
+  const inView = async sel=>page.evaluate(s=>[...document.querySelectorAll(s)].every(n=>{ const r = n.getBoundingClientRect(); return r.width >= 44 && r.height >= 44 && r.left >= 0 && r.right <= innerWidth && r.bottom <= innerHeight + 1; }), sel);
+  if(await page.evaluate(()=>document.querySelector('.credit').getBoundingClientRect().height) > 40) errors.push(`[${tag}] 版權文字太高`);
+  if(!await inView('#go')) errors.push(`[${tag}] 開始鈕不在畫面內`);
+  await page.tap('#go'); await phase(page, 'map'); await page.waitForTimeout(700);
+  await page.tap('.station.open'); await phase(page, 'menu');
+  if(!await inView('#learn, #back')) errors.push(`[${tag}] 選單按鈕不在畫面內`);
+  await page.tap('#learn'); await phase(page, 'teach-1'); await tapNext(page);
+  await phase(page, 'teach-2'); await tapNext(page);
+  await phase(page, 'teach-3');
+  if((await page.evaluate(()=>window.__sp.log)).includes('找到了，木頭！鼻子！')) errors.push(`[${tag}] 找詞還是先講答案`);
+  for(const c of await page.$$('.card')) await c.tap(); await tapNext(page);
+  await phase(page, 'teach-4'); for(const c of await page.$$('.card')) await c.tap(); await tapNext(page);
+  await phase(page, 'teach-5'); await page.waitForTimeout(300);
+  if(!(await page.evaluate(()=>window.__sp.log)).includes('點一點每個符號，聽它的聲音')) errors.push(`[${tag}] 認符號開場沒有唸`);
+  for(const c of await page.$$('.card')){ await c.tap(); await page.waitForTimeout(150); } await tapNext(page);
+  await phase(page, 'teach-6'); await page.tap('.choice[data-s="ㄇ"]'); await tapNext(page);
+  await phase(page, 'teach-7'); await page.waitForTimeout(500);
+  if(!await page.evaluate(()=>document.querySelector('#da').classList.contains('nudge'))) errors.push(`[${tag}] 拼讀沒有提示起點`);
+  if(!await inView('#da, #db, #home')) errors.push(`[${tag}] 拼讀卡片不在畫面內`);
+  await shot(page, tag === 'ipad-portrait' ? 'level1-ipad.png' : 'level1-ipad-landscape.png');
+  await page.tap('#da'); await page.tap('#db'); // 先點再點
+  await page.waitForFunction(()=>document.querySelector('#bz .step')?.textContent.startsWith('第 2'), null, { timeout: 8000 });
+  const sp = await page.evaluate(()=>window.__sp);
+  log(`[${tag}] 語音最大同時數 ${sp.max}`);
+  if(sp.max > 1) errors.push(`[${tag}] 語音重疊：同時 ${sp.max} 句`);
   await ctx.close();
 }
 
