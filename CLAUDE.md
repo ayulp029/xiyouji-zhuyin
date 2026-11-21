@@ -25,3 +25,5 @@
 - 注音單音 ㄧ ㄨ ㄅ ㄇ 仍用教育部錄音（AI 版會多唸衣／烏／玻／摸），不要覆蓋。
 - 發布一律先上測試網址。
 - 語速由模型內自然放慢（`[speaking slowly and gently]`），不再用 ffmpeg atempo；句間仍是 400ms
+
+- 第 1 關發音修正（v1.2.3-test）：「癢」念成「養」（ㄧㄤˇ）；兒歌單獨注音改標準同音字（玻摸衣屋，ㄨ用屋並加停頓）；記憶圖詞「一」的 tts_text 用「衣」。單音 ㄧㄨㄅㄇ 仍是教育部錄音；聲音仍是 Yui + eleven_v3 + `[speaking slowly and gently]`。
