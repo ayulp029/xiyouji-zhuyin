@@ -37,3 +37,10 @@
 - 地圖：第 1 關過關後第 2 站可點；下一個該去的站發亮跳動並唸「點一點發亮的○○」。
 - 還缺的圖（目前 emoji／CSS 暫代）：五指山背景（沿用花果山草地）、對戰背景、五指山／符咒圖（⛰️📜）、山下的悟空（用 stand 縮小半透明）、第 2 關印章與貼紙、記憶圖 ㄚㄛㄆㄈ（memory-*.png）、例詞圖（阿公 阿姨 喔喔叫 噢 葡萄 螃蟹 房子 風箏）、拼音圖（爬 髮 佛 婆 八 媽）、地圖第 2 站專屬圖示。岩岩已用定稿第三版。
 - 還沒有錄音檔的詞（會退回瀏覽器語音）：阿姨、喔喔叫、噢、風箏（只出現在例詞資料，目前不會被念）。
+
+## 發音自動檢查
+- 工具在 `tools/pron-check/`（Python venv 在其內，`.cache/` 放模型）。用法見該資料夾 `README.md`：`python -m pron_check.cli check <音檔> --text 髮`、`calibrate`、`level2-new`。報告：`tools/pron-check/reports/REPORT.md`。
+- 兩家 ASR（faster-whisper medium、Breeze-ASR-25）逐字稿轉帶調拼音，比音節＋聲調（同音字算對），再加 F0 聲調檢查；輸出 PASS / SUSPECT / FAIL。
+- 教育部注音單音檔（ㄅㄆㄚㄛㄈ 等）要 `--split skip_symbol`（SKIP，不判）；拼接句（教育部單音＋AI 文本）用 `--split text_only`，只查文本段。
+- 這只是輔助，用來挑出「該請 Freddy 聽」的音；校正集很小，不能取代人聽。
+- 檢查流程只讀 `audio/`，不要在裡面改遊戲音檔，也不要呼叫 ElevenLabs。

@@ -1,0 +1,871 @@
+[
+ {
+  "id": "bad-root/飛機",
+  "set": "bad-root",
+  "label": "bad",
+  "text": "飛機",
+  "pinyin": "fei1 ji1",
+  "split": "whole",
+  "path": "@tool/.cache/gt/bad-root/飛機.mp3"
+ },
+ {
+  "id": "bad-root/車子",
+  "set": "bad-root",
+  "label": "bad",
+  "text": "車子",
+  "pinyin": "che1 zi5",
+  "split": "whole",
+  "path": "@tool/.cache/gt/bad-root/車子.mp3"
+ },
+ {
+  "id": "bad-root/獅子",
+  "set": "bad-root",
+  "label": "bad",
+  "text": "獅子",
+  "pinyin": "shi1 zi5",
+  "split": "whole",
+  "path": "@tool/.cache/gt/bad-root/獅子.mp3"
+ },
+ {
+  "id": "bad-root/熱狗",
+  "set": "bad-root",
+  "label": "bad",
+  "text": "熱狗",
+  "pinyin": "re4 gou3",
+  "split": "whole",
+  "path": "@tool/.cache/gt/bad-root/熱狗.mp3"
+ },
+ {
+  "id": "bad-root/傘",
+  "set": "bad-root",
+  "label": "bad",
+  "text": "傘",
+  "pinyin": "san3",
+  "split": "whole",
+  "path": "@tool/.cache/gt/bad-root/傘.mp3"
+ },
+ {
+  "id": "bad-root/雨傘",
+  "set": "bad-root",
+  "label": "bad",
+  "text": "雨傘",
+  "pinyin": "yu3/2 san3",
+  "split": "whole",
+  "path": "@tool/.cache/gt/bad-root/雨傘.mp3"
+ },
+ {
+  "id": "bad-root/燈",
+  "set": "bad-root",
+  "label": "bad",
+  "text": "燈",
+  "pinyin": "deng1",
+  "split": "whole",
+  "path": "@tool/.cache/gt/bad-root/燈.mp3"
+ },
+ {
+  "id": "bad-cave/飛機",
+  "set": "bad-cave",
+  "label": "bad",
+  "text": "飛機",
+  "pinyin": "fei1 ji1",
+  "split": "whole",
+  "path": "@tool/.cache/gt/bad-cave/飛機.mp3"
+ },
+ {
+  "id": "bad-cave/車子",
+  "set": "bad-cave",
+  "label": "bad",
+  "text": "車子",
+  "pinyin": "che1 zi5",
+  "split": "whole",
+  "path": "@tool/.cache/gt/bad-cave/車子.mp3"
+ },
+ {
+  "id": "bad-cave/獅子",
+  "set": "bad-cave",
+  "label": "bad",
+  "text": "獅子",
+  "pinyin": "shi1 zi5",
+  "split": "whole",
+  "path": "@tool/.cache/gt/bad-cave/獅子.mp3"
+ },
+ {
+  "id": "bad-cave/熱狗",
+  "set": "bad-cave",
+  "label": "bad",
+  "text": "熱狗",
+  "pinyin": "re4 gou3",
+  "split": "whole",
+  "path": "@tool/.cache/gt/bad-cave/熱狗.mp3"
+ },
+ {
+  "id": "bad-cave/傘",
+  "set": "bad-cave",
+  "label": "bad",
+  "text": "傘",
+  "pinyin": "san3",
+  "split": "whole",
+  "path": "@tool/.cache/gt/bad-cave/傘.mp3"
+ },
+ {
+  "id": "bad-cave/雨傘",
+  "set": "bad-cave",
+  "label": "bad",
+  "text": "雨傘",
+  "pinyin": "yu3/2 san3",
+  "split": "whole",
+  "path": "@tool/.cache/gt/bad-cave/雨傘.mp3"
+ },
+ {
+  "id": "bad-cave/燈",
+  "set": "bad-cave",
+  "label": "bad",
+  "text": "燈",
+  "pinyin": "deng1",
+  "split": "whole",
+  "path": "@tool/.cache/gt/bad-cave/燈.mp3"
+ },
+ {
+  "id": "good-freddy/燈",
+  "set": "good-freddy",
+  "label": "good",
+  "text": "燈",
+  "pinyin": "deng1",
+  "split": "whole",
+  "path": "/workspace/claude-work/xiyouji-zhuyin-incoming/freddy-voice/deng.m4a"
+ },
+ {
+  "id": "good-freddy/熱狗",
+  "set": "good-freddy",
+  "label": "good",
+  "text": "熱狗",
+  "pinyin": "re4 gou3",
+  "split": "whole",
+  "path": "/workspace/claude-work/xiyouji-zhuyin-incoming/freddy-voice/regou.m4a"
+ },
+ {
+  "id": "good-freddy/雨傘",
+  "set": "good-freddy",
+  "label": "good",
+  "text": "雨傘",
+  "pinyin": "yu3/2 san3",
+  "split": "whole",
+  "path": "/workspace/claude-work/xiyouji-zhuyin-incoming/freddy-voice/yusan.m4a"
+ },
+ {
+  "id": "good-freddy/傘",
+  "set": "good-freddy",
+  "label": "good",
+  "text": "傘",
+  "pinyin": "san3",
+  "split": "whole",
+  "path": "/workspace/claude-work/xiyouji-zhuyin-incoming/freddy-voice/san.m4a"
+ },
+ {
+  "id": "good-A/飛機",
+  "set": "good-A",
+  "label": "good",
+  "text": "飛機",
+  "pinyin": "fei1 ji1",
+  "split": "whole",
+  "path": "@repo/audio/voice-test/A-飛機.mp3"
+ },
+ {
+  "id": "good-A/車子",
+  "set": "good-A",
+  "label": "good",
+  "text": "車子",
+  "pinyin": "che1 zi5",
+  "split": "whole",
+  "path": "@repo/audio/voice-test/A-車子.mp3"
+ },
+ {
+  "id": "good-A/獅子",
+  "set": "good-A",
+  "label": "good",
+  "text": "獅子",
+  "pinyin": "shi1 zi5",
+  "split": "whole",
+  "path": "@repo/audio/voice-test/A-獅子.mp3"
+ },
+ {
+  "id": "prob-good/1-五指山",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "五指山",
+  "split": "whole",
+  "n": 1,
+  "path": "@repo/audio/五指山.mp3"
+ },
+ {
+  "id": "prob-good/2-點一點發亮的五指山",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "點一點發亮的五指山",
+  "split": "whole",
+  "n": 2,
+  "path": "@repo/audio/點一點發亮的五指山.mp3"
+ },
+ {
+  "id": "prob-good/3-點一點，我們一起來學注音",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "點一點，我們一起來學注音",
+  "split": "whole",
+  "n": 3,
+  "path": "@repo/audio/點一點，我們一起來學注音.mp3"
+ },
+ {
+  "id": "prob-good/4-想再學一次，還是去打妖怪？",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "想再學一次，還是去打妖怪？",
+  "split": "whole",
+  "n": 4,
+  "path": "@repo/audio/想再學一次，還是去打妖怪？.mp3"
+ },
+ {
+  "id": "prob-good/5-你看，悟空怎麼了呀？",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "你看，悟空怎麼了呀？",
+  "split": "whole",
+  "n": 5,
+  "path": "@repo/audio/你看，悟空怎麼了呀？.mp3"
+ },
+ {
+  "id": "prob-good/6-佛祖壓住悟空，悟空想吃葡萄。",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "佛祖壓住悟空，悟空想吃葡萄。",
+  "split": "whole",
+  "n": 6,
+  "path": "@repo/audio/佛祖壓住悟空，悟空想吃葡萄。.mp3"
+ },
+ {
+  "id": "prob-good/7-悟空",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "悟空",
+  "split": "whole",
+  "n": 7,
+  "path": "@repo/audio/悟空.mp3"
+ },
+ {
+  "id": "prob-good/8-大山",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "大山",
+  "split": "whole",
+  "n": 8,
+  "path": "@repo/audio/大山.mp3"
+ },
+ {
+  "id": "prob-good/9-葡萄",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "葡萄",
+  "split": "whole",
+  "n": 9,
+  "path": "@repo/audio/葡萄.mp3"
+ },
+ {
+  "id": "prob-good/10-找一找，佛祖在哪裡？",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "找一找，佛祖在哪裡？",
+  "split": "whole",
+  "n": 10,
+  "path": "@repo/audio/找一找，佛祖在哪裡？.mp3"
+ },
+ {
+  "id": "prob-good/11-葡萄在哪裡？",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "葡萄在哪裡？",
+  "split": "whole",
+  "n": 11,
+  "path": "@repo/audio/葡萄在哪裡？.mp3"
+ },
+ {
+  "id": "prob-good/12-佛祖",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "佛祖",
+  "split": "whole",
+  "n": 12,
+  "path": "@repo/audio/佛祖.mp3"
+ },
+ {
+  "id": "prob-good/13-佛祖的佛",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "佛祖的佛",
+  "split": "whole",
+  "n": 13,
+  "path": "@repo/audio/佛祖的佛.mp3"
+ },
+ {
+  "id": "prob-good/14-葡萄的葡",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "葡萄的葡",
+  "split": "whole",
+  "n": 14,
+  "path": "@repo/audio/葡萄的葡.mp3"
+ },
+ {
+  "id": "prob-good/15-點一點每個符號，聽它的聲音",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "點一點每個符號，聽它的聲音",
+  "split": "whole",
+  "n": 15,
+  "path": "@repo/audio/點一點每個符號，聽它的聲音.mp3"
+ },
+ {
+  "id": "skip/16-ㄚ",
+  "set": "skip",
+  "label": "skip",
+  "text": "ㄚ",
+  "split": "skip_symbol",
+  "n": 16,
+  "path": "@repo/audio/ㄚ.mp3"
+ },
+ {
+  "id": "skip/17-ㄛ",
+  "set": "skip",
+  "label": "skip",
+  "text": "ㄛ",
+  "split": "skip_symbol",
+  "n": 17,
+  "path": "@repo/audio/ㄛ.mp3"
+ },
+ {
+  "id": "skip/18-ㄆ",
+  "set": "skip",
+  "label": "skip",
+  "text": "ㄆ",
+  "split": "skip_symbol",
+  "n": 18,
+  "path": "@repo/audio/ㄆ.mp3"
+ },
+ {
+  "id": "skip/19-ㄈ",
+  "set": "skip",
+  "label": "skip",
+  "text": "ㄈ",
+  "split": "skip_symbol",
+  "n": 19,
+  "path": "@repo/audio/ㄈ.mp3"
+ },
+ {
+  "id": "skip/20-ㄅ",
+  "set": "skip",
+  "label": "skip",
+  "text": "ㄅ",
+  "split": "skip_symbol",
+  "n": 20,
+  "path": "@repo/audio/ㄅ.mp3"
+ },
+ {
+  "id": "prob-good/21-阿公",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "阿公",
+  "split": "whole",
+  "n": 21,
+  "path": "@repo/audio/阿公.mp3"
+ },
+ {
+  "id": "bad-l2/22-喔喔",
+  "set": "bad-l2",
+  "label": "bad",
+  "text": "喔喔",
+  "split": "whole",
+  "n": 22,
+  "note": "舊檔（Freddy 標過）；整句含注音符號",
+  "path": "@repo/audio/voice-test-l2/old/喔喔.mp3"
+ },
+ {
+  "id": "new-l2/22-喔喔",
+  "set": "new-l2",
+  "label": "new",
+  "text": "喔喔",
+  "split": "whole",
+  "n": 22,
+  "path": "@repo/audio/喔喔.mp3"
+ },
+ {
+  "id": "prob-good/23-盤子",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "盤子",
+  "split": "whole",
+  "n": 23,
+  "path": "@repo/audio/盤子.mp3"
+ },
+ {
+  "id": "bad-l2/24-飛機",
+  "set": "bad-l2",
+  "label": "bad",
+  "text": "飛機",
+  "split": "whole",
+  "n": 24,
+  "note": "舊檔（Freddy 標過）；整句含注音符號",
+  "path": "@repo/audio/voice-test-l2/old/飛機.mp3"
+ },
+ {
+  "id": "new-l2/24-飛機",
+  "set": "new-l2",
+  "label": "new",
+  "text": "飛機",
+  "split": "whole",
+  "n": 24,
+  "path": "@repo/audio/飛機.mp3"
+ },
+ {
+  "id": "prob-good/25-螃蟹",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "螃蟹",
+  "split": "whole",
+  "n": 25,
+  "path": "@repo/audio/螃蟹.mp3"
+ },
+ {
+  "id": "prob-good/26-房子",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "房子",
+  "split": "whole",
+  "n": 26,
+  "path": "@repo/audio/房子.mp3"
+ },
+ {
+  "id": "bad-l2/27-ㄅ只有一個小勾勾，ㄆ下面有兩隻交叉的腳。",
+  "set": "bad-l2",
+  "label": "bad",
+  "text": "ㄅ只有一個小勾勾，ㄆ下面有兩隻交叉的腳。",
+  "split": "whole",
+  "n": 27,
+  "note": "舊檔（Freddy 標過）；整句含注音符號",
+  "path": "@repo/audio/voice-test-l2/old/ㄅ只有一個小勾勾，ㄆ下面有兩隻交叉的腳。.mp3"
+ },
+ {
+  "id": "new-l2/27-ㄅ只有一個小勾勾，ㄆ下面有兩隻交叉的腳。",
+  "set": "new-l2",
+  "label": "new",
+  "text": "只有一個小勾勾下面有兩隻交叉的腳",
+  "split": "text_only",
+  "n": 27,
+  "path": "@repo/audio/ㄅ只有一個小勾勾，ㄆ下面有兩隻交叉的腳。.mp3"
+ },
+ {
+  "id": "bad-l2/28-哪個是爬的ㄆ？",
+  "set": "bad-l2",
+  "label": "bad",
+  "text": "哪個是爬的ㄆ？",
+  "split": "whole",
+  "n": 28,
+  "note": "舊檔（Freddy 標過）；整句含注音符號",
+  "path": "@repo/audio/voice-test-l2/old/哪個是爬的ㄆ？.mp3"
+ },
+ {
+  "id": "new-l2/28-哪個是爬的ㄆ？",
+  "set": "new-l2",
+  "label": "new",
+  "text": "哪個是爬的",
+  "split": "text_only",
+  "n": 28,
+  "path": "@repo/audio/哪個是爬的ㄆ？.mp3"
+ },
+ {
+  "id": "bad-l2/29-再看看，ㄆ有交叉的腳喔",
+  "set": "bad-l2",
+  "label": "bad",
+  "text": "再看看，ㄆ有交叉的腳喔",
+  "split": "whole",
+  "n": 29,
+  "note": "舊檔（Freddy 標過）；整句含注音符號",
+  "path": "@repo/audio/voice-test-l2/old/再看看，ㄆ有交叉的腳喔.mp3"
+ },
+ {
+  "id": "new-l2/29-再看看，ㄆ有交叉的腳喔",
+  "set": "new-l2",
+  "label": "new",
+  "text": "再看看有交叉的腳喔",
+  "split": "text_only",
+  "n": 29,
+  "path": "@repo/audio/再看看，ㄆ有交叉的腳喔.mp3"
+ },
+ {
+  "id": "prob-good/30-把兩張卡拖在一起，或是先點左邊，再點右邊",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "把兩張卡拖在一起，或是先點左邊，再點右邊",
+  "split": "whole",
+  "n": 30,
+  "path": "@repo/audio/把兩張卡拖在一起，或是先點左邊，再點右邊.mp3"
+ },
+ {
+  "id": "prob-good/31-再點右邊這一張",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "再點右邊這一張",
+  "split": "whole",
+  "n": 31,
+  "path": "@repo/audio/再點右邊這一張.mp3"
+ },
+ {
+  "id": "prob-good/32-爬",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "爬",
+  "split": "whole",
+  "n": 32,
+  "path": "@repo/audio/爬.mp3"
+ },
+ {
+  "id": "new-l2/33-髮",
+  "set": "new-l2",
+  "label": "new",
+  "text": "髮",
+  "pinyin": "fa3/4",
+  "split": "whole",
+  "n": 33,
+  "note": "本來就可疑：是否念成「頭髮的髮」",
+  "path": "@repo/audio/髮.mp3"
+ },
+ {
+  "id": "prob-good/34-佛",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "佛",
+  "split": "whole",
+  "n": 34,
+  "path": "@repo/audio/佛.mp3"
+ },
+ {
+  "id": "bad-l2/35-八",
+  "set": "bad-l2",
+  "label": "bad",
+  "text": "八",
+  "split": "whole",
+  "n": 35,
+  "note": "舊檔（Freddy 標過）；整句含注音符號",
+  "path": "@repo/audio/voice-test-l2/old/八.mp3"
+ },
+ {
+  "id": "new-l2/35-八",
+  "set": "new-l2",
+  "label": "new",
+  "text": "八",
+  "split": "whole",
+  "n": 35,
+  "path": "@repo/audio/八.mp3"
+ },
+ {
+  "id": "prob-good/36-婆",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "婆",
+  "split": "whole",
+  "n": 36,
+  "path": "@repo/audio/婆.mp3"
+ },
+ {
+  "id": "prob-good/37-媽",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "媽",
+  "split": "whole",
+  "n": 37,
+  "path": "@repo/audio/媽.mp3"
+ },
+ {
+  "id": "bad-l2/38-ㄚㄚㄚ，阿公笑哈哈",
+  "set": "bad-l2",
+  "label": "bad",
+  "text": "ㄚㄚㄚ，阿公笑哈哈",
+  "split": "whole",
+  "n": 38,
+  "note": "舊檔（Freddy 標過）；整句含注音符號",
+  "path": "@repo/audio/voice-test-l2/old/ㄚㄚㄚ，阿公笑哈哈.mp3"
+ },
+ {
+  "id": "new-l2/38-ㄚㄚㄚ，阿公笑哈哈",
+  "set": "new-l2",
+  "label": "new",
+  "text": "阿公笑哈哈",
+  "split": "text_only",
+  "n": 38,
+  "path": "@repo/audio/ㄚㄚㄚ，阿公笑哈哈.mp3"
+ },
+ {
+  "id": "bad-l2/39-ㄛㄛㄛ，公雞喔喔叫",
+  "set": "bad-l2",
+  "label": "bad",
+  "text": "ㄛㄛㄛ，公雞喔喔叫",
+  "split": "whole",
+  "n": 39,
+  "note": "舊檔（Freddy 標過）；整句含注音符號",
+  "path": "@repo/audio/voice-test-l2/old/ㄛㄛㄛ，公雞喔喔叫.mp3"
+ },
+ {
+  "id": "new-l2/39-ㄛㄛㄛ，公雞喔喔叫",
+  "set": "new-l2",
+  "label": "new",
+  "text": "公雞喔喔叫",
+  "split": "text_only",
+  "n": 39,
+  "path": "@repo/audio/ㄛㄛㄛ，公雞喔喔叫.mp3"
+ },
+ {
+  "id": "bad-l2/40-ㄆㄆㄆ，葡萄一串串",
+  "set": "bad-l2",
+  "label": "bad",
+  "text": "ㄆㄆㄆ，葡萄一串串",
+  "split": "whole",
+  "n": 40,
+  "note": "舊檔（Freddy 標過）；整句含注音符號",
+  "path": "@repo/audio/voice-test-l2/old/ㄆㄆㄆ，葡萄一串串.mp3"
+ },
+ {
+  "id": "new-l2/40-ㄆㄆㄆ，葡萄一串串",
+  "set": "new-l2",
+  "label": "new",
+  "text": "葡萄一串串",
+  "split": "text_only",
+  "n": 40,
+  "path": "@repo/audio/ㄆㄆㄆ，葡萄一串串.mp3"
+ },
+ {
+  "id": "bad-l2/41-ㄈㄈㄈ，飛機飛高高",
+  "set": "bad-l2",
+  "label": "bad",
+  "text": "ㄈㄈㄈ，飛機飛高高",
+  "split": "whole",
+  "n": 41,
+  "note": "舊檔（Freddy 標過）；整句含注音符號",
+  "path": "@repo/audio/voice-test-l2/old/ㄈㄈㄈ，飛機飛高高.mp3"
+ },
+ {
+  "id": "new-l2/41-ㄈㄈㄈ，飛機飛高高",
+  "set": "new-l2",
+  "label": "new",
+  "text": "飛機飛高高",
+  "split": "text_only",
+  "n": 41,
+  "path": "@repo/audio/ㄈㄈㄈ，飛機飛高高.mp3"
+ },
+ {
+  "id": "prob-good/42-教學完成了，你好棒！",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "教學完成了，你好棒！",
+  "split": "whole",
+  "n": 42,
+  "path": "@repo/audio/教學完成了，你好棒！.mp3"
+ },
+ {
+  "id": "prob-good/43-要繼續去打妖怪，還是下次再來？",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "要繼續去打妖怪，還是下次再來？",
+  "split": "whole",
+  "n": 43,
+  "path": "@repo/audio/要繼續去打妖怪，還是下次再來？.mp3"
+ },
+ {
+  "id": "prob-good/44-我是五指山的岩岩！悟空想出來？先陪我玩注音遊戲！",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "我是五指山的岩岩！悟空想出來？先陪我玩注音遊戲！",
+  "split": "whole",
+  "n": 44,
+  "path": "@repo/audio/我是五指山的岩岩！悟空想出來？先陪我玩注音遊戲！.mp3"
+ },
+ {
+  "id": "prob-good/45-哪一個是",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "哪一個是",
+  "split": "whole",
+  "n": 45,
+  "path": "@repo/audio/哪一個是.mp3"
+ },
+ {
+  "id": "prob-good/46-是什麼開頭的音？",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "是什麼開頭的音？",
+  "split": "whole",
+  "n": 46,
+  "path": "@repo/audio/是什麼開頭的音？.mp3"
+ },
+ {
+  "id": "prob-good/47-哪一個是飛機的",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "哪一個是飛機的",
+  "split": "whole",
+  "n": 47,
+  "path": "@repo/audio/哪一個是飛機的.mp3"
+ },
+ {
+  "id": "bad-l2/48-拼起來是什麼？",
+  "set": "bad-l2",
+  "label": "bad",
+  "text": "拼起來是什麼？",
+  "split": "whole",
+  "n": 48,
+  "note": "舊檔（Freddy 標過）；整句含注音符號",
+  "path": "@repo/audio/voice-test-l2/old/拼起來是什麼？.mp3"
+ },
+ {
+  "id": "new-l2/48-拼起來是什麼？",
+  "set": "new-l2",
+  "label": "new",
+  "text": "拼起來是什麼",
+  "split": "whole",
+  "n": 48,
+  "path": "@repo/audio/拼起來是什麼？.mp3"
+ },
+ {
+  "id": "bad-l2/49-要怎麼拼？",
+  "set": "bad-l2",
+  "label": "bad",
+  "text": "要怎麼拼？",
+  "split": "whole",
+  "n": 49,
+  "note": "舊檔（Freddy 標過）；整句含注音符號",
+  "path": "@repo/audio/voice-test-l2/old/要怎麼拼？.mp3"
+ },
+ {
+  "id": "new-l2/49-要怎麼拼？",
+  "set": "new-l2",
+  "label": "new",
+  "text": "要怎麼拼",
+  "split": "whole",
+  "n": 49,
+  "path": "@repo/audio/要怎麼拼？.mp3"
+ },
+ {
+  "id": "prob-good/50-差一點點！再聽一次",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "差一點點！再聽一次",
+  "split": "whole",
+  "n": 50,
+  "path": "@repo/audio/差一點點！再聽一次.mp3"
+ },
+ {
+  "id": "prob-good/51-看！發光的那個就是答案喔",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "看！發光的那個就是答案喔",
+  "split": "whole",
+  "n": 51,
+  "path": "@repo/audio/看！發光的那個就是答案喔.mp3"
+ },
+ {
+  "id": "prob-good/52-好棒！",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "好棒！",
+  "split": "whole",
+  "n": 52,
+  "path": "@repo/audio/好棒！.mp3"
+ },
+ {
+  "id": "prob-good/53-答對了！",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "答對了！",
+  "split": "whole",
+  "n": 53,
+  "path": "@repo/audio/答對了！.mp3"
+ },
+ {
+  "id": "prob-good/54-你好厲害！",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "你好厲害！",
+  "split": "whole",
+  "n": 54,
+  "path": "@repo/audio/你好厲害！.mp3"
+ },
+ {
+  "id": "prob-good/55-哇，好多個悟空！山都搖起來了！好啦好啦，我認輸了！",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "哇，好多個悟空！山都搖起來了！好啦好啦，我認輸了！",
+  "split": "whole",
+  "n": 55,
+  "path": "@repo/audio/哇，好多個悟空！山都搖起來了！好啦好啦，我認輸了！.mp3"
+ },
+ {
+  "id": "prob-good/56-分身們，出來吧！",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "分身們，出來吧！",
+  "split": "whole",
+  "n": 56,
+  "path": "@repo/audio/分身們，出來吧！.mp3"
+ },
+ {
+  "id": "prob-good/57-看我的金箍棒！",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "看我的金箍棒！",
+  "split": "whole",
+  "n": 57,
+  "path": "@repo/audio/看我的金箍棒！.mp3"
+ },
+ {
+  "id": "prob-good/58-悟空，師父來救你了。",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "悟空，師父來救你了。",
+  "split": "whole",
+  "n": 58,
+  "path": "@repo/audio/悟空，師父來救你了。.mp3"
+ },
+ {
+  "id": "prob-good/59-我把山上的符咒揭開。",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "我把山上的符咒揭開。",
+  "split": "whole",
+  "n": 59,
+  "path": "@repo/audio/我把山上的符咒揭開。.mp3"
+ },
+ {
+  "id": "prob-good/60-師父！我出來了！",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "師父！我出來了！",
+  "split": "whole",
+  "n": 60,
+  "path": "@repo/audio/師父！我出來了！.mp3"
+ },
+ {
+  "id": "prob-good/61-五指山過關！",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "五指山過關！",
+  "split": "whole",
+  "n": 61,
+  "path": "@repo/audio/五指山過關！.mp3"
+ },
+ {
+  "id": "prob-good/65-喔喔叫",
+  "set": "probably-good-l2",
+  "label": "probably-good",
+  "text": "喔喔叫",
+  "split": "whole",
+  "n": 65,
+  "path": "@repo/audio/喔喔叫.mp3"
+ }
+]

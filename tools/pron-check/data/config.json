@@ -1,0 +1,54 @@
+{
+  "asr": {
+    "sample_rate": 16000,
+    "pad_sec": 0.4,
+    "peak_normalize": 0.9,
+    "beam_size": 5,
+    "models": {
+      "whisper": {
+        "kind": "faster-whisper",
+        "name": "medium",
+        "compute_type": "int8"
+      },
+      "breeze": {
+        "kind": "ct2-dir",
+        "path": ".cache/breeze-ct2-int8",
+        "hf_repo": "MediaTek-Research/Breeze-ASR-25",
+        "compute_type": "int8"
+      }
+    },
+    "use_aux_prompt": false,
+    "aux_prompt": "以下是繁體中文的普通話。"
+  },
+  "credit": {
+    "exact": 1.0,
+    "loose": 0.75,
+    "tone_diff": 0.4,
+    "loose_tone_diff": 0.25
+  },
+  "score": {
+    "asr_ok": 0.8,
+    "asr_bad": 0.5,
+    "tone_bad_ratio_suspect": 0.5,
+    "tone_unknown_suspect_if_asr_below": 1.0,
+    "silence_voiced_sec_min": 0.12,
+    "extra_syllable_penalty_whole": true,
+    "asr_fail": 0.3,
+    "hallucination_len_factor": 2,
+    "symbol_wrong_all_fail": true,
+    "symbol_wrong_any_suspect": true,
+    "agreed_error_suspect": true,
+    "any_asr_error_suspect": false
+  },
+  "tone": {
+    "trim_frac": 0.12,
+    "min_voiced_frames": 6,
+    "flat_max_abs_delta_st": 2.5,
+    "rise_min_delta_st": 1.0,
+    "fall_max_delta_st": -2.0,
+    "t3_max_delta_st": 2.5,
+    "t3_dip_min_st": 1.5,
+    "enabled": true,
+    "max_syllables": 2
+  }
+}

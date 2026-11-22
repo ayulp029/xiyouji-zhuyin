@@ -1,0 +1,12 @@
+# 建議：python3 -m venv --system-site-packages .venv（系統已有 faster-whisper / numpy / scipy）
+faster-whisper>=1.1
+ctranslate2>=4.4
+numpy
+scipy
+pypinyin
+praat-parselmouth
+# torch / transformers 只用在「把 Breeze-ASR-25 轉成 CTranslate2 int8」一次性步驟：
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+torch
+transformers
+huggingface_hub
