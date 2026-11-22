@@ -33,7 +33,7 @@ function mapExtras(){
   return party;
 }
 function caveButton(cls=''){ return `<button class="cave-mouth ${cls}" id="cavego">🌊<span>水簾洞</span><small>🍑 ${peachWallet()}</small></button>`; }
-// 水簾洞專用加速音（audio/cave/<key>.mp3：裁靜音＋atempo 1.8，保持音高）：單音與詞；其餘台詞照舊
+// 水簾洞專用音（audio/cave/<key>.mp3：裁靜音）。單音 atempo 1.8；飛機、車子、獅子、熱狗、傘、雨傘、燈的詞音只裁靜音、不加速（WORD_ATEMPO=1.0）。其餘詞仍是舊的 1.8。其餘台詞照舊。
 const CAVE_FAST = new Set(CARDS.flatMap(c=>[c.s,c.w])), CAVE_GAP = 120;
 AUDIO_FILES.push(...[...CAVE_FAST].map(x=>'cave/'+x)); // 預載（解鎖時 preloadAudio 會抓）
 const cv = x => CAVE_FAST.has(x) ? 'cave/'+x : x;
