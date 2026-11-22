@@ -5,7 +5,7 @@ const AC = window.AudioContext || window.webkitAudioContext;
 let ac = null, sayToken = 0, curStop = null, unlocked = false;
 const bufCache = {}, elCache = {}, loading = {}, missing = {}; // missing：audio/ 裡沒有的檔，直接用裝置語音
 const wait = ms => new Promise(r => setTimeout(r, ms));
-const audioUrl = k => 'audio/' + encodeURIComponent(k) + '.mp3';
+const audioUrl = k => 'audio/' + String(k).split('/').map(encodeURIComponent).join('/') + '.mp3'; // 'cave/ㄈ' → audio/cave/%E3%84%88.mp3
 function ctx(){ if(!ac && AC){ try{ ac = new AC(); }catch(e){ ac = null; } } return ac; }
 
 // ---------- 預先載入 ----------
@@ -138,9 +138,9 @@ function stopAll(){
 // parts：要依序念的內容；回傳 Promise<true=念完 / false=被打斷>
 // 防抖：同一句正在念、又在 1.2 秒內被連點 → 不重來；短時間內連續呼叫只念最後一個
 let lastKey = '', lastAt = 0, lastPromise = Promise.resolve(true), speaking = false;
-function say(parts){
+function say(parts, gap = 400){ // gap：段與段之間的停頓（ms）；水簾洞單音×3＋詞用 120
   parts = [].concat(parts).filter(x=>x != null && String(x).trim() !== '');
-  const key = parts.join('|'), now = Date.now();
+  const key = parts.join('|') + '#' + gap, now = Date.now();
   if(key && key === lastKey && speaking && now - lastAt < 1200) return lastPromise;
   lastKey = key; lastAt = now;
   stopAll(); const tk = sayToken;
@@ -151,7 +151,7 @@ function say(parts){
     for(let i = 0; i < parts.length; i++){
       if(tk !== sayToken) return false;
       await speakOne(parts[i], tk);
-      if(i < parts.length - 1) await wait(400);
+      if(i < parts.length - 1) await wait(gap);
     }
     return tk === sayToken;
   })().catch(()=>false).finally(()=>{ if(tk === sayToken) speaking = false; });

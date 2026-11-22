@@ -33,6 +33,11 @@ function mapExtras(){
   return party;
 }
 function caveButton(cls=''){ return `<button class="cave-mouth ${cls}" id="cavego">🌊<span>水簾洞</span><small>🍑 ${peachWallet()}</small></button>`; }
+// 水簾洞專用加速音（audio/cave/<key>.mp3：裁靜音＋atempo 1.8，保持音高）：單音與詞；其餘台詞照舊
+const CAVE_FAST = new Set(CARDS.flatMap(c=>[c.s,c.w])), CAVE_GAP = 120;
+AUDIO_FILES.push(...[...CAVE_FAST].map(x=>'cave/'+x)); // 預載（解鎖時 preloadAudio 會抓）
+const cv = x => CAVE_FAST.has(x) ? 'cave/'+x : x;
+const saySyms = parts => say([].concat(parts).map(cv), CAVE_GAP);
 function wireCaveButton(){ const b=$('#cavego'); if(b) b.onclick=()=>{ sfx.ding(); say('水簾洞'); caveScreen(); }; }
 
 // ===== 水簾洞 =====
@@ -66,7 +71,7 @@ function caveScreen(){
   setPhase('cave'); wireImgFb();
   $('#back').onclick=mapScreen; $('#shopbtn').onclick=shopOpen;
   $$('.cs').forEach(b=>b.onclick=()=>hearSym(b.parentNode.dataset.s, b));
-  $$('.cw').forEach(b=>b.onclick=()=>{ const c=cardOf(b.parentNode.dataset.s); say([c.s,c.s,c.s,c.w]); b.classList.remove('bump'); void b.offsetWidth; b.classList.add('bump'); });
+  $$('.cw').forEach(b=>b.onclick=()=>{ const c=cardOf(b.parentNode.dataset.s); saySyms([c.s,c.s,c.s,c.w]); b.classList.remove('bump'); void b.offsetWidth; b.classList.add('bump'); });
   $$('.cave-tabs .tab').forEach(t=>t.onclick=()=>{ $$('.cave-tabs .tab').forEach(x=>x.classList.toggle('on',x===t)); const g=$('#g-'+t.dataset.g); if(g) g.scrollIntoView({behavior:RM.matches?'auto':'smooth',block:'start'}); });
   $$('.cmon').forEach(b=>b.onclick=()=>monsterQuiz(b.dataset.m));
   if(all) $$('.cc').forEach(c=>c.classList.add('seen'));
@@ -74,7 +79,7 @@ function caveScreen(){
 }
 // 點注音：播教育部單音；第一次聽到才算進度（5 個不同注音 +1 猴子，最多 7）；重複聽只閃水花
 function hearSym(s, btn){
-  const p=say(s); const cs=caveState(), had=cs.heard[s]||0, before=Object.keys(cs.heard).length;
+  const p=saySyms(s); const cs=caveState(), had=cs.heard[s]||0, before=Object.keys(cs.heard).length;
   cs.heard[s]=had+1; const n=Object.keys(cs.heard).length; setCave({heard:cs.heard});
   btn.classList.remove('bump'); void btn.offsetWidth; btn.classList.add('bump');
   $('.cc[data-s="'+s+'"]').classList.add('seen');
@@ -123,14 +128,14 @@ function monsterQuiz(key){
     ${kind==='hear'?'<button class="btn blue" id="mqrep">再聽一次 🔊</button>':`<div class="sym">${ans}</div>`}
     <div class="row choices">${opts.map(o=>kind==='hear'?`<button class="choice" data-o="${o}">${o}</button>`:`<button class="choice" data-o="${o}">🔊</button>`).join('')}</div></div>`;
   document.body.appendChild(m); window.__mq={ans,kind}; setPhase('mq');
-  if(kind==='hear'){ say(ask); m.querySelector('#mqrep').onclick=()=>say(ask); } else say(ask);
+  if(kind==='hear'){ saySyms(ask); m.querySelector('#mqrep').onclick=()=>saySyms(ask); } else saySyms(ask);
   m.querySelectorAll('.choice').forEach(b=>b.onclick=async()=>{ if(done) return; const o=b.dataset.o;
-    if(kind==='see') say(o);
+    if(kind==='see') saySyms(o);
     if(o===ans){ done=true; sfx.ding(); burst(b); b.classList.add('glow'); m.querySelector('#mqs').textContent=mo.name+'：答對了！你好厲害！';
       if(kind==='hear') say('答對了！'); else setTimeout(()=>say('答對了！'),1400);
       await wait(D(2200)); m.remove(); setPhase('cave'); }
     else { sfx.boop(); b.classList.add('shake'); setTimeout(()=>b.classList.remove('shake'),500);
-      m.querySelector('#mqs').textContent=mo.name+'：差一點點，再試試看！'; if(kind==='hear') say(['差一點點！再聽一次','哪一個是',ans]); }
+      m.querySelector('#mqs').textContent=mo.name+'：差一點點，再試試看！'; if(kind==='hear') saySyms(['差一點點！再聽一次','哪一個是',ans]); }
   });
 }
 
@@ -155,17 +160,17 @@ function monkChallenge(){
     <div class="row prompt"><button class="btn blue" id="rep">再聽一次 🔊</button></div>
     <div class="row choices">${opts.map(o=>`<button class="choice" data-o="${o}">${o}</button>`).join('')}</div>`);
   setPhase('monk-q'); const sid=sceneId, slots=$$('.slot'), chs=$$('.choice');
-  const intro=['唐僧要念經了，聽仔細喔',...seq]; say(intro); $('#rep').onclick=()=>say(seq);
+  const intro=['唐僧要念經了，聽仔細喔',...seq]; saySyms(intro); $('#rep').onclick=()=>saySyms(seq);
   const reset=()=>{ k=0; slots.forEach(s=>{ s.textContent=''; s.classList.remove('fill'); }); chs.forEach(c=>c.classList.remove('used')); };
   chs.forEach(b=>b.onclick=async()=>{ if(locked) return; const o=b.dataset.o;
-    if(o===seq[k]){ slots[k].textContent=o; slots[k].classList.add('fill'); b.classList.add('used'); say(o); k++;
+    if(o===seq[k]){ slots[k].textContent=o; slots[k].classList.add('fill'); b.classList.add('used'); saySyms(o); k++;
       if(k>=seq.length){ locked=true; if(tries===0) monkOk=true; setPhase('monk-done'); sfx.win(); burst(b); $('#say').textContent='好棒！念對經了！';
         await wait(D(1300)); if(alive(sid)) { say('好棒！'); await wait(D(700)); } if(alive(sid)) victory(); } }
     else { tries++; sfx.boop(); b.classList.add('shake'); setTimeout(()=>b.classList.remove('shake'),500); reset();
-      if(tries===1){ $('#say').textContent='差一點點！再聽一次，照順序點～'; say(['差一點點！再聽一次',...seq]); }
+      if(tries===1){ $('#say').textContent='差一點點！再聽一次，照順序點～'; saySyms(['差一點點！再聽一次',...seq]); }
       else { locked=true; setPhase('monk-reveal'); $('#say').textContent='看！發光的順序就是答案喔'; await wait(D(600));
         for(let i=0;i<seq.length;i++){ if(!alive(sid)) return; const c=chs.find(x=>x.dataset.o===seq[i]); c.classList.add('glow'); slots[i].textContent=seq[i]; slots[i].classList.add('fill');
-          await Promise.all([sayUpTo(say(seq[i]),1500), wait(D(700))]); }
+          await Promise.all([sayUpTo(saySyms(seq[i]),1500), wait(D(700))]); }
         await wait(D(900)); if(alive(sid)) victory(); } }
   });
 }

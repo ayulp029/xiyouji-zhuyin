@@ -73,7 +73,7 @@ async function newPage(browser, seed, opts={}){
   return { ctx, page };
 }
 // 測試用：說話改成只記錄、立刻回傳（不用等錄音播完）
-const stubSay = page=>page.evaluate(()=>{ window.__said = []; window.say = p=>{ window.__said.push([].concat(p).join('|')); return Promise.resolve(true); }; });
+const stubSay = page=>page.evaluate(()=>{ window.__said = []; window.say = p=>{ window.__said.push([].concat(p).map(x=>String(x).replace(/^cave\//,'')).join('|')); return Promise.resolve(true); }; });
 const phase = page=>page.evaluate(()=>document.body.dataset.phase);
 const waitPhase = (page, p, t=15000)=>page.waitForFunction(x=>document.body.dataset.phase===x, p, { timeout:t });
 const readSave = page=>page.evaluate(k=>JSON.parse(localStorage.getItem(k)), SAVE);
@@ -112,14 +112,14 @@ try{
     ok(await page.locator('.staff-bar').count() === 0, '還沒拿到金箍棒：洞裡悟空沒拿棒');
     ok(await page.locator('.friend').count() === 0, '一開始沒有猴子朋友');
     const noImg = await page.evaluate(()=>[...document.querySelectorAll('.cc')].filter(c=>c.querySelector('.cw .emo-fb')).map(c=>c.dataset.s));
-    ok(noImg.join('') === 'ㄓㄢ', 'ㄓ、ㄢ 缺圖退回表情符號（實際：' + noImg.join('') + '）');
-    ok(await page.evaluate(()=>[...document.querySelectorAll('.cw img')].every(i=>i.naturalWidth>0)), '其餘 35 張卡片圖都載入成功');
+    ok(noImg.length === 0, '卡片圖都有（沒有退回表情符號；實際缺：' + noImg.join('') + '）');
+    ok(await page.evaluate(()=>[...document.querySelectorAll('.cw img')].every(i=>i.naturalWidth>0)), '37 張卡片圖都載入成功');
     for(let i=0;i<5;i++) await page.click(`.cc[data-s="${ALL[i]}"] .cs`);
     ok(await page.locator('.friend').count() === 1, '聽過 5 個不同注音 → 1 隻猴子');
     await page.click(`.cc[data-s="${ALL[0]}"] .cs`); await page.click(`.cc[data-s="${ALL[0]}"] .cs`);
     ok(await page.locator('.friend').count() === 1 && await page.locator('.splash').count() >= 1, '重複聽：閃水花、不加猴子');
     await page.click('.cc[data-s="ㄛ"] .cw');
-    ok((await page.evaluate(()=>window.__said)).includes('喔喔叫'), '點 ㄛ 的卡片 → say(喔喔叫)');
+    ok((await page.evaluate(()=>window.__said)).includes('ㄛ|ㄛ|ㄛ|蘑菇'), '點 ㄛ 的卡片 → ㄛ|ㄛ|ㄛ|蘑菇');
     ok((await page.evaluate(()=>window.__said)).includes('ㄅ'), '點 ㄅ → say(ㄅ)');
     for(const s of ALL) await page.click(`.cc[data-s="${s}"] .cs`);
     ok(await page.locator('.friend').count() === 7, '37 音聽完：猴子最多 7 隻');
