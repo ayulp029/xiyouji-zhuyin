@@ -5,7 +5,9 @@ const AC = window.AudioContext || window.webkitAudioContext;
 let ac = null, sayToken = 0, curStop = null, unlocked = false;
 const bufCache = {}, elCache = {}, loading = {}, missing = {}; // missing：audio/ 裡沒有的檔，直接用裝置語音
 const wait = ms => new Promise(r => setTimeout(r, ms));
-const audioUrl = k => 'audio/' + String(k).split('/').map(encodeURIComponent).join('/') + '.mp3'; // 'cave/ㄈ' → audio/cave/%E3%84%88.mp3
+// JS/CSS 原本就帶 ?v=；音檔也要帶，否則「改了 mp3 內容但檔名不變」時 iPad Safari 會繼續播快取的舊檔。
+const AUDIO_V = document.documentElement.dataset.version || '';
+const audioUrl = k => 'audio/' + String(k).split('/').map(encodeURIComponent).join('/') + '.mp3?v=' + encodeURIComponent(AUDIO_V); // 'cave/ㄈ' → audio/cave/%E3%84%88.mp3?v=…
 function ctx(){ if(!ac && AC){ try{ ac = new AC(); }catch(e){ ac = null; } } return ac; }
 
 // ---------- 預先載入 ----------

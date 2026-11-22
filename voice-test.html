@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>詞音試聽</title>
+<style>
+body{margin:0;padding:20px 28px 60px;background:#f6f3ea;color:#222;font-family:-apple-system,"PingFang TC","Noto Sans TC",sans-serif}
+h1{margin:0 0 8px;font-size:34px}
+.intro{font-size:20px;line-height:1.6;max-width:1080px;margin:0 0 18px}
+.row{display:flex;align-items:flex-start;gap:14px;background:#fff;border:2px solid #d8d0b8;border-radius:16px;padding:12px 16px;margin-bottom:14px}
+.word{width:120px;flex:none;font-size:40px;font-weight:700;line-height:84px}
+.cell{flex:1;min-width:0;text-align:center}
+button{width:100%;min-height:76px;font-size:28px;font-weight:700;border:3px solid #6b5b2e;border-radius:14px;background:#fff7d6;color:#222;touch-action:manipulation}
+button.cur{background:#ffe9e9;border-color:#a33}
+button.on{background:#1f6f43;border-color:#1f6f43;color:#fff}
+.note{margin-top:6px;font-size:15px;line-height:1.35;color:#555}
+</style></head><body>
+<h1>詞音試聽</h1>
+<p class="intro">這頁只給試聽，還沒換進遊戲。請每個詞比較 A、B、C 和「目前版本」（水簾洞 v1.4.4-test 聽到的），之後再告訴我們要採用哪一個。一次只播一個，點新的會停掉舊的。</p>
+<div id="list"></div>
+<script>
+const V='1.4.5-test';
+const url=p=>p.split('/').map(encodeURIComponent).join('/')+'.mp3?v='+V;
+const WORDS=[['飛機','飛機。'],['車子','車子！'],['獅子','獅子！'],['熱狗','熱狗。'],['傘','傘！'],['雨傘','雨傘。'],['燈','燈！']];
+const list=document.getElementById('list');
+let audio=null,btnOn=null;
+function stop(){ if(audio){ audio.pause(); audio=null; } if(btnOn){ btnOn.classList.remove('on'); btnOn.textContent=btnOn.dataset.label; btnOn=null; } }
+function play(btn,path){
+  const same=btnOn===btn; stop(); if(same) return;
+  const a=new Audio(url(path)); audio=a; btnOn=btn; btn.classList.add('on'); btn.textContent='播放中…';
+  const done=()=>{ if(audio===a) stop(); };
+  a.addEventListener('ended',done); a.addEventListener('error',done);
+  a.play().catch(done);
+}
+WORDS.forEach(([w,c])=>{
+  const row=document.createElement('div'); row.className='row';
+  const h=document.createElement('div'); h.className='word'; h.textContent=w; row.appendChild(h);
+  [['A','audio/voice-test/A-'+w,'Yui，詞本身，eleven_multilingual_v2',''],
+   ['B','audio/voice-test/B-'+w,'Kate（台灣腔女聲），詞本身，eleven_multilingual_v2',''],
+   ['C','audio/voice-test/C-'+w,'Yui，改寫法，eleven_multilingual_v2；TTS 寫法：「'+c+'」',''],
+   ['目前版本','audio/cave/'+w,'水簾洞現用音（Yui + eleven_v3 加速版）','cur']
+  ].forEach(([label,path,note,cls])=>{
+    const cell=document.createElement('div'); cell.className='cell';
+    const b=document.createElement('button'); b.type='button'; b.textContent=label; b.dataset.label=label; if(cls) b.className=cls;
+    b.addEventListener('click',()=>play(b,path));
+    const n=document.createElement('div'); n.className='note'; n.textContent=note;
+    cell.append(b,n); row.appendChild(cell);
+  });
+  list.appendChild(row);
+});
+</script></body></html>

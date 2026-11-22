@@ -3,7 +3,7 @@
 給 5 歲、沒學過注音的孩子在 iPad Safari 用手指玩的注音遊戲。目前有第 1 關（花果山，ㄧㄨㄅㄇ）與第 2 關（五指山，ㄚㄛㄆㄈ，複習ㄅㄇㄨ，妖怪岩岩）。孩子不太會讀字，重要的話一定要唸出來。企劃：/workspace/zhuyin-game/design/plan-v3.md
 
 ## 檔案地圖
-- `index.html`：進入點，`data-version`、`app-version`、所有 `?v=` 要一起改（避免 iPad 快取）
+- `index.html`：進入點，`data-version`、`app-version`、所有 `?v=` 要一起改（避免 iPad 快取）；音檔 URL 也要帶同樣的 `?v=`（由 `audio.js` 的 `audioUrl` 自動讀 `data-version` 加上）
 - `data.js`：`LEVEL1`/`LEVEL2`（`LEVELS` 依地圖順序）、圖檔對照 IMG、`AUDIO_FILES`（預載清單）。關卡差異（句子、對比題、T5 題幹、結局 `ending`、妖怪圖 `monster.faces`）全在關卡資料，game.js 用 `L` 讀取，新增關卡照 LEVEL2 格式加；前一關 cleared 才解鎖下一站
 - `game.js`：畫面流程（開始、地圖、教學 8 步、休息點、對戰、過關）
 - `cave.js`：v1.4.0 水簾洞（37 音卡片、兌換、洞裡妖怪複習）、地圖隊伍、金箍棒連擊、唐僧念經挑戰；測試 `SHOT_DIR=… node tests/e2e-cave.mjs`。設計見 design/growth-system.md；存檔仍是 `xiyou-zhuyin-v1`（levels[].peaches、cave:{heard,spent,owned,allHeard}）
