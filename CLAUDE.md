@@ -10,7 +10,7 @@
 - `audio/lines.json`：第 1 關全部台詞（key = say 的字串；tts_text 給 ElevenLabs）
 - `style.css`、`save.js`（localStorage 存檔）、`img/`
 - `tests/e2e.mjs`（第 1 關）、`tests/e2e-level2.mjs`（第 2 關：地圖解鎖→教學→對戰→結局，`SHOT_DIR=… node tests/e2e-level2.mjs`）、`PROBLEMS.md`（審視紀錄）
-- `incoming/level2/rock-{normal,laugh,cheeky,tame}.png`：岩岩（毛毛 v1，穩定路徑，遊戲直接讀；換圖只要覆蓋這 4 個檔。其他 incoming 內容不要提交）
+- `img/rock-{normal,laugh,cheeky,tame}.png`：岩岩定稿第三版（Freddy 通過；灰色石頭怪，頭頂有五座小山峰）。四張同高 512、寬度不同，CSS 以高度對齊（`.mon-img` 用 `height` + `width:auto`），身體大小才會一致。換圖只要覆蓋這 4 個檔。不要用 v1/、v2/ 舊圖。
 
 ## 怎麼測
 `node tests/e2e.mjs`（需 playwright；約 2.5 分鐘）。截圖在 `screenshots/`（已 gitignore）。
@@ -34,5 +34,5 @@
 - 單音 ㄚㄛㄆㄈ：教育部手冊錄音（F25/F26/F2/F4），手冊 https://language.moe.gov.tw/001/Upload/files/site_content/M0001/juyin/index.html （CC BY 4.0）。其餘新台詞為 Yui（見 `audio/lines.json` 中 `level:2`）。
 - 結局（與第 1 關不同）：打完岩岩認輸、被「看我的金箍棒！」打中消失 → `rescue()`：山＋山頂符咒、唐僧唸「悟空，師父來救你了。」→ 揭符咒（符飛走、山搖）唸「我把山上的符咒揭開。」→ 悟空跳出來唸「師父！我出來了！」→「五指山過關！」＋印章／貼紙（emoji 暫代）。不用「石頭頭變成乖猴子了」。
 - 地圖：第 1 關過關後第 2 站可點；下一個該去的站發亮跳動並唸「點一點發亮的○○」。
-- 還缺的圖（目前 emoji／CSS 暫代）：五指山背景（沿用花果山草地）、對戰背景、五指山／符咒圖（⛰️📜）、山下的悟空（用 stand 縮小半透明）、第 2 關印章與貼紙、記憶圖 ㄚㄛㄆㄈ（memory-*.png）、例詞圖（阿公 阿姨 喔喔叫 噢 葡萄 螃蟹 房子 風箏）、拼音圖（爬 髮 佛 婆 八 媽）、地圖第 2 站專屬圖示；岩岩可能重畫（Freddy 覺得像馬鈴薯）。
+- 還缺的圖（目前 emoji／CSS 暫代）：五指山背景（沿用花果山草地）、對戰背景、五指山／符咒圖（⛰️📜）、山下的悟空（用 stand 縮小半透明）、第 2 關印章與貼紙、記憶圖 ㄚㄛㄆㄈ（memory-*.png）、例詞圖（阿公 阿姨 喔喔叫 噢 葡萄 螃蟹 房子 風箏）、拼音圖（爬 髮 佛 婆 八 媽）、地圖第 2 站專屬圖示。岩岩已用定稿第三版。
 - 還沒有錄音檔的詞（會退回瀏覽器語音）：阿姨、喔喔叫、噢、風箏（只出現在例詞資料，目前不會被念）。

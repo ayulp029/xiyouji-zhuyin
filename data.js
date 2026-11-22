@@ -11,7 +11,7 @@ const IMG = {
   memo:{'ㄧ':'img/memory-yi.png','ㄨ':'img/memory-wu.png','ㄅ':'img/memory-b.png','ㄇ':'img/memory-m.png'},
   ex:Object.fromEntries(['衣服','椅子','烏龜','包子','爸爸','媽媽','貓咪'].map(w=>[w,'img/ex-'+w+'.png'])),
   blend:Object.fromEntries(['米','木','鼻','布'].map(c=>[c,'img/blend-'+c+'.png'])),
-  rock:{normal:'incoming/level2/rock-normal.png', laugh:'incoming/level2/rock-laugh.png', cheeky:'incoming/level2/rock-cheeky.png', tame:'incoming/level2/rock-tame.png'}, // 岩岩（毛毛 v1）；換圖只要覆蓋這 4 個檔
+  rock:{normal:'img/rock-normal.png', laugh:'img/rock-laugh.png', cheeky:'img/rock-cheeky.png', tame:'img/rock-tame.png'}, // 岩岩定稿第三版（灰色石頭怪、頭頂五座山峰）；四張同高不同寬，排版用高度對齊。換圖只要覆蓋這 4 個檔
   fx:{poof:'img/fx-poof.png', star:'img/fx-star.png'}
 };
 // 悟空眼睛位置（左, 上, 寬, 高；% 對應圖片本身），用來疊「眼皮」做眨眼。換圖時要重新量；沒列的姿勢就不眨眼

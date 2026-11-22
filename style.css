@@ -126,6 +126,7 @@ img.stamp{width:160px;height:160px;object-fit:contain}
 /* ===== 妖怪：float(浮動晃) > act(動作) > img(表情) ===== */
 .mon{position:relative;display:inline-block;line-height:0;--mon-h:150px}
 .mon.solo{--mon-h:clamp(130px,24vh,190px)}
+/* 岩岩四張同高不同寬，必須以高度對齊、width:auto，身體才會一樣大 */
 .mon-img{height:var(--mon-h);width:auto;display:block;filter:drop-shadow(0 4px 6px rgba(0,0,0,.25));pointer-events:none}
 .mon-float{transform-origin:50% 100%;animation:monFloat 3.2s ease-in-out infinite}
 @keyframes monFloat{0%,100%{transform:translate(-5px,0) rotate(-3deg)}25%{transform:translate(0,-9px) rotate(0)}50%{transform:translate(5px,0) rotate(3deg)}75%{transform:translate(0,-9px) rotate(0)}}
