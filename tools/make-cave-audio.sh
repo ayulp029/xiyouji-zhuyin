@@ -6,8 +6,9 @@
 #   或環境變數 SYM_ATEMPO / WORD_ATEMPO。沒列出 key 時處理 CARDS 全部單音與詞。
 # 目前進版：單音與其他詞仍是舊的 atempo 1.8 檔；
 #   飛機、車子、獅子、熱狗、傘、雨傘、燈 的詞音用 WORD_ATEMPO=1.0（只裁靜音、不加速）。
-# 飛機／車子／獅子的第 2 關根目錄 audio/<詞>.mp3 仍是舊檔，這三個 cave 詞音來源是
+# 車子／獅子的第 2 關根目錄 audio/<詞>.mp3 仍是舊檔，這兩個 cave 詞音來源是
 #   audio/voice-test/A-<詞>.mp3（試聽頁 A，Freddy 採用的版本）。
+# 飛機自 v1.4.9-test 起，根目錄已改為同一 A 檔（並做響度對齊），cave 直接從 audio/飛機.mp3 產生。
 set -euo pipefail
 cd "$(dirname "$0")/.." || exit 1
 
@@ -34,7 +35,7 @@ is_sym()  { local k="$1"; local s; for s in "${ALL_S[@]}"; do [ "$s" = "$k" ] &&
 
 word_src() {
   case "$1" in
-    飛機|車子|獅子) echo "audio/voice-test/A-$1.mp3" ;;
+    車子|獅子) echo "audio/voice-test/A-$1.mp3" ;;
     *) echo "audio/$1.mp3" ;;
   esac
 }
