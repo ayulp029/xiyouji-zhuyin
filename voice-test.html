@@ -15,10 +15,10 @@ button.on{background:#1f6f43;border-color:#1f6f43;color:#fff}
 .note{margin-top:6px;font-size:15px;line-height:1.35;color:#555}
 </style></head><body>
 <h1>詞音試聽</h1>
-<p class="intro">這頁只給試聽，還沒換進遊戲。請每個詞比較 A、B、C 和「目前版本」（水簾洞 v1.4.4-test 聽到的），之後再告訴我們要採用哪一個。一次只播一個，點新的會停掉舊的。</p>
+<p class="intro">飛機、車子、獅子已採用 A（Yui、eleven_multilingual_v2）並換進水簾洞（v1.4.6-test）。熱狗、傘、雨傘、燈還沒換，等自錄。一次只播一個，點新的會停掉舊的。「目前版本」是水簾洞現在用的音。</p>
 <div id="list"></div>
 <script>
-const V='1.4.5-test';
+const V='1.4.6-test';
 const url=p=>p.split('/').map(encodeURIComponent).join('/')+'.mp3?v='+V;
 const WORDS=[['飛機','飛機。'],['車子','車子！'],['獅子','獅子！'],['熱狗','熱狗。'],['傘','傘！'],['雨傘','雨傘。'],['燈','燈！']];
 const list=document.getElementById('list');
