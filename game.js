@@ -103,11 +103,13 @@ function monIdle(node){ const sid=sceneId; const tick=()=>{ if(!alive(sid)||!doc
 function startScreen(){
   el(`<h1>西遊記注音大冒險</h1>${wkHTML('stand','lg','wks')}
   <button class="btn red big" id="go">開始 ▶</button>
+  <button class="btn gold" id="cave0">🌊 水簾洞</button>
   <div class="step">🔔 iPhone 請把側邊靜音開關關掉，才聽得到聲音</div>
   <details class="credit"><summary>ⓘ 聲音來源</summary>注音發音：2017 © 教育部，國語注音符號手冊-開放部件 CC BY 4.0；詞語發音：Wikimedia Commons（Wei Gao &amp; Vion Nicolas CC BY 2.0 FR、Yue Tan CC BY-SA 3.0）</details>
   ${APP_VERSION?`<div class="ver">v${APP_VERSION}</div>`:''}`);
   setPhase('start');
   $('#go').onclick=()=>{ unlockAudio(); sfx.ding(); mapScreen(); };
+  $('#cave0').onclick=()=>{ unlockAudio(); sfx.ding(); say('水簾洞'); caveScreen(); }; // 水簾洞不是取經路上的一站，隨時可進
 }
 
 // ===== 取經地圖 =====
@@ -118,9 +120,9 @@ function mapScreen(){
   const target=LEVELS.findIndex((lv,i)=>isOpen(i) && !levelState(lv.id).cleared); // 下一個該去的站
   const btns=STATIONS.map((n,i)=>{ const open=isOpen(i), st=open?levelState(LEVELS[i].id):{};
     return `<button class="station ${open?'open':''} ${i===target?'target':''}" data-i="${i}" ${IMG.map?`style="left:${MAP_POS[i][0]}%;top:${MAP_POS[i][1]}%"`:''}>
-    ${open?'🐵':'🔒'} ${n}${open?`<br><small>${st.learned?'📖 已學':''}${st.cleared?' 🏅':''}</small>`:''}</button>`; }).join('');
-  el(`<h1>取經地圖</h1>`+(IMG.map?`<div class="mapimg" style="background-image:url(${IMG.map})">${btns}</div>`:`<div class="map">${btns}</div>`));
-  setPhase('map');
+    ${open?'🐵':'🔒'} ${n}${open?`<br><small>${st.learned?'📖 已學':''}${st.cleared?' 🏅':''}</small><span class="peaches" data-n="${st.peaches||0}">${peachesHTML(st.peaches||0)}</span>`:''}</button>`; }).join('');
+  el(`<h1>取經地圖</h1>`+(IMG.map?`<div class="mapimg" style="background-image:url(${IMG.map})">${btns}${mapExtras()}</div>`:`<div class="map">${btns}</div>`)+caveButton());
+  setPhase('map'); wireImgFb(); wireCaveButton();
   $$('.station.open').forEach(b=>b.onclick=()=>{ const lv=LEVELS[+b.dataset.i]; pickLevel(lv); say(lv.name); levelMenu(); });
   if(target>=0){ later(()=>say('點一點發亮的'+LEVELS[target].name), 500);
     later(()=>{ const o=$('.station.target'); if(o) o.classList.add('nudge'); }, target>0?600:5000); }
@@ -238,8 +240,10 @@ function restPoint(){
 
 // ===== 對戰場（方案 B：答對＝多一個悟空分身，答錯不扣）=====
 let qi=0, clones=0, wrongs=0, cur=null, locked=false;
+let streak=0, firstOk=0, monkOk=false, battleStaff=false, monkOn=false, lastPeach=null; // 連擊／蟠桃計算（只在這場對戰內有效）
 function battleStart(){
-  qi=0; clones=0; setBg(L.bgBattle||bgNow());
+  qi=0; clones=0; streak=0; firstOk=0; monkOk=false; setBg(L.bgBattle||bgNow());
+  battleStaff=hasStaff(); monkOn=L.id>=2 && hasMonk(); // 進場前就有棒／有唐僧才算
   el(`<div class="say">${L.monster.intro}</div>${monHTML('cheeky','solo pop')}<button class="btn red big" id="go">開始！</button>`);
   setPhase('battle-intro'); monIdle($('#mon'));
   say(L.monster.intro); $('#go').onclick=()=>{ sfx.ding(); nextQ(); };
@@ -294,7 +298,7 @@ function optionsFor(q){
   return {ans:q.ans, opts:shuffle(q.opts), cls:''};
 }
 function nextQ(){
-  if(qi>=L.battle.length) return victory();
+  if(qi>=L.battle.length) return monkOn?monkChallenge():victory();
   const q=L.battle[qi]; const p=promptFor(q); cur=optionsFor(q); cur.t=q.t; cur.voice=p.voice; wrongs=0; locked=false;
   window.__ans=cur.ans; // 測試用
   el(`<div class="count">第 ${qi+1} / ${L.battle.length} 題　🐵 分身 <b id="cnt">${clones}</b> / ${L.battle.length}</div>
@@ -303,6 +307,7 @@ function nextQ(){
    <div class="row choices">${cur.opts.map(o=>`<button class="choice ${cur.cls}" data-o="${o}">${cur.labels?cur.labels[o]:o}</button>`).join('')}</div>`);
   setPhase('battle-q');
   placeClones(clones); monIdle($('#mon'));
+  if(battleStaff) $('#wkq').insertAdjacentHTML('beforeend','<i class="staff-mini" id="smini"></i>');
   $('#rep').onclick=()=>say(cur.voice); say(cur.voice);
   $$('.choice').forEach(b=>b.onclick=()=>pick(b));
 }
@@ -310,7 +315,8 @@ const PRAISE=[['好棒！拔一根猴毛，呼～','好棒！'],['答對了！�
 async function pick(b){
   if(locked) return; const o=b.dataset.o, sid=sceneId, wkN=$('#wkq'), mon=$('#mon');
   if(o===cur.ans){
-    locked=true; clones++; sfx.ding(); burst(b); b.classList.add('glow'); $$('.choice').forEach(c=>{ if(c!==b) c.classList.add('fade'); });
+    locked=true; clones++; const first=wrongs===0; if(first){ firstOk++; streak++; } else streak=0;
+    const combo=battleStaff && first && streak>=3; if(combo) streak=0; sfx.ding(); burst(b); b.classList.add('glow'); $$('.choice').forEach(c=>{ if(c!==b) c.classList.add('fade'); });
     const [txt,vo]=PRAISE[Math.random()*PRAISE.length|0]; $('#say').textContent=txt;
     const v=say(cur.t==='T6'?[o,vo]:[vo]);
     setPhase('correct-anim');
@@ -319,9 +325,10 @@ async function pick(b){
     await wkPluck(wkN, [cs[clones-1]], ()=>{ revealClone(cs[clones-1]); const n=$('#cnt'); if(n){ n.textContent=clones; n.parentNode.classList.remove('pop'); void n.offsetWidth; n.parentNode.classList.add('pop'); } });
     if(!alive(sid)) return; setPhase('correct-done');
     await sayUpTo(v, 3000); await wait(D(250)); if(!alive(sid)) return;
+    if(combo){ await staffBurst(); if(!alive(sid)) return; }
     qi++; nextQ();
   } else {
-    wrongs++; sfx.boop(); b.classList.add('shake','fade');
+    wrongs++; streak=0; sfx.boop(); b.classList.add('shake','fade');
     $('#say').textContent = wrongs===1 ? L.monster.oops : '看！發光的那個就是答案喔';
     if(wrongs>=2) $$('.choice').forEach(c=>{ if(c.dataset.o===cur.ans) c.classList.add('glow'); });
     setPhase('wrong-anim');
@@ -331,7 +338,7 @@ async function pick(b){
   }
 }
 async function victory(){
-  setLevel(L.id,{cleared:true, stamps:2});
+  setLevel(L.id,{cleared:true, stamps:2}); lastPeach=awardPeaches();
   el(`<h1 id="vt">集滿 ${clones} 個分身！</h1>${stageHTML('stand',true)}<div class="say" id="say">分身們，出來吧！</div><div class="row" id="end"></div>`);
   setPhase('victory-clones'); const sid=sceneId, wkN=$('#wkq'), mon=$('#mon');
   // 1) 拔毫毛，分身依序彈出圍成一圈
@@ -357,7 +364,7 @@ async function victory(){
   sfx.win(); burst($('#arena'),'⭐',10);
   $('#vt').textContent='花果山過關！';
   $('#say').textContent='石頭頭變成乖猴子了！蓋上印章！';
-  $('#end').innerHTML=`${IMG.stamp?`<img class="stamp mini" src="${IMG.stamp}" alt="印章">`:'<div class="stamp mini">🏮🐵</div>'}<button class="btn red" id="again">🔁 再玩一次</button><button class="btn blue" id="map">🗺️ 地圖</button>`;
+  $('#end').innerHTML=`${IMG.stamp?`<img class="stamp mini" src="${IMG.stamp}" alt="印章">`:'<div class="stamp mini">🏮🐵</div>'}${peachRowHTML()}<button class="btn red" id="again">🔁 再玩一次</button><button class="btn blue" id="map">🗺️ 地圖</button>`;
   $('#again').onclick=battleStart; $('#map').onclick=mapScreen;
   setPhase('victory');
   say('花果山過關！');
@@ -365,7 +372,7 @@ async function victory(){
 // ===== 第 2 關結局：唐僧揭開山頂符咒，把悟空從五指山下救出來 =====
 // 山、符咒、山下的悟空目前用 emoji／CSS 暫代（缺圖清單見 CLAUDE.md）
 async function rescue(prevSid){
-  setLevel(L.id,{cleared:true, stamps:2}); addSticker(L.clearSticker||L.name+'過關了');
+  setLevel(L.id,{cleared:true, stamps:2}); lastPeach=lastPeach||awardPeaches(); addSticker(L.clearSticker||L.name+'過關了');
   el(`<h1 id="vt">五指山</h1>
    <div class="rescue"><div class="rs-ts">${pic(IMG.tangseng.talk,'唐僧','wukong')}</div>
     <div class="mtn" id="mtn"><span class="mtn-e">⛰️</span><span class="fu" id="fu">📜</span><div class="trap" id="trap">${wkHTML('stand','sm','wkr')}</div></div></div>
@@ -384,9 +391,13 @@ async function rescue(prevSid){
   await Promise.all([sayUpTo(say('師父！我出來了！'), D(5000)), wait(D(1800))]); if(!alive(sid)) return;
   // 過關
   $('#vt').textContent='五指山過關！'; $('#say').textContent='悟空得救了！蓋上印章，得到貼紙！';
-  $('#end').innerHTML=`${L.stamp?`<img class="stamp mini" src="${L.stamp}" alt="印章">`:'<div class="stamp mini">🏮⛰️</div>'}<div class="stamp mini">🏵️</div><button class="btn red" id="again">🔁 再玩一次</button><button class="btn blue" id="map">🗺️ 地圖</button>`;
+  $('#end').innerHTML=`${L.stamp?`<img class="stamp mini" src="${L.stamp}" alt="印章">`:'<div class="stamp mini">🏮⛰️</div>'}<div class="stamp mini">🏵️</div>${peachRowHTML()}<button class="btn red" id="again">🔁 再玩一次</button><button class="btn blue" id="map">🗺️ 地圖</button>`;
   $('#again').onclick=battleStart; $('#map').onclick=mapScreen;
   setPhase('victory');
   say('五指山過關！');
 }
+// 蟠桃：只看對戰場第一輪答對題數（有唐僧念經挑戰就是 11 題）；寫入該關 peaches，只升不降
+function awardPeaches(){ const total=L.battle.length+(monkOn?1:0), first=firstOk+(monkOk?1:0), n=peachTier(first,total);
+  return {n, best:setPeaches(L.id,n), first, total}; }
+function peachRowHTML(){ const p=lastPeach; lastPeach=null; return p?`<div class="peach-row" id="peachrow" data-n="${p.n}">${peachesHTML(p.n)}<small>第一輪答對 ${p.first} / ${p.total} 題</small></div>`:''; }
 startScreen();

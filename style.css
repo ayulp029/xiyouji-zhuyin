@@ -209,3 +209,102 @@ img.stamp.mini{width:96px;height:96px}div.stamp.mini{font-size:3rem}
 .trap.out{animation:trapOut .9s ease-out forwards}
 @keyframes trapOut{to{transform:translate(110%,0) scale(1);opacity:1;filter:none}}
 @media (prefers-reduced-motion:reduce){ .mtn.quake,.fu.off,.trap.out{animation-duration:.01s;animation-iteration-count:1} }
+
+/* ===== v1.4.0 水簾洞＋成長系統 ===== */
+.btn.sm{font-size:1.2rem;min-height:56px;padding:10px 20px;min-width:0}
+.emo-fb{font-size:2.6rem;line-height:1}
+.pc{font-style:normal;font-size:.9rem;filter:grayscale(1) opacity(.35)}.pc.on{filter:none}
+.peaches{display:block;line-height:1;margin-top:2px}
+.mapimg .station .peaches .pc{font-size:1rem}
+.peach-row{display:flex;align-items:center;gap:4px;background:rgba(255,255,255,.85);border-radius:18px;padding:6px 14px}
+.peach-row .pc{font-size:2.6rem}.peach-row small{font-size:1rem;color:#7b3fbf;margin-left:6px}
+.cave-mouth{position:fixed;right:14px;top:14px;z-index:20;display:flex;flex-direction:column;align-items:center;gap:0;min-width:96px;min-height:96px;border:5px solid #f1b31c;border-radius:50% 50% 24px 24px;
+ background:radial-gradient(circle at 50% 30%,#7fd6e8,#2a7fa8);color:#fff;font:bold 1.1rem inherit;font-family:inherit;font-size:2rem;box-shadow:0 6px 0 rgba(0,0,0,.25);cursor:pointer;padding:6px 10px}
+.cave-mouth span{font-size:1.1rem}.cave-mouth small{font-size:.9rem;background:rgba(0,0,0,.25);border-radius:10px;padding:0 8px}
+/* 大地圖隊伍 */
+.party{position:absolute;inset:0;pointer-events:none}
+.pm{position:absolute;transform:translate(-50%,-100%);height:15%;aspect-ratio:3/4;display:flex;align-items:flex-end;justify-content:center}
+.pm>img{height:100%;width:auto;object-fit:contain;display:block}
+.pm.tang{height:13%;opacity:.97}
+.gwk{position:relative}
+.wk-m.fb::after,.staff-bar{content:"";position:absolute;width:8%;min-width:7px;height:88%;bottom:0;border-radius:6px;background:linear-gradient(90deg,#b8801a,#ffe066 45%,#b8801a);box-shadow:0 0 0 2px #c0392b inset}
+.wk-m.fb::after{right:6%}
+.gear{position:absolute;left:50%;line-height:1;pointer-events:none}
+.gear img{height:100%;width:auto;display:block}
+.gear.hat{top:-10%;height:26%;transform:translateX(-50%);font-size:2rem}
+.gear.robe{top:50%;height:30%;transform:translateX(-50%);font-size:2rem;opacity:.9}
+.gear .emo-fb{font-size:inherit}
+.pm .gear.hat{font-size:1.5rem}.pm .gear.robe{font-size:1.5rem}
+/* 水簾洞 */
+.cave-top{display:flex;align-items:center;justify-content:space-between;gap:10px;width:min(96vw,1100px)}
+.cave-top h1{flex:1}
+.cave-scene{position:relative;width:min(96vw,1100px);height:240px;border-radius:28px;overflow:hidden;border:6px solid #6e5a45;
+ background:linear-gradient(#5a6b78,#3b4a55 60%,#2d3a43);box-shadow:inset 0 0 40px rgba(0,0,0,.45),0 8px 20px rgba(0,0,0,.2)}
+.cave-scene .fall{position:absolute;left:30%;width:40%;top:0;bottom:0;background:repeating-linear-gradient(90deg,rgba(190,235,255,.85) 0 6px,rgba(120,200,235,.7) 6px 14px);opacity:.78;animation:fall 1.6s linear infinite;
+ mask-image:linear-gradient(#000 70%,transparent);-webkit-mask-image:linear-gradient(#000 70%,transparent)}
+@keyframes fall{to{background-position:0 28px}}
+.cave-scene.flash .fall{filter:brightness(1.8)}
+.lants{position:absolute;left:0;right:0;top:6px;display:flex;justify-content:space-between;padding:0 24%;pointer-events:none}
+.lant{font-size:2.6rem;filter:grayscale(1) brightness(.6);transition:filter .6s}.lant.lit{filter:drop-shadow(0 0 12px #ffb300);animation:lantGlow 2s ease-in-out infinite}
+@keyframes lantGlow{50%{filter:drop-shadow(0 0 22px #ffcf40)}}
+.deco{position:absolute;pointer-events:none}.deco img{height:100%;width:auto}
+.deco.lantern{left:2%;top:4px;height:90px;font-size:3rem;display:flex;gap:6px}.deco.lantern::after{content:"";}
+.deco.flowers{right:4%;bottom:4px;height:80px;font-size:3rem}
+.rock-seat{position:absolute;left:14%;bottom:-18px;font-size:5rem;filter:saturate(.4)}
+.cave-wk{position:absolute;left:14%;bottom:6px;height:170px;display:flex;align-items:flex-end}
+.cave-wk .wk{--wk-h:170px}
+.cave-wk .staff-bar{right:-12px;height:92%;width:10px}
+.cave-wk .gear.hat{top:-6px;height:44px;font-size:2.6rem}.cave-wk .gear.robe{top:88px;height:50px;font-size:2.6rem}
+.cave-wk .gear.hat,.cave-wk .gear.robe{left:50%}
+.cmons{position:absolute;right:6%;bottom:6px;display:flex;gap:18px;align-items:flex-end}
+.cmon{background:none;border:none;font-family:inherit;display:flex;flex-direction:column;align-items:center;cursor:pointer;color:#fff;padding:4px}
+.cmon img{height:150px;width:auto;display:block;animation:cmonBob 3s ease-in-out infinite}.cmon b{background:rgba(0,0,0,.4);border-radius:10px;padding:0 10px;font-size:1.1rem}
+@keyframes cmonBob{50%{transform:translateY(-6px)}}
+#friends .friend{position:absolute;font-size:2.2rem;animation:friendBob 3.4s ease-in-out infinite}
+#friends .friend:nth-child(even){animation-delay:-1.4s}
+#friends .friend.new{animation:friendNew .7s ease-out,friendBob 3.4s ease-in-out .7s infinite}
+@keyframes friendBob{50%{transform:translateY(-5px)}}@keyframes friendNew{from{transform:scale(0) rotate(-90deg)}}
+.splash-layer{position:absolute;inset:0;pointer-events:none}
+.splash{position:absolute;bottom:12px;font-style:normal;font-size:1.6rem;animation:splash .9s ease-out forwards}
+@keyframes splash{to{transform:translateY(-70px);opacity:0}}
+.cave-tabs{position:sticky;top:0;z-index:15;display:flex;gap:10px;align-items:center;justify-content:center;width:min(96vw,1100px);padding:8px;background:rgba(255,250,240,.92);border-radius:20px}
+.cave-tabs .tab{font-family:inherit;font-size:1.5rem;font-weight:bold;min-height:60px;min-width:110px;border-radius:20px;border:4px solid #f1b31c;background:#fffaf0;color:#4a2c10}
+.cave-tabs .tab.on{background:#f1b31c;color:#5a3300}
+.cave-count{font-size:1.3rem;margin-left:12px}
+.cg{width:min(96vw,1100px);scroll-margin-top:84px}
+.cg h2{margin:6px 0;color:#c0392b;text-align:left;font-size:1.6rem;text-shadow:0 1px 0 #fff}
+.cave-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(205px,1fr));gap:10px}
+.cc{display:flex;gap:8px;align-items:stretch;background:rgba(255,255,255,.88);border-radius:22px;padding:8px;border:4px solid transparent}
+.cc.seen{border-color:#9ad98a}
+.cs{font-family:inherit;font-size:3rem;font-weight:bold;width:84px;min-height:90px;border-radius:18px;border:4px solid #f1b31c;background:#fffaf0;color:#c0392b;flex:none}
+.cw{font-family:inherit;flex:1;min-height:90px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;border:none;background:#fff6e0;border-radius:18px;font-size:1.15rem;color:#4a2c10;font-weight:bold;padding:2px}
+.cw img{height:62px;width:62px;object-fit:contain}.cw .emo-fb{font-size:2.8rem;height:62px;display:flex;align-items:center}
+.cs.bump,.cw.bump{animation:pop .4s}
+.hint{font-size:1.1rem;color:#6b5a3a;background:rgba(255,255,255,.8);border-radius:14px;padding:4px 12px}
+/* 彈窗：兌換、妖怪複習 */
+.modal{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;padding:14px}
+.modal-box{background:#fffaf0;border-radius:28px;padding:18px 22px;width:min(96vw,760px);max-height:94vh;overflow:auto;display:flex;flex-direction:column;align-items:center;gap:12px}
+.modal-box h2{margin:0;color:#c0392b}
+.shop-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;width:100%}
+.shop-item{font-family:inherit;display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 4px;border-radius:20px;border:5px solid #f1b31c;background:#fff6e0;color:#4a2c10;min-height:150px}
+.shop-item .si{height:70px;display:flex;align-items:center}.shop-item .si img{height:70px;width:auto}.shop-item .emo-fb{font-size:3.6rem}
+.shop-item b{font-size:1.1rem}.shop-item em{font-style:normal;font-size:1.1rem}
+.shop-item.sel{border-color:#27ae60;background:#eaffea}.shop-item.own{opacity:.6;border-color:#9ad98a}.shop-item.poor{filter:grayscale(.6)}
+.shop-ask{min-height:64px;font-size:1.3rem;display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center}
+.mq-mon{height:130px;width:auto}
+.modal .choices{width:100%}
+/* 金箍棒連擊 */
+.staff-mini{position:absolute;right:-10px;bottom:2px;width:9px;height:78%;border-radius:5px;background:linear-gradient(90deg,#b8801a,#ffe066 45%,#b8801a);box-shadow:0 0 0 2px #c0392b inset;transform-origin:50% 100%;transition:transform .35s cubic-bezier(.3,1.6,.5,1);pointer-events:none}
+.staff-mini.big{transform:scale(2.6,1.5);filter:drop-shadow(0 0 14px #ffd54a);z-index:5}
+.staff-fx{position:fixed;inset:0;z-index:30;pointer-events:none;display:flex;align-items:center;justify-content:center}
+.staff-fx i{display:block;width:34px;height:80vh;border-radius:17px;background:linear-gradient(90deg,#b8801a,#ffe066 45%,#b8801a);box-shadow:0 0 0 4px #c0392b inset,0 0 60px 18px rgba(255,214,74,.7);transform-origin:50% 50%;animation:staffFx 1.4s ease-out forwards}
+@keyframes staffFx{0%{transform:scaleY(.05) rotate(-40deg);opacity:0}30%{transform:scaleY(1) rotate(0);opacity:1}100%{transform:scaleY(1.05) rotate(20deg);opacity:0}}
+/* 唐僧念經挑戰 */
+.monk{display:flex;align-items:center;gap:14px}.monk .bubble{background:#fff;border-radius:20px;padding:8px 16px;font-size:1.4rem}
+.slots{display:flex;gap:12px}.slot{width:90px;height:90px;border:5px dashed #f1b31c;border-radius:20px;background:rgba(255,255,255,.85);font-size:3.2rem;color:#c0392b;display:flex;align-items:center;justify-content:center}
+.slot.fill{border-style:solid;border-color:#27ae60}
+.choice.used{opacity:.35;pointer-events:none}
+@media (max-width:900px){.shop-grid{grid-template-columns:repeat(2,1fr)}}
+
+/* wukong-stand 圖本身就拿著金箍棒，不再加疊一根；staff-bar 只留作標記（測試用） */
+.wk-m.fb::after{display:none}.staff-bar{display:none}

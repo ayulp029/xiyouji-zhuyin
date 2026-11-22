@@ -1,5 +1,5 @@
 {
- "notes": "每個 key 對應 audio/<key>.mp3；ElevenLabs 用 tts_text 生成，遊戲播檔時用 key。去重後 52 句，tts_text 共 357 字。注音符號 tts_text 為「符號，讀音提示」，兒歌/說明裡的注音符號已改寫成同音字（玻摸衣屋）送 TTS。遊戲沒有的檔會自動退回裝置語音。audio/ 內舊檔 爸爸、貓咪 目前第 1 關未使用，先保留。 「癢」送 TTS 時改寫成「養」；兒歌單獨注音用標準同音字（ㄨ用屋並加停頓），記憶圖詞「一」tts_text 用「衣」。單音 ㄧㄨㄅㄇ 的 mp3 仍是教育部錄音，不覆蓋。 第2關（五指山，v1.3.0-test）新增句子 level:2；單音 ㄚㄛㄆㄈ 同樣用教育部錄音。",
+ "notes": "每個 key 對應 audio/<key>.mp3；ElevenLabs 用 tts_text 生成，遊戲播檔時用 key。去重後 52 句，tts_text 共 357 字。注音符號 tts_text 為「符號，讀音提示」，兒歌/說明裡的注音符號已改寫成同音字（玻摸衣屋）送 TTS。遊戲沒有的檔會自動退回裝置語音。audio/ 內舊檔 爸爸、貓咪 目前第 1 關未使用，先保留。 「癢」送 TTS 時改寫成「養」；兒歌單獨注音用標準同音字（ㄨ用屋並加停頓），記憶圖詞「一」tts_text 用「衣」。單音 ㄧㄨㄅㄇ 的 mp3 仍是教育部錄音，不覆蓋。 第2關（五指山，v1.3.0-test）新增句子 level:2；單音 ㄚㄛㄆㄈ 同樣用教育部錄音。 水簾洞（v1.4.0-test）：37 個卡片詞與 29 個新單音（level:'cave'）。單音為教育部錄音；卡片詞為 Yui，喔喔叫 tts_text＝喔。喔。叫，鵝＝白鵝的鵝（刻意）。新 UI 句子（水簾洞好熱鬧！、念經挑戰提示等）沒有 mp3，走瀏覽器 TTS。",
  "lines": [
   {
    "key": "ㄧ",
@@ -574,6 +574,426 @@
    "used_as": "第2關單音；播的是教育部錄音（國語注音符號手冊-開放部件 CC BY 4.0），不是 AI",
    "kind": "symbol",
    "level": 2
+  },
+  {
+   "key": "爸爸",
+   "tts_text": "爸爸",
+   "used_as": "水簾洞點詞卡：say('爸爸')",
+   "kind": "cave-card",
+   "level": "cave"
+  },
+  {
+   "key": "大象",
+   "tts_text": "大象",
+   "used_as": "水簾洞點詞卡：say('大象')",
+   "kind": "cave-card",
+   "level": "cave"
+  },
+  {
+   "key": "兔子",
+   "tts_text": "兔子",
+   "used_as": "水簾洞點詞卡：say('兔子')",
+   "kind": "cave-card",
+   "level": "cave"
+  },
+  {
+   "key": "牛奶",
+   "tts_text": "牛奶",
+   "used_as": "水簾洞點詞卡：say('牛奶')",
+   "kind": "cave-card",
+   "level": "cave"
+  },
+  {
+   "key": "老虎",
+   "tts_text": "老虎",
+   "used_as": "水簾洞點詞卡：say('老虎')",
+   "kind": "cave-card",
+   "level": "cave"
+  },
+  {
+   "key": "狗狗",
+   "tts_text": "狗狗",
+   "used_as": "水簾洞點詞卡：say('狗狗')",
+   "kind": "cave-card",
+   "level": "cave"
+  },
+  {
+   "key": "恐龍",
+   "tts_text": "恐龍",
+   "used_as": "水簾洞點詞卡：say('恐龍')",
+   "kind": "cave-card",
+   "level": "cave"
+  },
+  {
+   "key": "蝴蝶",
+   "tts_text": "蝴蝶",
+   "used_as": "水簾洞點詞卡：say('蝴蝶')",
+   "kind": "cave-card",
+   "level": "cave"
+  },
+  {
+   "key": "雞蛋",
+   "tts_text": "雞蛋",
+   "used_as": "水簾洞點詞卡：say('雞蛋')",
+   "kind": "cave-card",
+   "level": "cave"
+  },
+  {
+   "key": "氣球",
+   "tts_text": "氣球",
+   "used_as": "水簾洞點詞卡：say('氣球')",
+   "kind": "cave-card",
+   "level": "cave"
+  },
+  {
+   "key": "西瓜",
+   "tts_text": "西瓜",
+   "used_as": "水簾洞點詞卡：say('西瓜')",
+   "kind": "cave-card",
+   "level": "cave"
+  },
+  {
+   "key": "蜘蛛",
+   "tts_text": "蜘蛛",
+   "used_as": "水簾洞點詞卡：say('蜘蛛')",
+   "kind": "cave-card",
+   "level": "cave"
+  },
+  {
+   "key": "車子",
+   "tts_text": "車子",
+   "used_as": "水簾洞點詞卡：say('車子')",
+   "kind": "cave-card",
+   "level": "cave"
+  },
+  {
+   "key": "獅子",
+   "tts_text": "獅子",
+   "used_as": "水簾洞點詞卡：say('獅子')",
+   "kind": "cave-card",
+   "level": "cave"
+  },
+  {
+   "key": "熱狗",
+   "tts_text": "熱狗",
+   "used_as": "水簾洞點詞卡：say('熱狗')",
+   "kind": "cave-card",
+   "level": "cave"
+  },
+  {
+   "key": "嘴巴",
+   "tts_text": "嘴巴",
+   "used_as": "水簾洞點詞卡：say('嘴巴')",
+   "kind": "cave-card",
+   "level": "cave"
+  },
+  {
+   "key": "草莓",
+   "tts_text": "草莓",
+   "used_as": "水簾洞點詞卡：say('草莓')",
+   "kind": "cave-card",
+   "level": "cave"
+  },
+  {
+   "key": "傘",
+   "tts_text": "傘",
+   "used_as": "水簾洞點詞卡：say('傘')",
+   "kind": "cave-card",
+   "level": "cave"
+  },
+  {
+   "key": "衣服",
+   "tts_text": "衣服",
+   "used_as": "水簾洞點詞卡：say('衣服')",
+   "kind": "cave-card",
+   "level": "cave"
+  },
+  {
+   "key": "雨傘",
+   "tts_text": "雨傘",
+   "used_as": "水簾洞點詞卡：say('雨傘')",
+   "kind": "cave-card",
+   "level": "cave"
+  },
+  {
+   "key": "喔喔叫",
+   "tts_text": "喔。喔。叫",
+   "used_as": "水簾洞點詞卡：say('喔喔叫')",
+   "kind": "cave-card",
+   "level": "cave"
+  },
+  {
+   "key": "鵝",
+   "tts_text": "白鵝的鵝",
+   "used_as": "水簾洞點詞卡：say('鵝')",
+   "kind": "cave-card",
+   "level": "cave"
+  },
+  {
+   "key": "椰子",
+   "tts_text": "椰子",
+   "used_as": "水簾洞點詞卡：say('椰子')",
+   "kind": "cave-card",
+   "level": "cave"
+  },
+  {
+   "key": "愛心",
+   "tts_text": "愛心",
+   "used_as": "水簾洞點詞卡：say('愛心')",
+   "kind": "cave-card",
+   "level": "cave"
+  },
+  {
+   "key": "杯子",
+   "tts_text": "杯子",
+   "used_as": "水簾洞點詞卡：say('杯子')",
+   "kind": "cave-card",
+   "level": "cave"
+  },
+  {
+   "key": "桃子",
+   "tts_text": "桃子",
+   "used_as": "水簾洞點詞卡：say('桃子')",
+   "kind": "cave-card",
+   "level": "cave"
+  },
+  {
+   "key": "玩偶",
+   "tts_text": "玩偶",
+   "used_as": "水簾洞點詞卡：say('玩偶')",
+   "kind": "cave-card",
+   "level": "cave"
+  },
+  {
+   "key": "安全帽",
+   "tts_text": "安全帽",
+   "used_as": "水簾洞點詞卡：say('安全帽')",
+   "kind": "cave-card",
+   "level": "cave"
+  },
+  {
+   "key": "糖果",
+   "tts_text": "糖果",
+   "used_as": "水簾洞點詞卡：say('糖果')",
+   "kind": "cave-card",
+   "level": "cave"
+  },
+  {
+   "key": "燈",
+   "tts_text": "燈",
+   "used_as": "水簾洞點詞卡：say('燈')",
+   "kind": "cave-card",
+   "level": "cave"
+  },
+  {
+   "key": "耳朵",
+   "tts_text": "耳朵",
+   "used_as": "水簾洞點詞卡：say('耳朵')",
+   "kind": "cave-card",
+   "level": "cave"
+  },
+  {
+   "key": "ㄉ",
+   "tts_text": "ㄉ",
+   "used_as": "水簾洞點注音；播的是教育部錄音（國語注音符號手冊-開放部件 CC BY 4.0），不是 AI",
+   "kind": "symbol",
+   "level": "cave"
+  },
+  {
+   "key": "ㄊ",
+   "tts_text": "ㄊ",
+   "used_as": "水簾洞點注音；播的是教育部錄音（國語注音符號手冊-開放部件 CC BY 4.0），不是 AI",
+   "kind": "symbol",
+   "level": "cave"
+  },
+  {
+   "key": "ㄋ",
+   "tts_text": "ㄋ",
+   "used_as": "水簾洞點注音；播的是教育部錄音（國語注音符號手冊-開放部件 CC BY 4.0），不是 AI",
+   "kind": "symbol",
+   "level": "cave"
+  },
+  {
+   "key": "ㄌ",
+   "tts_text": "ㄌ",
+   "used_as": "水簾洞點注音；播的是教育部錄音（國語注音符號手冊-開放部件 CC BY 4.0），不是 AI",
+   "kind": "symbol",
+   "level": "cave"
+  },
+  {
+   "key": "ㄍ",
+   "tts_text": "ㄍ",
+   "used_as": "水簾洞點注音；播的是教育部錄音（國語注音符號手冊-開放部件 CC BY 4.0），不是 AI",
+   "kind": "symbol",
+   "level": "cave"
+  },
+  {
+   "key": "ㄎ",
+   "tts_text": "ㄎ",
+   "used_as": "水簾洞點注音；播的是教育部錄音（國語注音符號手冊-開放部件 CC BY 4.0），不是 AI",
+   "kind": "symbol",
+   "level": "cave"
+  },
+  {
+   "key": "ㄏ",
+   "tts_text": "ㄏ",
+   "used_as": "水簾洞點注音；播的是教育部錄音（國語注音符號手冊-開放部件 CC BY 4.0），不是 AI",
+   "kind": "symbol",
+   "level": "cave"
+  },
+  {
+   "key": "ㄐ",
+   "tts_text": "ㄐ",
+   "used_as": "水簾洞點注音；播的是教育部錄音（國語注音符號手冊-開放部件 CC BY 4.0），不是 AI",
+   "kind": "symbol",
+   "level": "cave"
+  },
+  {
+   "key": "ㄑ",
+   "tts_text": "ㄑ",
+   "used_as": "水簾洞點注音；播的是教育部錄音（國語注音符號手冊-開放部件 CC BY 4.0），不是 AI",
+   "kind": "symbol",
+   "level": "cave"
+  },
+  {
+   "key": "ㄒ",
+   "tts_text": "ㄒ",
+   "used_as": "水簾洞點注音；播的是教育部錄音（國語注音符號手冊-開放部件 CC BY 4.0），不是 AI",
+   "kind": "symbol",
+   "level": "cave"
+  },
+  {
+   "key": "ㄓ",
+   "tts_text": "ㄓ",
+   "used_as": "水簾洞點注音；播的是教育部錄音（國語注音符號手冊-開放部件 CC BY 4.0），不是 AI",
+   "kind": "symbol",
+   "level": "cave"
+  },
+  {
+   "key": "ㄔ",
+   "tts_text": "ㄔ",
+   "used_as": "水簾洞點注音；播的是教育部錄音（國語注音符號手冊-開放部件 CC BY 4.0），不是 AI",
+   "kind": "symbol",
+   "level": "cave"
+  },
+  {
+   "key": "ㄕ",
+   "tts_text": "ㄕ",
+   "used_as": "水簾洞點注音；播的是教育部錄音（國語注音符號手冊-開放部件 CC BY 4.0），不是 AI",
+   "kind": "symbol",
+   "level": "cave"
+  },
+  {
+   "key": "ㄖ",
+   "tts_text": "ㄖ",
+   "used_as": "水簾洞點注音；播的是教育部錄音（國語注音符號手冊-開放部件 CC BY 4.0），不是 AI",
+   "kind": "symbol",
+   "level": "cave"
+  },
+  {
+   "key": "ㄗ",
+   "tts_text": "ㄗ",
+   "used_as": "水簾洞點注音；播的是教育部錄音（國語注音符號手冊-開放部件 CC BY 4.0），不是 AI",
+   "kind": "symbol",
+   "level": "cave"
+  },
+  {
+   "key": "ㄘ",
+   "tts_text": "ㄘ",
+   "used_as": "水簾洞點注音；播的是教育部錄音（國語注音符號手冊-開放部件 CC BY 4.0），不是 AI",
+   "kind": "symbol",
+   "level": "cave"
+  },
+  {
+   "key": "ㄙ",
+   "tts_text": "ㄙ",
+   "used_as": "水簾洞點注音；播的是教育部錄音（國語注音符號手冊-開放部件 CC BY 4.0），不是 AI",
+   "kind": "symbol",
+   "level": "cave"
+  },
+  {
+   "key": "ㄩ",
+   "tts_text": "ㄩ",
+   "used_as": "水簾洞點注音；播的是教育部錄音（國語注音符號手冊-開放部件 CC BY 4.0），不是 AI",
+   "kind": "symbol",
+   "level": "cave"
+  },
+  {
+   "key": "ㄜ",
+   "tts_text": "ㄜ",
+   "used_as": "水簾洞點注音；播的是教育部錄音（國語注音符號手冊-開放部件 CC BY 4.0），不是 AI",
+   "kind": "symbol",
+   "level": "cave"
+  },
+  {
+   "key": "ㄝ",
+   "tts_text": "ㄝ",
+   "used_as": "水簾洞點注音；播的是教育部錄音（國語注音符號手冊-開放部件 CC BY 4.0），不是 AI",
+   "kind": "symbol",
+   "level": "cave"
+  },
+  {
+   "key": "ㄞ",
+   "tts_text": "ㄞ",
+   "used_as": "水簾洞點注音；播的是教育部錄音（國語注音符號手冊-開放部件 CC BY 4.0），不是 AI",
+   "kind": "symbol",
+   "level": "cave"
+  },
+  {
+   "key": "ㄟ",
+   "tts_text": "ㄟ",
+   "used_as": "水簾洞點注音；播的是教育部錄音（國語注音符號手冊-開放部件 CC BY 4.0），不是 AI",
+   "kind": "symbol",
+   "level": "cave"
+  },
+  {
+   "key": "ㄠ",
+   "tts_text": "ㄠ",
+   "used_as": "水簾洞點注音；播的是教育部錄音（國語注音符號手冊-開放部件 CC BY 4.0），不是 AI",
+   "kind": "symbol",
+   "level": "cave"
+  },
+  {
+   "key": "ㄡ",
+   "tts_text": "ㄡ",
+   "used_as": "水簾洞點注音；播的是教育部錄音（國語注音符號手冊-開放部件 CC BY 4.0），不是 AI",
+   "kind": "symbol",
+   "level": "cave"
+  },
+  {
+   "key": "ㄢ",
+   "tts_text": "ㄢ",
+   "used_as": "水簾洞點注音；播的是教育部錄音（國語注音符號手冊-開放部件 CC BY 4.0），不是 AI",
+   "kind": "symbol",
+   "level": "cave"
+  },
+  {
+   "key": "ㄣ",
+   "tts_text": "ㄣ",
+   "used_as": "水簾洞點注音；播的是教育部錄音（國語注音符號手冊-開放部件 CC BY 4.0），不是 AI",
+   "kind": "symbol",
+   "level": "cave"
+  },
+  {
+   "key": "ㄤ",
+   "tts_text": "ㄤ",
+   "used_as": "水簾洞點注音；播的是教育部錄音（國語注音符號手冊-開放部件 CC BY 4.0），不是 AI",
+   "kind": "symbol",
+   "level": "cave"
+  },
+  {
+   "key": "ㄥ",
+   "tts_text": "ㄥ",
+   "used_as": "水簾洞點注音；播的是教育部錄音（國語注音符號手冊-開放部件 CC BY 4.0），不是 AI",
+   "kind": "symbol",
+   "level": "cave"
+  },
+  {
+   "key": "ㄦ",
+   "tts_text": "ㄦ",
+   "used_as": "水簾洞點注音；播的是教育部錄音（國語注音符號手冊-開放部件 CC BY 4.0），不是 AI",
+   "kind": "symbol",
+   "level": "cave"
   }
  ]
 }

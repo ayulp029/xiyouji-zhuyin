@@ -6,6 +6,7 @@
 - `index.html`：進入點，`data-version`、`app-version`、所有 `?v=` 要一起改（避免 iPad 快取）
 - `data.js`：`LEVEL1`/`LEVEL2`（`LEVELS` 依地圖順序）、圖檔對照 IMG、`AUDIO_FILES`（預載清單）。關卡差異（句子、對比題、T5 題幹、結局 `ending`、妖怪圖 `monster.faces`）全在關卡資料，game.js 用 `L` 讀取，新增關卡照 LEVEL2 格式加；前一關 cleared 才解鎖下一站
 - `game.js`：畫面流程（開始、地圖、教學 8 步、休息點、對戰、過關）
+- `cave.js`：v1.4.0 水簾洞（37 音卡片、兌換、洞裡妖怪複習）、地圖隊伍、金箍棒連擊、唐僧念經挑戰；測試 `SHOT_DIR=… node tests/e2e-cave.mjs`。設計見 design/growth-system.md；存檔仍是 `xiyou-zhuyin-v1`（levels[].peaches、cave:{heard,spent,owned,allHeard}）
 - `audio.js`：`say()` 優先播 `audio/<句子>.mp3`，沒有檔退回瀏覽器 TTS；一次只念一句
 - `audio/lines.json`：第 1 關全部台詞（key = say 的字串；tts_text 給 ElevenLabs）
 - `style.css`、`save.js`（localStorage 存檔）、`img/`
