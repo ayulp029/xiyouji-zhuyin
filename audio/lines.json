@@ -718,7 +718,7 @@
   {
    "key": "喔喔叫",
    "tts_text": "喔。喔。叫",
-   "used_as": "水簾洞點詞卡：say('喔喔叫')",
+   "used_as": "第 2 關例詞；水簾洞卡片自 v1.4.1-test 改為蘑菇，本檔保留不刪",
    "kind": "cave-card",
    "level": "cave"
   },
@@ -993,6 +993,13 @@
    "tts_text": "ㄦ",
    "used_as": "水簾洞點注音；播的是教育部錄音（國語注音符號手冊-開放部件 CC BY 4.0），不是 AI",
    "kind": "symbol",
+   "level": "cave"
+  },
+  {
+   "key": "蘑菇",
+   "tts_text": "蘑菇",
+   "used_as": "水簾洞點詞卡：say('蘑菇')",
+   "kind": "cave-card",
    "level": "cave"
   }
  ]

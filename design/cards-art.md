@@ -27,6 +27,7 @@ Freddy 2026-11-22 決定：37 張卡片圖以 Microsoft Fluent UI Emoji 3D 圖�
 | ㄘ | 草莓 | Strawberry | `strawberry_3d.png` |
 | ㄙ | 傘 | Umbrella | `umbrella_3d.png` |
 | ㄨ | 烏龜 | Turtle | `turtle_3d.png` |
+| ㄛ | 蘑菇 | Mushroom | `mushroom_3d.png` |
 | ㄩ | 雨傘 | Umbrella with rain drops | `umbrella_with_rain_drops_3d.png` |
 | ㄝ | 椰子 | Coconut | `coconut_3d.png` |
 | ㄞ | 愛心 | Red heart | `red_heart_3d.png` |
@@ -43,7 +44,6 @@ Freddy 2026-11-22 決定：37 張卡片圖以 Microsoft Fluent UI Emoji 3D 圖�
 | ㄇ | 媽媽 | Woman/Default | 替代：長髮女性頭像，不是專畫「媽媽」 |
 | ㄧ | 衣服 | T-shirt | 替代：短袖上衣，五歲一看就懂是衣服 |
 | ㄚ | 阿公 | Old man/Default | 替代：白髮老人頭像，夠清楚 |
-| ㄛ | 喔喔叫 | Rooster | 替代：公雞（詞仍是「喔喔叫」，圖用公雞很清楚） |
 | ㄜ | 鵝 | Swan | 替代：白天鵝。圖庫 Goose 是棕色、容易被認成鴨子；天鵝更接近台灣小孩認知的白鵝。詞不改。 |
 | ㄟ | 杯子 | Cup with straw | 替代：吸管杯（比茶杯、咖啡杯更接近小孩日常的杯子）。不採用看起來像酒杯的 tumbler。 |
 | ㄡ | 玩偶 | Teddy bear | 替代：泰迪熊，夠清楚代表玩偶 |
