@@ -1,5 +1,5 @@
 {
- "notes": "每個 key 對應 audio/<key>.mp3；ElevenLabs 用 tts_text 生成，遊戲播檔時用 key。去重後 52 句，tts_text 共 357 字。注音符號 tts_text 為「符號，讀音提示」，兒歌/說明裡的注音符號已改寫成同音字（玻摸衣屋）送 TTS。遊戲沒有的檔會自動退回裝置語音。audio/ 內舊檔 爸爸、貓咪 目前第 1 關未使用，先保留。 「癢」送 TTS 時改寫成「養」；兒歌單獨注音用標準同音字（ㄨ用屋並加停頓），記憶圖詞「一」tts_text 用「衣」。單音 ㄧㄨㄅㄇ 的 mp3 仍是教育部錄音，不覆蓋。 第2關（五指山，v1.3.0-test）新增句子 level:2；單音 ㄚㄛㄆㄈ 同樣用教育部錄音。 水簾洞（v1.4.0-test）：37 個卡片詞與 29 個新單音（level:'cave'）。單音為教育部錄音；卡片詞為 Yui，喔喔叫 tts_text＝喔。喔。叫，鵝＝白鵝的鵝（刻意）。新 UI 句子（水簾洞好熱鬧！、念經挑戰提示等）沒有 mp3，走瀏覽器 TTS。",
+ "notes": "每個 key 對應 audio/<key>.mp3；ElevenLabs 用 tts_text 生成，遊戲播檔時用 key。去重後 52 句，tts_text 共 357 字。注音符號 tts_text 為「符號，讀音提示」，兒歌/說明裡的注音符號已改寫成同音字（玻摸衣屋）送 TTS。遊戲沒有的檔會自動退回裝置語音。audio/ 內舊檔 爸爸、貓咪 目前第 1 關未使用，先保留。 「癢」送 TTS 時改寫成「養」；兒歌單獨注音用標準同音字（ㄨ用屋並加停頓），記憶圖詞「一」tts_text 用「衣」。單音 ㄧㄨㄅㄇ 的 mp3 仍是教育部錄音，不覆蓋。 第2關（五指山，v1.3.0-test）新增句子 level:2；單音 ㄚㄛㄆㄈ 同樣用教育部錄音。 水簾洞（v1.4.0-test）：37 個卡片詞與 29 個新單音（level:'cave'）。單音為教育部錄音；卡片詞為 Yui，喔喔叫 tts_text＝喔。喔。叫，鵝的詞檔改為只唸「鵝」（不要白鵝），水簾洞播放為教育部 ㄜ×3＋詞（v1.4.3-test）。新 UI 句子（水簾洞好熱鬧！、念經挑戰提示等）沒有 mp3，走瀏覽器 TTS。",
  "lines": [
   {
    "key": "ㄧ",
@@ -407,7 +407,8 @@
    "key": "飛機",
    "tts_text": "飛機",
    "kind": "word",
-   "level": 2
+   "level": 2,
+   "used_as": "第2關例詞／兒歌／T5 仍 say('飛機') 播詞檔；水簾洞點詞卡 say(['ㄈ','ㄈ','ㄈ','飛機'])，不把注音三次做進飛機.mp3"
   },
   {
    "key": "ㄅ只有一個小勾勾，ㄆ下面有兩隻交叉的腳。",
@@ -578,217 +579,217 @@
   {
    "key": "爸爸",
    "tts_text": "爸爸",
-   "used_as": "水簾洞點詞卡：say('爸爸')",
+   "used_as": "水簾洞點詞卡：say([符號×3, '爸爸'])，詞檔仍是本 key",
    "kind": "cave-card",
    "level": "cave"
   },
   {
    "key": "大象",
    "tts_text": "大象",
-   "used_as": "水簾洞點詞卡：say('大象')",
+   "used_as": "水簾洞點詞卡：say([符號×3, '大象'])，詞檔仍是本 key",
    "kind": "cave-card",
    "level": "cave"
   },
   {
    "key": "兔子",
    "tts_text": "兔子",
-   "used_as": "水簾洞點詞卡：say('兔子')",
+   "used_as": "水簾洞點詞卡：say([符號×3, '兔子'])，詞檔仍是本 key",
    "kind": "cave-card",
    "level": "cave"
   },
   {
    "key": "牛奶",
    "tts_text": "牛奶",
-   "used_as": "水簾洞點詞卡：say('牛奶')",
+   "used_as": "水簾洞點詞卡：say([符號×3, '牛奶'])，詞檔仍是本 key",
    "kind": "cave-card",
    "level": "cave"
   },
   {
    "key": "老虎",
    "tts_text": "老虎",
-   "used_as": "水簾洞點詞卡：say('老虎')",
+   "used_as": "水簾洞點詞卡：say([符號×3, '老虎'])，詞檔仍是本 key",
    "kind": "cave-card",
    "level": "cave"
   },
   {
    "key": "狗狗",
    "tts_text": "狗狗",
-   "used_as": "水簾洞點詞卡：say('狗狗')",
+   "used_as": "水簾洞點詞卡：say([符號×3, '狗狗'])，詞檔仍是本 key",
    "kind": "cave-card",
    "level": "cave"
   },
   {
    "key": "恐龍",
    "tts_text": "恐龍",
-   "used_as": "水簾洞點詞卡：say('恐龍')",
+   "used_as": "水簾洞點詞卡：say([符號×3, '恐龍'])，詞檔仍是本 key",
    "kind": "cave-card",
    "level": "cave"
   },
   {
    "key": "蝴蝶",
    "tts_text": "蝴蝶",
-   "used_as": "水簾洞點詞卡：say('蝴蝶')",
+   "used_as": "水簾洞點詞卡：say([符號×3, '蝴蝶'])，詞檔仍是本 key",
    "kind": "cave-card",
    "level": "cave"
   },
   {
    "key": "雞蛋",
    "tts_text": "雞蛋",
-   "used_as": "水簾洞點詞卡：say('雞蛋')",
+   "used_as": "水簾洞點詞卡：say([符號×3, '雞蛋'])，詞檔仍是本 key",
    "kind": "cave-card",
    "level": "cave"
   },
   {
    "key": "氣球",
    "tts_text": "氣球",
-   "used_as": "水簾洞點詞卡：say('氣球')",
+   "used_as": "水簾洞點詞卡：say([符號×3, '氣球'])，詞檔仍是本 key",
    "kind": "cave-card",
    "level": "cave"
   },
   {
    "key": "西瓜",
    "tts_text": "西瓜",
-   "used_as": "水簾洞點詞卡：say('西瓜')",
+   "used_as": "水簾洞點詞卡：say([符號×3, '西瓜'])，詞檔仍是本 key",
    "kind": "cave-card",
    "level": "cave"
   },
   {
    "key": "蜘蛛",
    "tts_text": "蜘蛛",
-   "used_as": "水簾洞點詞卡：say('蜘蛛')",
+   "used_as": "水簾洞點詞卡：say([符號×3, '蜘蛛'])，詞檔仍是本 key",
    "kind": "cave-card",
    "level": "cave"
   },
   {
    "key": "車子",
    "tts_text": "車子",
-   "used_as": "水簾洞點詞卡：say('車子')",
+   "used_as": "水簾洞點詞卡：say([符號×3, '車子'])，詞檔仍是本 key",
    "kind": "cave-card",
    "level": "cave"
   },
   {
    "key": "獅子",
    "tts_text": "獅子",
-   "used_as": "水簾洞點詞卡：say('獅子')",
+   "used_as": "水簾洞點詞卡：say([符號×3, '獅子'])，詞檔仍是本 key",
    "kind": "cave-card",
    "level": "cave"
   },
   {
    "key": "熱狗",
    "tts_text": "熱狗",
-   "used_as": "水簾洞點詞卡：say('熱狗')",
+   "used_as": "水簾洞點詞卡：say([符號×3, '熱狗'])，詞檔仍是本 key",
    "kind": "cave-card",
    "level": "cave"
   },
   {
    "key": "嘴巴",
    "tts_text": "嘴巴",
-   "used_as": "水簾洞點詞卡：say('嘴巴')",
+   "used_as": "水簾洞點詞卡：say([符號×3, '嘴巴'])，詞檔仍是本 key",
    "kind": "cave-card",
    "level": "cave"
   },
   {
    "key": "草莓",
    "tts_text": "草莓",
-   "used_as": "水簾洞點詞卡：say('草莓')",
+   "used_as": "水簾洞點詞卡：say([符號×3, '草莓'])，詞檔仍是本 key",
    "kind": "cave-card",
    "level": "cave"
   },
   {
    "key": "傘",
    "tts_text": "傘",
-   "used_as": "水簾洞點詞卡：say('傘')",
+   "used_as": "水簾洞點詞卡：say([符號×3, '傘'])，詞檔仍是本 key",
    "kind": "cave-card",
    "level": "cave"
   },
   {
    "key": "衣服",
    "tts_text": "衣服",
-   "used_as": "水簾洞點詞卡：say('衣服')",
+   "used_as": "水簾洞點詞卡：say([符號×3, '衣服'])，詞檔仍是本 key",
    "kind": "cave-card",
    "level": "cave"
   },
   {
    "key": "雨傘",
    "tts_text": "雨傘",
-   "used_as": "水簾洞點詞卡：say('雨傘')",
+   "used_as": "水簾洞點詞卡：say([符號×3, '雨傘'])，詞檔仍是本 key",
    "kind": "cave-card",
    "level": "cave"
   },
   {
    "key": "喔喔叫",
    "tts_text": "喔。喔。叫",
-   "used_as": "第 2 關例詞；水簾洞卡片自 v1.4.1-test 改為蘑菇，本檔保留不刪",
+   "used_as": "水簾洞點詞卡：say([符號×3, '喔喔叫'])，詞檔仍是本 key",
    "kind": "cave-card",
    "level": "cave"
   },
   {
    "key": "鵝",
-   "tts_text": "白鵝的鵝",
-   "used_as": "水簾洞點詞卡：say('鵝')",
+   "tts_text": "鵝",
+   "used_as": "水簾洞點詞卡：say([符號×3, '鵝'])，詞檔仍是本 key",
    "kind": "cave-card",
    "level": "cave"
   },
   {
    "key": "椰子",
    "tts_text": "椰子",
-   "used_as": "水簾洞點詞卡：say('椰子')",
+   "used_as": "水簾洞點詞卡：say([符號×3, '椰子'])，詞檔仍是本 key",
    "kind": "cave-card",
    "level": "cave"
   },
   {
    "key": "愛心",
    "tts_text": "愛心",
-   "used_as": "水簾洞點詞卡：say('愛心')",
+   "used_as": "水簾洞點詞卡：say([符號×3, '愛心'])，詞檔仍是本 key",
    "kind": "cave-card",
    "level": "cave"
   },
   {
    "key": "杯子",
    "tts_text": "杯子",
-   "used_as": "水簾洞點詞卡：say('杯子')",
+   "used_as": "水簾洞點詞卡：say([符號×3, '杯子'])，詞檔仍是本 key",
    "kind": "cave-card",
    "level": "cave"
   },
   {
    "key": "桃子",
    "tts_text": "桃子",
-   "used_as": "水簾洞點詞卡：say('桃子')",
+   "used_as": "水簾洞點詞卡：say([符號×3, '桃子'])，詞檔仍是本 key",
    "kind": "cave-card",
    "level": "cave"
   },
   {
    "key": "玩偶",
    "tts_text": "玩偶",
-   "used_as": "水簾洞點詞卡：say('玩偶')",
+   "used_as": "水簾洞點詞卡：say([符號×3, '玩偶'])，詞檔仍是本 key",
    "kind": "cave-card",
    "level": "cave"
   },
   {
    "key": "安全帽",
    "tts_text": "安全帽",
-   "used_as": "水簾洞點詞卡：say('安全帽')",
+   "used_as": "水簾洞點詞卡：say([符號×3, '安全帽'])，詞檔仍是本 key",
    "kind": "cave-card",
    "level": "cave"
   },
   {
    "key": "糖果",
    "tts_text": "糖果",
-   "used_as": "水簾洞點詞卡：say('糖果')",
+   "used_as": "水簾洞點詞卡：say([符號×3, '糖果'])，詞檔仍是本 key",
    "kind": "cave-card",
    "level": "cave"
   },
   {
    "key": "燈",
    "tts_text": "燈",
-   "used_as": "水簾洞點詞卡：say('燈')",
+   "used_as": "水簾洞點詞卡：say([符號×3, '燈'])，詞檔仍是本 key",
    "kind": "cave-card",
    "level": "cave"
   },
   {
    "key": "耳朵",
    "tts_text": "耳朵",
-   "used_as": "水簾洞點詞卡：say('耳朵')",
+   "used_as": "水簾洞點詞卡：say([符號×3, '耳朵'])，詞檔仍是本 key",
    "kind": "cave-card",
    "level": "cave"
   },
@@ -998,7 +999,7 @@
   {
    "key": "蘑菇",
    "tts_text": "蘑菇",
-   "used_as": "水簾洞點詞卡：say('蘑菇')",
+   "used_as": "水簾洞點詞卡：say([符號×3, '蘑菇'])，詞檔仍是本 key",
    "kind": "cave-card",
    "level": "cave"
   }

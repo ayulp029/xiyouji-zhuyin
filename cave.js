@@ -66,7 +66,7 @@ function caveScreen(){
   setPhase('cave'); wireImgFb();
   $('#back').onclick=mapScreen; $('#shopbtn').onclick=shopOpen;
   $$('.cs').forEach(b=>b.onclick=()=>hearSym(b.parentNode.dataset.s, b));
-  $$('.cw').forEach(b=>b.onclick=()=>{ const c=cardOf(b.parentNode.dataset.s); say(c.w); b.classList.remove('bump'); void b.offsetWidth; b.classList.add('bump'); });
+  $$('.cw').forEach(b=>b.onclick=()=>{ const c=cardOf(b.parentNode.dataset.s); say([c.s,c.s,c.s,c.w]); b.classList.remove('bump'); void b.offsetWidth; b.classList.add('bump'); });
   $$('.cave-tabs .tab').forEach(t=>t.onclick=()=>{ $$('.cave-tabs .tab').forEach(x=>x.classList.toggle('on',x===t)); const g=$('#g-'+t.dataset.g); if(g) g.scrollIntoView({behavior:RM.matches?'auto':'smooth',block:'start'}); });
   $$('.cmon').forEach(b=>b.onclick=()=>monsterQuiz(b.dataset.m));
   if(all) $$('.cc').forEach(c=>c.classList.add('seen'));
