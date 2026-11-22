@@ -1,15 +1,16 @@
 # 西遊記注音大冒險
 
-給 5 歲、沒學過注音的孩子在 iPad Safari 用手指玩的注音遊戲。目前只有第 1 關（花果山，ㄧㄨㄅㄇ）。孩子不太會讀字，重要的話一定要唸出來。企劃：/workspace/zhuyin-game/design/plan-v3.md
+給 5 歲、沒學過注音的孩子在 iPad Safari 用手指玩的注音遊戲。目前有第 1 關（花果山，ㄧㄨㄅㄇ）與第 2 關（五指山，ㄚㄛㄆㄈ，複習ㄅㄇㄨ，妖怪岩岩）。孩子不太會讀字，重要的話一定要唸出來。企劃：/workspace/zhuyin-game/design/plan-v3.md
 
 ## 檔案地圖
 - `index.html`：進入點，`data-version`、`app-version`、所有 `?v=` 要一起改（避免 iPad 快取）
-- `data.js`：第 1 關資料、圖檔對照 IMG、`AUDIO_FILES`（預載清單）
+- `data.js`：`LEVEL1`/`LEVEL2`（`LEVELS` 依地圖順序）、圖檔對照 IMG、`AUDIO_FILES`（預載清單）。關卡差異（句子、對比題、T5 題幹、結局 `ending`、妖怪圖 `monster.faces`）全在關卡資料，game.js 用 `L` 讀取，新增關卡照 LEVEL2 格式加；前一關 cleared 才解鎖下一站
 - `game.js`：畫面流程（開始、地圖、教學 8 步、休息點、對戰、過關）
 - `audio.js`：`say()` 優先播 `audio/<句子>.mp3`，沒有檔退回瀏覽器 TTS；一次只念一句
 - `audio/lines.json`：第 1 關全部台詞（key = say 的字串；tts_text 給 ElevenLabs）
 - `style.css`、`save.js`（localStorage 存檔）、`img/`
-- `tests/e2e.mjs`、`PROBLEMS.md`（審視紀錄）
+- `tests/e2e.mjs`（第 1 關）、`tests/e2e-level2.mjs`（第 2 關：地圖解鎖→教學→對戰→結局，`SHOT_DIR=… node tests/e2e-level2.mjs`）、`PROBLEMS.md`（審視紀錄）
+- `incoming/level2/rock-{normal,laugh,cheeky,tame}.png`：岩岩（毛毛 v1，穩定路徑，遊戲直接讀；換圖只要覆蓋這 4 個檔。其他 incoming 內容不要提交）
 
 ## 怎麼測
 `node tests/e2e.mjs`（需 playwright；約 2.5 分鐘）。截圖在 `screenshots/`（已 gitignore）。
@@ -27,3 +28,11 @@
 - 語速由模型內自然放慢（`[speaking slowly and gently]`），不再用 ffmpeg atempo；句間仍是 400ms
 
 - 第 1 關發音修正（v1.2.3-test）：「癢」念成「養」（ㄧㄤˇ）；兒歌單獨注音改標準同音字（玻摸衣屋，ㄨ用屋並加停頓）；記憶圖詞「一」的 tts_text 用「衣」。單音 ㄧㄨㄅㄇ 仍是教育部錄音；聲音仍是 Yui + eleven_v3 + `[speaking slowly and gently]`。
+
+## 第 2 關：五指山（v1.3.0-test）
+- 句子：佛祖壓住悟空，悟空想吃葡萄。（壓＝ㄧㄚ、空＝ㄎㄨㄥ、吃＝ㄔ，是對的）。例詞每音兩個；記憶圖詞 ㄚ阿公 ㄛ喔喔叫（say 喔喔）ㄆ盤子 ㄈ飛機；對比 ㄅ vs ㄆ；拼音教學用 爬 髮 佛。
+- 單音 ㄚㄛㄆㄈ：教育部手冊錄音（F25/F26/F2/F4），手冊 https://language.moe.gov.tw/001/Upload/files/site_content/M0001/juyin/index.html （CC BY 4.0）。其餘新台詞為 Yui（見 `audio/lines.json` 中 `level:2`）。
+- 結局（與第 1 關不同）：打完岩岩認輸、被「看我的金箍棒！」打中消失 → `rescue()`：山＋山頂符咒、唐僧唸「悟空，師父來救你了。」→ 揭符咒（符飛走、山搖）唸「我把山上的符咒揭開。」→ 悟空跳出來唸「師父！我出來了！」→「五指山過關！」＋印章／貼紙（emoji 暫代）。不用「石頭頭變成乖猴子了」。
+- 地圖：第 1 關過關後第 2 站可點；下一個該去的站發亮跳動並唸「點一點發亮的○○」。
+- 還缺的圖（目前 emoji／CSS 暫代）：五指山背景（沿用花果山草地）、對戰背景、五指山／符咒圖（⛰️📜）、山下的悟空（用 stand 縮小半透明）、第 2 關印章與貼紙、記憶圖 ㄚㄛㄆㄈ（memory-*.png）、例詞圖（阿公 阿姨 喔喔叫 噢 葡萄 螃蟹 房子 風箏）、拼音圖（爬 髮 佛 婆 八 媽）、地圖第 2 站專屬圖示；岩岩可能重畫（Freddy 覺得像馬鈴薯）。
+- 還沒有錄音檔的詞（會退回瀏覽器語音）：阿姨、喔喔叫、噢、風箏（只出現在例詞資料，目前不會被念）。

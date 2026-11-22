@@ -1,5 +1,6 @@
-// 西遊記注音大冒險：第 1 關
-const L = LEVEL1;
+// 西遊記注音大冒險：多關卡（L = 目前這一關的資料，見 data.js）
+let L = LEVEL1;
+const pickLevel=lv=>{ L=lv; };
 const app = document.getElementById('app');
 const APP_VERSION = document.documentElement.dataset.version || '';
 const RM = window.matchMedia ? matchMedia('(prefers-reduced-motion: reduce)') : {matches:false};
@@ -7,6 +8,7 @@ const D = ms=>RM.matches ? Math.round(ms * .35) : ms; // 減少動態時縮短�
 const pic = (src, alt, cls='pic')=>src?`<img class="${cls}" src="${src}" alt="${alt||''}" draggable="false">`:'';
 const exPic = w=>{ const x=L.examples.find(e=>e.w===w); return IMG.ex[w]?pic(IMG.ex[w],w):`<span class="emo">${x?x.e:''}</span>`; };
 const blPic = c=>{ const b=L.blends.find(x=>x.ch===c); return IMG.blend[c]?pic(IMG.blend[c],c):`<span class="emo">${b.e}</span>`; };
+const bgNow=()=>L.bg||IMG.bg;
 function setBg(src){ document.body.style.backgroundImage = src?`url(${src})`:''; }
 if(IMG.bg) document.body.style.backgroundImage=`url(${IMG.bg})`;
 
@@ -82,9 +84,9 @@ function flyHair(from, to){
 
 // ===== 妖怪（float 待機浮動 / act 動作 / 表情圖切換）=====
 function monHTML(face='normal', cls='', id='mon'){
-  return `<div class="mon ${cls}" id="${id}"><div class="mon-float"><div class="mon-act"><img class="mon-img" src="${IMG.monster[face]||L.monster.img}" alt="${L.monster.name}" draggable="false"></div></div></div>`;
+  return `<div class="mon ${cls}" id="${id}"><div class="mon-float"><div class="mon-act"><img class="mon-img" src="${L.monster.faces[face]||L.monster.img}" alt="${L.monster.name}" draggable="false"></div></div></div>`;
 }
-function monFace(node, face){ if(node&&IMG.monster[face]) node.querySelector('.mon-img').src=IMG.monster[face]; }
+function monFace(node, face){ if(node&&L.monster.faces[face]) node.querySelector('.mon-img').src=L.monster.faces[face]; }
 const MON_ACTS=['roar','hit','mock','defeat','tamein'];
 function monAnim(node, act, ms){ if(!node) return Promise.resolve(); const a=node.querySelector('.mon-act');
   a.classList.remove(...MON_ACTS); void a.offsetWidth; a.classList.add(act); node.dataset.busy=act;
@@ -109,20 +111,23 @@ function startScreen(){
 }
 
 // ===== 取經地圖 =====
+// 第 i 站：第 1 站一直開；其他站要「有資料」且前一關過關才開
+const isOpen=i=>!!LEVELS[i] && (i===0 || levelState(LEVELS[i-1].id).cleared);
 function mapScreen(){
-  stopAll(); const st=levelState(1);
-  setBg(IMG.bg);
-  const btns=STATIONS.map((n,i)=>`<button class="station ${i===0?'open':''}" data-i="${i}" ${IMG.map?`style="left:${MAP_POS[i][0]}%;top:${MAP_POS[i][1]}%"`:''}>
-    ${i===0?'🐵':'🔒'} ${n}${i===0?`<br><small>${st.learned?'📖 已學':''}${st.cleared?' 🏅':''}</small>`:''}</button>`).join('');
+  stopAll(); setBg(IMG.bg);
+  const target=LEVELS.findIndex((lv,i)=>isOpen(i) && !levelState(lv.id).cleared); // 下一個該去的站
+  const btns=STATIONS.map((n,i)=>{ const open=isOpen(i), st=open?levelState(LEVELS[i].id):{};
+    return `<button class="station ${open?'open':''} ${i===target?'target':''}" data-i="${i}" ${IMG.map?`style="left:${MAP_POS[i][0]}%;top:${MAP_POS[i][1]}%"`:''}>
+    ${open?'🐵':'🔒'} ${n}${open?`<br><small>${st.learned?'📖 已學':''}${st.cleared?' 🏅':''}</small>`:''}</button>`; }).join('');
   el(`<h1>取經地圖</h1>`+(IMG.map?`<div class="mapimg" style="background-image:url(${IMG.map})">${btns}</div>`:`<div class="map">${btns}</div>`));
   setPhase('map');
-  $('.station.open').onclick=()=>{ say('花果山'); levelMenu(); };
-  later(()=>say('點一點發亮的花果山'), 500);
-  later(()=>{ const o=$('.station.open'); if(o) o.classList.add('nudge'); }, 5000);
+  $$('.station.open').forEach(b=>b.onclick=()=>{ const lv=LEVELS[+b.dataset.i]; pickLevel(lv); say(lv.name); levelMenu(); });
+  if(target>=0){ later(()=>say('點一點發亮的'+LEVELS[target].name), 500);
+    later(()=>{ const o=$('.station.target'); if(o) o.classList.add('nudge'); }, target>0?600:5000); }
 }
 function levelMenu(){
-  const st=levelState(1);
-  el(`<h1>第 1 關｜花果山</h1>${monHTML('normal','solo')}
+  const st=levelState(L.id);
+  el(`<h1>第 ${L.id} 關｜${L.name}</h1>${monHTML('normal','solo')}
   <div class="row"><button class="btn blue big" id="learn">📖 教學場</button>
   ${st.learned?'<button class="btn red big" id="fight">🐒 對戰場</button>':''}</div>
   <button class="btn gray" id="back">◀ 地圖</button>`);
@@ -138,7 +143,7 @@ function levelMenu(){
 const STEPS=[stepPicture,stepSentence,stepWords,stepChars,stepSymbols,stepContrast,stepBlend,stepSong];
 let stepIdx=0;
 function frame(title, body, voice){
-  setBg(IMG.bg); el(`<div class="row" style="flex-wrap:nowrap">${IMG.tangseng?pic(IMG.tangseng.talk,'唐僧','wukong sm" id="ts'):''}${wkHTML('point','sm','wkt')}<div class="step tag">教學 ${stepIdx+1} / 8　${title}</div></div>${body}
+  setBg(bgNow()); el(`<div class="row" style="flex-wrap:nowrap">${IMG.tangseng?pic(IMG.tangseng.talk,'唐僧','wukong sm" id="ts'):''}${wkHTML('point','sm','wkt')}<div class="step tag">教學 ${stepIdx+1} / 8　${title}</div></div>${body}
    <div class="say" id="say">${voice||''}</div>
    <div class="row"><button class="btn gray" id="home">🗺️</button><button class="btn green" id="next" style="visibility:hidden">下一步 ▶</button></div>`);
   setPhase('teach-'+(stepIdx+1));
@@ -148,10 +153,10 @@ const showNext=()=>{ const t=$('#ts'); if(t&&IMG.tangseng) t.src=IMG.tangseng.pr
 function tutorial(i){ stepIdx=i; if(i>=STEPS.length) return restPoint(); STEPS[i](); }
 
 function stepPicture(){
-  frame('看圖說話', `<div class="panel">${monHTML('normal','solo')}
+  frame('看圖說話', `<div class="panel">${L.pictureHero==='monster'?monHTML('normal','solo'):`<div class="emo" style="font-size:6.5rem">${L.pictureHero}</div>`}
     <div class="row">${L.sceneItems.map(x=>`<button class="card" data-w="${x.w}"><span class="emo">${x.e}</span><small>${x.w}</small></button>`).join('')}</div></div>`,
-    '唐僧：你看，小石猴在做什麼呀？');
-  const sid=sceneId; say(['你看，小石猴在做什麼呀？', L.sentenceText]).then(()=>{ if(alive(sid)) showNext(); });
+    '唐僧：'+L.pictureAsk);
+  const sid=sceneId; say([L.pictureAsk, L.sentenceText]).then(()=>{ if(alive(sid)) showNext(); });
   $$('.card').forEach(b=>b.onclick=()=>{ b.classList.add('done'); say(b.dataset.w); });
   later(showNext,6000);
 }
@@ -163,29 +168,29 @@ function stepSentence(){
 }
 function stepWords(){
   frame('找詞', `<div class="panel sent">${L.sentence.map(([c])=>c).join('')}</div>
-   <div class="row">${L.words.map(w=>`<button class="card" data-w="${w.w}"><span class="emo">${w.e}</span>${w.w}</button>`).join('')}</div>`, '找一找：「木頭」在哪裡？「鼻子」在哪裡？');
-  say(['找一找，木頭在哪裡？','鼻子在哪裡？']); let n=0;
+   <div class="row">${L.words.map(w=>`<button class="card" data-w="${w.w}"><span class="emo">${w.e}</span>${w.w}</button>`).join('')}</div>`, `找一找：「${L.words[0].w}」在哪裡？「${L.words[1].w}」在哪裡？`);
+  say([`找一找，${L.words[0].w}在哪裡？`,`${L.words[1].w}在哪裡？`]); let n=0;
   $$('.card').forEach(b=>b.onclick=()=>{ if(!b.classList.contains('done')){ b.classList.add('done','pop'); sfx.ding(); n++; } say(b.dataset.w); if(n>=2) showNext(); });
 }
 function stepChars(){
-  frame('找字', `<div class="row">${L.words.map(w=>`<button class="card" data-w="${w.w}" data-c="${w.ch}"><span style="font-size:5rem">${w.ch}</span><small>${w.w}</small></button>`).join('')}</div>`, '木頭的「木」，鼻子的「鼻」。');
-  say(['木頭的木','鼻子的鼻']); let n=0;
+  frame('找字', `<div class="row">${L.words.map(w=>`<button class="card" data-w="${w.w}" data-c="${w.ch}"><span style="font-size:5rem">${w.ch}</span><small>${w.w}</small></button>`).join('')}</div>`, L.words.map(w=>`${w.w}的「${w.ch}」`).join('，')+'。');
+  say(L.words.map(w=>w.w+'的'+w.ch)); let n=0;
   $$('.card').forEach(b=>b.onclick=()=>{ if(!b.classList.contains('done')){ b.classList.add('done'); n++; } say(b.dataset.w+'的'+b.dataset.c); if(n>=2) showNext(); });
 }
 function stepSymbols(){
-  const order=['ㄇ','ㄨ','ㄅ','ㄧ'];
-  frame('認符號', `<div class="step tag">木 = ㄇ ㄨˋ　鼻 = ㄅ ㄧˊ</div><div class="row">${order.map(s=>`<button class="card" data-s="${s}">${IMG.memo[s]?`<span class="memo"><img src="${IMG.memo[s]}" alt=""><b>${s}</b></span>`:`<span class="sym">${s}</span><span class="emo" style="opacity:.6">${L.memo[s].e}</span>`}<small>${L.memo[s].w}</small></button>`).join('')}</div>`,
+  const order=L.symOrder;
+  frame('認符號', `<div class="step tag">${L.symTag}</div><div class="row">${order.map(s=>`<button class="card" data-s="${s}">${IMG.memo[s]?`<span class="memo"><img src="${IMG.memo[s]}" alt=""><b>${s}</b></span>`:`<span class="sym">${s}</span><span class="emo" style="opacity:.6">${L.memo[s].e}</span>`}<small>${L.memo[s].w}</small></button>`).join('')}</div>`,
    '點一點每個符號，聽它的聲音');
   const seen=new Set(); say('點一點每個符號，聽它的聲音');
   $$('.card').forEach(b=>b.onclick=()=>{ const s=b.dataset.s; b.classList.add('done','pop'); seen.add(s);
-    $('#say').textContent=`這是 ${s}，${s}～${L.memo[s].w}的 ${s}`; say([s, L.memo[s].say]); if(seen.size>=4) showNext(); });
+    $('#say').textContent=`這是 ${s}，${s}～${L.memo[s].w}的 ${s}`; say([s, L.memo[s].say]); if(seen.size>=order.length) showNext(); });
 }
 function stepContrast(){
-  frame('比一比', `<div class="row">${shuffle(['ㄅ','ㄇ']).map(s=>`<button class="choice" data-s="${s}">${s}</button>`).join('')}</div>`,
-   'ㄅ 有一個小勾勾，ㄇ 是一扇門，兩邊都有柱子。哪個是門？');
-  say(['ㄅ有一個小勾勾，ㄇ是一扇門。','哪個是門？']);
-  $$('.choice').forEach(b=>b.onclick=()=>{ if(b.dataset.s==='ㄇ'){ sfx.ding(); b.classList.add('glow'); burst(b); wkCorrect($('#wkt')); say(['ㄇ','門']); showNext(); }
-    else { sfx.boop(); b.classList.add('shake'); later(()=>b.classList.remove('shake'),500); wkConfused($('#wkt')); say('再看看，門有兩根柱子喔'); } });
+  const C=L.contrast;
+  frame('比一比', `<div class="row">${shuffle(C.opts).map(s=>`<button class="choice" data-s="${s}">${s}</button>`).join('')}</div>`, C.hint);
+  say(C.voice);
+  $$('.choice').forEach(b=>b.onclick=()=>{ if(b.dataset.s===C.ans){ sfx.ding(); b.classList.add('glow'); burst(b); wkCorrect($('#wkt')); say(C.win); showNext(); }
+    else { sfx.boop(); b.classList.add('shake'); later(()=>b.classList.remove('shake'),500); wkConfused($('#wkt')); say(C.retry); } });
 }
 function stepBlend(){
   const todo=[L.blends[0],L.blends[1],L.blends[2]]; let k=0;
@@ -223,8 +228,8 @@ function stepSong(){
      lines[i].style.background='#ffe066'; lines[i].classList.add('pop'); await sayUpTo(say(L.song[i][1]), 6000); lines[i].style.background=''; } if(alive(sid)) showNext(); })();
 }
 function restPoint(){
-  setLevel(1,{learned:true}); addSticker('花果山學會了');
-  el(`<div class="row">${IMG.tangseng?pic(IMG.tangseng.rest,'唐僧','wukong'):''}${wkHTML('happy')}</div><h1>教學完成！</h1>${IMG.sticker?pic(IMG.sticker,'貼紙','stamp'):'<div class="stamp">🏵️</div>'}<div class="say">得到一張「學會了」貼紙！要繼續去打妖怪，還是下次再來？</div>
+  setLevel(L.id,{learned:true}); addSticker(L.stickerName);
+  el(`<div class="row">${IMG.tangseng?pic(IMG.tangseng.rest,'唐僧','wukong'):''}${wkHTML('happy')}</div><h1>教學完成！</h1>${L.sticker?pic(L.sticker,'貼紙','stamp'):'<div class="stamp">🏵️</div>'}<div class="say">得到一張「學會了」貼紙！要繼續去打妖怪，還是下次再來？</div>
    <div class="row"><button class="btn red big" id="fight">🐒 去打妖怪</button><button class="btn gray big" id="later">🏠 下次再來</button></div>`);
   setPhase('rest');
   say(['教學完成了，你好棒！','要繼續去打妖怪，還是下次再來？']);
@@ -234,7 +239,7 @@ function restPoint(){
 // ===== 對戰場（方案 B：答對＝多一個悟空分身，答錯不扣）=====
 let qi=0, clones=0, wrongs=0, cur=null, locked=false;
 function battleStart(){
-  qi=0; clones=0; setBg(IMG.bgBattle||IMG.bg);
+  qi=0; clones=0; setBg(L.bgBattle||bgNow());
   el(`<div class="say">${L.monster.intro}</div>${monHTML('cheeky','solo pop')}<button class="btn red big" id="go">開始！</button>`);
   setPhase('battle-intro'); monIdle($('#mon'));
   say(L.monster.intro); $('#go').onclick=()=>{ sfx.ding(); nextQ(); };
@@ -277,7 +282,7 @@ window.addEventListener('resize',()=>{ clearTimeout(relayout); relayout=setTimeo
 function promptFor(q){
   if(q.t==='T1'||q.t==='T2') return {text:'哪一個是？', voice:['哪一個是', q.ans], show:'再聽一次'};
   if(q.t==='T3'){ const ex=L.examples.find(e=>e.w===q.ex); return {text:`「${ex.w}」是什麼開頭的音？`, voice:[ex.w,'是什麼開頭的音？'], show:exPic(ex.w)+' '+ex.w}; }
-  if(q.t==='T5') return {text:'哪一個是門的 ㄇ？', voice:['哪一個是門的','ㄇ'], show:'🚪'};
+  if(q.t==='T5') return L.t5;
   if(q.t==='T6'){ const b=L.blends.find(x=>x.ch===q.blend); return {text:`${b.a} ${b.b} 拼起來是什麼？`, voice:[b.a,b.b,'拼起來是什麼？'], show:`<span class="sym" style="font-size:3rem">${b.a}${b.b}</span>`}; }
   if(q.t==='T7'){ const b=L.blends.find(x=>x.ch===q.blend); return {text:`「${b.ch}」要怎麼拼？`, voice:[b.ch,'要怎麼拼？'], show:blPic(b.ch)+' '+b.ch}; }
 }
@@ -326,7 +331,7 @@ async function pick(b){
   }
 }
 async function victory(){
-  setLevel(1,{cleared:true, stamps:2});
+  setLevel(L.id,{cleared:true, stamps:2});
   el(`<h1 id="vt">集滿 ${clones} 個分身！</h1>${stageHTML('stand',true)}<div class="say" id="say">分身們，出來吧！</div><div class="row" id="end"></div>`);
   setPhase('victory-clones'); const sid=sceneId, wkN=$('#wkq'), mon=$('#mon');
   // 1) 拔毫毛，分身依序彈出圍成一圈
@@ -337,7 +342,7 @@ async function victory(){
   $('#arena').classList.add('spin'); $('#say').textContent='分身們手牽手轉圈圈～'; sfx.win();
   monFace(mon,'cheeky'); await Promise.all([sayUpTo(say([L.song[0][1],L.song[1][1]]), D(7000)), wait(D(2500))]); if(!alive(sid)) return; // 語音失敗時畫面也至少停一下
   // 2) 妖怪投降
-  monFace(mon,'laugh'); monAnim(mon,'mock',900); $('#say').textContent='石頭頭：'+L.monster.surrender;
+  monFace(mon,'laugh'); monAnim(mon,'mock',900); $('#say').textContent=L.monster.name+'：'+L.monster.surrender;
   await Promise.all([sayUpTo(say(L.monster.surrender), D(6000)), wait(D(2800))]); if(!alive(sid)) return;
   // 3) 最後一棒：被打中 → 旋轉縮小 → 煙霧消失
   $('#say').textContent='悟空：看我的金箍棒！';
@@ -346,6 +351,7 @@ async function victory(){
   setPhase('defeat'); sfx.poof();
   monAnim(mon,'defeat',1000); await wait(D(700)); const c=center(mon.querySelector('.mon-img')); poofAt(c.x, c.y, 220);
   await wait(D(500)); await sayUpTo(v, 1500); if(!alive(sid)) return;
+  if(L.ending==='rescue') return rescue(sid);
   // 4) 勝利：石猴變乖（tame）+ 蓋印章
   monFace(mon,'tame'); monAnim(mon,'tamein',700); $('#arena').classList.remove('spin');
   sfx.win(); burst($('#arena'),'⭐',10);
@@ -355,5 +361,32 @@ async function victory(){
   $('#again').onclick=battleStart; $('#map').onclick=mapScreen;
   setPhase('victory');
   say('花果山過關！');
+}
+// ===== 第 2 關結局：唐僧揭開山頂符咒，把悟空從五指山下救出來 =====
+// 山、符咒、山下的悟空目前用 emoji／CSS 暫代（缺圖清單見 CLAUDE.md）
+async function rescue(prevSid){
+  setLevel(L.id,{cleared:true, stamps:2}); addSticker(L.clearSticker||L.name+'過關了');
+  el(`<h1 id="vt">五指山</h1>
+   <div class="rescue"><div class="rs-ts">${pic(IMG.tangseng.talk,'唐僧','wukong')}</div>
+    <div class="mtn" id="mtn"><span class="mtn-e">⛰️</span><span class="fu" id="fu">📜</span><div class="trap" id="trap">${wkHTML('stand','sm','wkr')}</div></div></div>
+   <div class="say" id="say">唐僧：悟空，師父來救你了。</div><div class="row" id="end"></div>`);
+  setPhase('rescue'); const sid=sceneId, wkN=$('#wkr'), ts=$('.rs-ts img');
+  await Promise.all([sayUpTo(say('悟空，師父來救你了。'), D(5000)), wait(D(2200))]); if(!alive(sid)) return;
+  // 揭符咒：符咒飛走、山搖一搖
+  ts.src=IMG.tangseng.praise; $('#say').textContent='唐僧：我把山上的符咒揭開。';
+  $('#fu').classList.add('off'); $('#mtn').classList.add('quake'); sfx.whoosh();
+  await Promise.all([sayUpTo(say('我把山上的符咒揭開。'), D(5000)), wait(D(1800))]); if(!alive(sid)) return;
+  // 悟空跳出來
+  $('#trap').classList.add('out'); wkPose(wkN,'happy'); sfx.poof();
+  const mc=center($('#mtn')); poofAt(mc.x, mc.y+mc.h*.2, 200); burst($('#mtn'),'⭐',10); sfx.win();
+  $('#say').textContent='悟空：師父！我出來了！';
+  wkAnim(wkN,'jump',800);
+  await Promise.all([sayUpTo(say('師父！我出來了！'), D(5000)), wait(D(1800))]); if(!alive(sid)) return;
+  // 過關
+  $('#vt').textContent='五指山過關！'; $('#say').textContent='悟空得救了！蓋上印章，得到貼紙！';
+  $('#end').innerHTML=`${L.stamp?`<img class="stamp mini" src="${L.stamp}" alt="印章">`:'<div class="stamp mini">🏮⛰️</div>'}<div class="stamp mini">🏵️</div><button class="btn red" id="again">🔁 再玩一次</button><button class="btn blue" id="map">🗺️ 地圖</button>`;
+  $('#again').onclick=battleStart; $('#map').onclick=mapScreen;
+  setPhase('victory');
+  say('五指山過關！');
 }
 startScreen();

@@ -1,5 +1,5 @@
 {
- "notes": "每個 key 對應 audio/<key>.mp3；ElevenLabs 用 tts_text 生成，遊戲播檔時用 key。去重後 52 句，tts_text 共 357 字。注音符號 tts_text 為「符號，讀音提示」，兒歌/說明裡的注音符號已改寫成同音字（玻摸衣屋）送 TTS。遊戲沒有的檔會自動退回裝置語音。audio/ 內舊檔 爸爸、貓咪 目前第 1 關未使用，先保留。 「癢」送 TTS 時改寫成「養」；兒歌單獨注音用標準同音字（ㄨ用屋並加停頓），記憶圖詞「一」tts_text 用「衣」。單音 ㄧㄨㄅㄇ 的 mp3 仍是教育部錄音，不覆蓋。",
+ "notes": "每個 key 對應 audio/<key>.mp3；ElevenLabs 用 tts_text 生成，遊戲播檔時用 key。去重後 52 句，tts_text 共 357 字。注音符號 tts_text 為「符號，讀音提示」，兒歌/說明裡的注音符號已改寫成同音字（玻摸衣屋）送 TTS。遊戲沒有的檔會自動退回裝置語音。audio/ 內舊檔 爸爸、貓咪 目前第 1 關未使用，先保留。 「癢」送 TTS 時改寫成「養」；兒歌單獨注音用標準同音字（ㄨ用屋並加停頓），記憶圖詞「一」tts_text 用「衣」。單音 ㄧㄨㄅㄇ 的 mp3 仍是教育部錄音，不覆蓋。 第2關（五指山，v1.3.0-test）新增句子 level:2；單音 ㄚㄛㄆㄈ 同樣用教育部錄音。",
  "lines": [
   {
    "key": "ㄧ",
@@ -312,6 +312,268 @@
    "tts_text": "花果山過關！",
    "used_as": "過關畫面",
    "kind": "praise"
+  },
+  {
+   "key": "五指山",
+   "tts_text": "五指山",
+   "kind": "map",
+   "level": 2
+  },
+  {
+   "key": "點一點發亮的五指山",
+   "tts_text": "點一點發亮的五指山",
+   "kind": "map",
+   "level": 2
+  },
+  {
+   "key": "你看，悟空怎麼了呀？",
+   "tts_text": "你看，悟空怎麼了呀？",
+   "kind": "instruction",
+   "level": 2
+  },
+  {
+   "key": "佛祖壓住悟空，悟空想吃葡萄。",
+   "tts_text": "佛祖壓住悟空，悟空想吃葡萄。",
+   "kind": "dialogue",
+   "level": 2
+  },
+  {
+   "key": "悟空",
+   "tts_text": "悟空",
+   "kind": "word",
+   "level": 2
+  },
+  {
+   "key": "大山",
+   "tts_text": "大山",
+   "kind": "word",
+   "level": 2
+  },
+  {
+   "key": "葡萄",
+   "tts_text": "葡萄",
+   "kind": "word",
+   "level": 2
+  },
+  {
+   "key": "找一找，佛祖在哪裡？",
+   "tts_text": "找一找，佛祖在哪裡？",
+   "kind": "instruction",
+   "level": 2
+  },
+  {
+   "key": "葡萄在哪裡？",
+   "tts_text": "葡萄在哪裡？",
+   "kind": "instruction",
+   "level": 2
+  },
+  {
+   "key": "佛祖",
+   "tts_text": "佛祖",
+   "kind": "word",
+   "level": 2
+  },
+  {
+   "key": "佛祖的佛",
+   "tts_text": "佛祖的佛",
+   "kind": "instruction",
+   "level": 2
+  },
+  {
+   "key": "葡萄的葡",
+   "tts_text": "葡萄的葡",
+   "kind": "instruction",
+   "level": 2
+  },
+  {
+   "key": "阿公",
+   "tts_text": "阿公",
+   "kind": "word",
+   "level": 2
+  },
+  {
+   "key": "喔喔",
+   "tts_text": "喔。喔",
+   "kind": "word",
+   "level": 2
+  },
+  {
+   "key": "盤子",
+   "tts_text": "盤子",
+   "kind": "word",
+   "level": 2
+  },
+  {
+   "key": "飛機",
+   "tts_text": "飛機",
+   "kind": "word",
+   "level": 2
+  },
+  {
+   "key": "ㄅ只有一個小勾勾，ㄆ下面有兩隻交叉的腳。",
+   "tts_text": "玻只有一個小勾勾，坡下面有兩隻交叉的腳。",
+   "kind": "instruction",
+   "level": 2
+  },
+  {
+   "key": "哪個是爬的ㄆ？",
+   "tts_text": "哪個是爬的坡？",
+   "kind": "instruction",
+   "level": 2
+  },
+  {
+   "key": "再看看，ㄆ有交叉的腳喔",
+   "tts_text": "再看看，坡有交叉的腳喔",
+   "kind": "instruction",
+   "level": 2
+  },
+  {
+   "key": "爬",
+   "tts_text": "爬",
+   "kind": "word",
+   "level": 2
+  },
+  {
+   "key": "ㄚㄚㄚ，阿公笑哈哈",
+   "tts_text": "啊。啊。啊，阿公笑哈哈",
+   "kind": "song",
+   "level": 2
+  },
+  {
+   "key": "ㄛㄛㄛ，公雞喔喔叫",
+   "tts_text": "喔。喔。喔，公雞喔喔叫",
+   "kind": "song",
+   "level": 2
+  },
+  {
+   "key": "ㄆㄆㄆ，葡萄一串串",
+   "tts_text": "坡。坡。坡，葡萄一串串",
+   "kind": "song",
+   "level": 2
+  },
+  {
+   "key": "ㄈㄈㄈ，飛機飛高高",
+   "tts_text": "佛。佛。佛，飛機飛高高",
+   "kind": "song",
+   "level": 2
+  },
+  {
+   "key": "髮",
+   "tts_text": "頭髮的髮",
+   "kind": "word",
+   "level": 2
+  },
+  {
+   "key": "佛",
+   "tts_text": "佛",
+   "kind": "word",
+   "level": 2
+  },
+  {
+   "key": "婆",
+   "tts_text": "婆",
+   "kind": "word",
+   "level": 2
+  },
+  {
+   "key": "八",
+   "tts_text": "八",
+   "kind": "word",
+   "level": 2
+  },
+  {
+   "key": "媽",
+   "tts_text": "媽",
+   "kind": "word",
+   "level": 2
+  },
+  {
+   "key": "螃蟹",
+   "tts_text": "螃蟹",
+   "kind": "word",
+   "level": 2
+  },
+  {
+   "key": "房子",
+   "tts_text": "房子",
+   "kind": "word",
+   "level": 2
+  },
+  {
+   "key": "哪一個是飛機的",
+   "tts_text": "哪一個是飛機的",
+   "kind": "instruction",
+   "level": 2
+  },
+  {
+   "key": "我是五指山的岩岩！悟空想出來？先陪我玩注音遊戲！",
+   "tts_text": "我是五指山的岩岩！悟空想出來？先陪我玩注音遊戲！",
+   "kind": "dialogue",
+   "level": 2
+  },
+  {
+   "key": "哇，好多個悟空！山都搖起來了！好啦好啦，我認輸了！",
+   "tts_text": "哇，好多個悟空！山都搖起來了！好啦好啦，我認輸了！",
+   "kind": "dialogue",
+   "level": 2
+  },
+  {
+   "key": "悟空，師父來救你了。",
+   "tts_text": "悟空，師父來救你了。",
+   "kind": "dialogue",
+   "level": 2
+  },
+  {
+   "key": "我把山上的符咒揭開。",
+   "tts_text": "我把山上的符咒揭開。",
+   "kind": "dialogue",
+   "level": 2
+  },
+  {
+   "key": "師父！我出來了！",
+   "tts_text": "師父！我出來了！",
+   "kind": "dialogue",
+   "level": 2
+  },
+  {
+   "key": "五指山過關！",
+   "tts_text": "五指山過關！",
+   "kind": "dialogue",
+   "level": 2
+  },
+  {
+   "key": "看！發光的那個就是答案喔",
+   "tts_text": "看！發光的那個就是答案喔",
+   "kind": "oops",
+   "level": 2
+  },
+  {
+   "key": "ㄚ",
+   "tts_text": "ㄚ，啊",
+   "used_as": "第2關單音；播的是教育部錄音（國語注音符號手冊-開放部件 CC BY 4.0），不是 AI",
+   "kind": "symbol",
+   "level": 2
+  },
+  {
+   "key": "ㄛ",
+   "tts_text": "ㄛ，喔",
+   "used_as": "第2關單音；播的是教育部錄音（國語注音符號手冊-開放部件 CC BY 4.0），不是 AI",
+   "kind": "symbol",
+   "level": 2
+  },
+  {
+   "key": "ㄆ",
+   "tts_text": "ㄆ，坡",
+   "used_as": "第2關單音；播的是教育部錄音（國語注音符號手冊-開放部件 CC BY 4.0），不是 AI",
+   "kind": "symbol",
+   "level": 2
+  },
+  {
+   "key": "ㄈ",
+   "tts_text": "ㄈ，佛",
+   "used_as": "第2關單音；播的是教育部錄音（國語注音符號手冊-開放部件 CC BY 4.0），不是 AI",
+   "kind": "symbol",
+   "level": 2
   }
  ]
 }

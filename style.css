@@ -194,3 +194,17 @@ img.stamp.mini{width:96px;height:96px}div.stamp.mini{font-size:3rem}
 @keyframes fadeOut{to{opacity:0}}
 @keyframes fadeIn{from{opacity:0}}
 @keyframes fadeIO{0%,100%{opacity:0}20%,80%{opacity:1}}
+
+/* ===== 第 2 關結局：五指山（emoji 暫代美術） ===== */
+.rescue{display:flex;align-items:flex-end;justify-content:center;gap:24px;margin:8px 0}
+.mtn{position:relative;display:inline-block;line-height:1}
+.mtn-e{font-size:clamp(150px,30vh,240px);display:block}
+.mtn.quake{animation:quake .5s 3}
+@keyframes quake{25%{transform:translateX(-8px) rotate(-2deg)}75%{transform:translateX(8px) rotate(2deg)}}
+.fu{position:absolute;left:50%;top:2%;font-size:clamp(40px,8vh,64px);transform:translateX(-50%) rotate(-8deg)}
+.fu.off{animation:fuOff 1.4s ease-in forwards}
+@keyframes fuOff{to{transform:translate(120px,-160px) rotate(540deg) scale(.4);opacity:0}}
+.trap{position:absolute;left:50%;bottom:-6%;transform:translateX(-50%) scale(.7);opacity:.55;filter:grayscale(.6)}
+.trap.out{animation:trapOut .9s ease-out forwards}
+@keyframes trapOut{to{transform:translate(110%,0) scale(1);opacity:1;filter:none}}
+@media (prefers-reduced-motion:reduce){ .mtn.quake,.fu.off,.trap.out{animation-duration:.01s;animation-iteration-count:1} }
