@@ -1,8 +1,8 @@
-// 第 2 關（五指山）E2E：地圖鎖定／解鎖 → 教學 8 步 → 對戰 → 救出悟空結局
+// 第 2 關（五指山）E2E：10 站地圖鎖定／解鎖 → 開場旁白 → 教學 8 步 → 爬山 8 格＋山頂 2 題＋念經挑戰 → 救出悟空結局 → 地圖唐僧加入
 // 用法：node tests/e2e.mjs
 //   需要 playwright：專案外安裝即可，例如  npm i -g playwright  或  PLAYWRIGHT_MODULE=/某處/node_modules/playwright node tests/e2e.mjs
 //   瀏覽器：預設用 playwright 內建 chromium；找不到時改用 CHROME_PATH 或系統的 google-chrome / chromium
-// 產出：screenshots/01-start.png … 08-victory.png、flow.webm（橫向 1024x768），以及直向 768x1024 的補充截圖
+// 產出：SHOT_DIR（預設 screenshots/）下的 l2-*.png、level2-flow.png（爬山中：唐僧在山路上、岩岩可見）、screenshot-level2.png
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -61,7 +61,8 @@ function watch(page, tag){
   page.on('pageerror', e=>errors.push(`[${tag}] pageerror: ${e.message}`));
   // ERR_ABORTED = 圖片切換時瀏覽器自己取消舊請求，不算錯誤
   page.on('requestfailed', r=>{ if(!/favicon/.test(r.url()) && !/ERR_ABORTED/.test(r.failure()?.errorText || '')) errors.push(`[${tag}] requestfailed: ${r.url()} ${r.failure()?.errorText}`); });
-  page.on('response', r=>{ if(r.status() >= 400 && !/\/audio\//.test(r.url())) errors.push(`[${tag}] HTTP ${r.status()}: ${r.url()}`); });
+  // 例外：audio/（沒檔退回 TTS）、img/map|shop|cards/（<img data-fb/data-emo> 缺圖備援，美術未到）
+  page.on('response', r=>{ if(r.status() >= 400 && !/\/audio\//.test(r.url()) && !/\/img\/(map|shop|cards)\//.test(r.url())) errors.push(`[${tag}] HTTP ${r.status()}: ${r.url()}`); });
 }
 const phase = (page, p, timeout = 30000)=>page.waitForFunction(x=>document.body.dataset.phase === x, p, { timeout });
 const shot = (page, name)=>page.screenshot({ path: path.join(OUT, name) }).then(()=>log('截圖', name));
@@ -112,6 +113,9 @@ await page.goto(URL0); await phase(page, 'start');
 await page.evaluate(()=>localStorage.clear()); await page.reload(); await phase(page, 'start');
 await page.click('#go'); await phase(page, 'map');
 check(await page.$$eval('.station.open', n=>n.length) === 1, '未過第1關只有 1 站開啟');
+const stTxt = await page.$$eval('.station', n=>n.map(x=>x.textContent));
+check(stTxt.length === 10, '地圖共 10 站（實際 ' + stTxt.length + '）');
+check(stTxt.some(t=>t.includes('號山')) && !stTxt.some(t=>/黃風嶺|平頂山/.test(t)), '有號山、沒有黃風嶺／平頂山');
 // 2) 過第 1 關：第 2 站可進並發亮
 await setSave({ levels: { 1: { learned: true, cleared: true, stamps: 2 } }, stickers: [] });
 await page.reload(); await phase(page, 'start'); await page.click('#go'); await phase(page, 'map');
@@ -119,6 +123,9 @@ check(await page.$$eval('.station.open', n=>n.length) === 2, '過第1關後第 2
 check((await page.textContent('.station.target')).includes('五指山'), '發亮的是五指山');
 await page.click('.station.target'); await phase(page, 'menu');
 check((await page.textContent('h1')).includes('五指山'), '關卡標題五指山');
+const INTRO = '這一關，你陪唐僧去救悟空。';
+check((await page.textContent('#intro')) === INTRO, '選單出現開場旁白句（畫面）');
+check(await page.evaluate(t=>LEVEL2.intro === t && AUDIO_FILES.includes(t), INTRO), '旁白句在 LEVEL2.intro 與 AUDIO_FILES');
 await page.click('#learn');
 
 // 3) 教學 8 步
@@ -128,7 +135,8 @@ for(let i = 1; i <= 8; i++){
   if(i === 2) await page.waitForTimeout(800);
   if(i === 3) check((await page.$$eval('.card', n=>n.map(x=>x.textContent).join())).includes('佛祖'), '找詞：佛祖／葡萄');
   if(i === 3 || i === 4 || i === 5){ for(const c of await page.$$('.card')){ await c.click(); await page.waitForTimeout(250); } }
-  if(i === 5) await shot(page, 'l2-05-symbols.png');
+  if(i === 5){ const lab = await page.$$eval('.card small', n=>n.map(x=>x.textContent));
+    check(lab.includes('葡萄') && !lab.includes('盤子') && lab.includes('摩托車'), 'ㄆ 記憶圖是葡萄（不是盤子）、ㄛ 是摩托車：' + lab.join('/')); await shot(page, 'l2-05-symbols.png'); }
   if(i === 6){ await page.click('.choice[data-s="ㄅ"]'); await page.waitForTimeout(300); await page.click('.choice[data-s="ㄆ"]'); }
   if(i === 7){ for(let k = 0; k < 3; k++){ await page.waitForSelector('#da'); await page.click('#da'); await page.click('#db'); await page.waitForTimeout(2100); } await shot(page, 'l2-07-blend.png'); }
   if(i === 8) await shot(page, 'l2-08-song.png');
@@ -137,15 +145,36 @@ for(let i = 1; i <= 8; i++){
 await phase(page, 'rest'); await shot(page, 'l2-rest.png');
 check((await page.evaluate(k=>JSON.parse(localStorage.getItem(k)).levels[2].learned, SAVE)) === true, '第2關 learned 存檔');
 await page.click('#fight'); await phase(page, 'battle-intro'); await page.waitForTimeout(300); await page.click('#go'); await phase(page, 'battle-q');
-// 4) 對戰 10 題
+// 4) 對戰：爬山 8 格（唐僧每答對往上一格，答錯不倒退）→ 山頂 2 題 → 念經挑戰
+const tsBox = ()=>page.evaluate(()=>{ const r = document.querySelector('#cts').getBoundingClientRect(); return { y: Math.round(r.top), pos: document.querySelector('#cts').dataset.pos }; });
+let prev = null;
 for(let k = 0; k < 10; k++){
   await phase(page, 'battle-q');
-  await page.waitForFunction(n=>document.querySelector('#cnt')?.textContent === String(n), k);
+  await page.waitForFunction(n=>document.querySelector('#cnt')?.textContent === String(n) && document.body.dataset.qi === String(n), k);
+  const t = await tsBox(), pos = Math.min(k, 8);
+  check(t.pos === String(pos), `第 ${k + 1} 題唐僧在第 ${pos} 格`);
+  if(prev && k <= 8) check(t.y < prev.y, `第 ${k} 格唐僧比上一格高（${prev.y} → ${t.y}）`);
+  if(k >= 9) check(prev && t.y === prev.y, `山頂第 ${k - 7} 題唐僧已在頂、不再移動`);
+  check((await page.textContent('.count')).includes(k < 8 ? '往上爬' : '山頂第'), '計數文字：' + (await page.textContent('.count')).replace(/\s+/g, ''));
+  check(await page.$eval('#mon', n=>n.getBoundingClientRect().height > 20), '岩岩可見');
   if(k === 6) check((await page.textContent('#say')).includes('飛機'), 'T5 題幹是飛機的 ㄈ');
   if(k === 0) await shot(page, 'l2-battle.png');
+  if(k === 1){ // 答錯一次：唐僧站穩不倒退
+    await answer(page, false); await page.waitForTimeout(300);
+    const w = await tsBox(); check(w.pos === t.pos && w.y === t.y, '答錯：唐僧原地站穩不倒退');
+    await phase(page, 'battle-q');
+  }
+  if(k === 5){ await page.waitForTimeout(700); await shot(page, 'level2-flow.png'); } // 爬山中：唐僧在山路上、岩岩看得見
+  prev = await tsBox();
   await answer(page, true);
-  if(k < 9) await page.waitForFunction(n=>document.querySelector('#cnt')?.textContent === String(n + 1) && document.body.dataset.phase === 'battle-q', k, { timeout: 20000 });
+  await page.waitForFunction(n=>document.querySelector('#cnt')?.textContent === String(n + 1), k, { timeout: 20000 });
+  if(k < 9) await page.waitForFunction(n=>document.body.dataset.qi === String(n + 1) && document.body.dataset.phase === 'battle-q', k, { timeout: 25000 });
 }
+// 4b) 念經挑戰（第 11 題）：照 window.__seq 順序點
+await phase(page, 'monk-q', 25000);
+check((await page.textContent('.count')).includes('念經挑戰') && (await page.textContent('#cnt')) === '10' && await page.evaluate(()=>document.body.dataset.qi) === '10', '念經挑戰是第 11 題（已答對 10）');
+await shot(page, 'l2-monk.png');
+for(const sym of await page.evaluate(()=>window.__seq)){ await page.click(`.choice[data-o="${sym}"]`); await page.waitForTimeout(250); }
 // 5) 結局
 await phase(page, 'rescue', 60000); await page.waitForTimeout(600); await shot(page, 'l2-rescue-1.png');
 await page.waitForFunction(()=>document.querySelector('#fu')?.classList.contains('off'), null, { timeout: 20000 });
@@ -153,6 +182,10 @@ await phase(page, 'victory', 40000); await page.waitForTimeout(500); await shot(
 check((await page.textContent('#vt')) === '五指山過關！', '結局標題');
 check(!(await page.textContent('#say')).includes('乖猴子'), '不含第1關結局句');
 check((await page.evaluate(k=>JSON.parse(localStorage.getItem(k)).levels[2].cleared, SAVE)) === true, '第2關 cleared 存檔');
+// 6) 回地圖：唐僧加入隊伍
+await page.click('#map'); await phase(page, 'map');
+check(await page.$$eval('.pm.tang', n=>n.length) === 1, '第2關過關後地圖上唐僧出現（.pm.tang）');
+await shot(page, 'l2-map-after.png');
 await browser.close(); server.close();
 if(errors.length){ console.log('\n❌', errors.length, '個問題'); errors.forEach(e=>console.log(' -', e)); process.exit(1); }
 console.log('\n✅ 第2關測試通過');

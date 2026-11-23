@@ -9,7 +9,7 @@ const pic = (src, alt, cls='pic')=>src?`<img class="${cls}" src="${src}" alt="${
 const exPic = w=>{ const x=L.examples.find(e=>e.w===w); return IMG.ex[w]?pic(IMG.ex[w],w):`<span class="emo">${x?x.e:''}</span>`; };
 const blPic = c=>{ const b=L.blends.find(x=>x.ch===c); return IMG.blend[c]?pic(IMG.blend[c],c):`<span class="emo">${b.e}</span>`; };
 const bgNow=()=>L.bg||IMG.bg;
-function setBg(src){ document.body.style.backgroundImage = src?`url(${src})`:''; }
+function setBg(src){ document.body.style.backgroundImage = src?`url(${src})`:''; document.body.classList.remove('climb-bg'); }
 if(IMG.bg) document.body.style.backgroundImage=`url(${IMG.bg})`;
 
 // ---- 畫面切換：換畫面時清掉上一個畫面排的計時器，避免舊動作跑到新畫面 ----
@@ -54,6 +54,8 @@ async function wkCorrect(node, mon){
   await wait(D(300)); burst(node,'⭐',6); if(mon) monHit(mon);
   await p; if(node._act!==tk) return; wkPose(node,'happy'); await wait(D(350)); if(node._act===tk) wkPose(node, back);
 }
+// 山腳被壓住的悟空：爬山途中答對只跳一下加油（維持被壓住的樣子，不揮棒）
+async function wkCheer(node){ if(!node) return; const tk=wkTake(node); burst(node,'⭐',4); await wkAnim(node,'jump',700); if(node._act===tk) wkPose(node, wkBase(node)); }
 // 答錯：歪頭抓頭、冒出小問號（不處罰）
 async function wkConfused(node){
   if(!node) return; const back=wkBase(node), tk=wkTake(node); wkPose(node,'stand');
@@ -120,7 +122,7 @@ function mapScreen(){
   const target=LEVELS.findIndex((lv,i)=>isOpen(i) && !levelState(lv.id).cleared); // 下一個該去的站
   const btns=STATIONS.map((n,i)=>{ const open=isOpen(i), st=open?levelState(LEVELS[i].id):{};
     return `<button class="station ${open?'open':''} ${i===target?'target':''}" data-i="${i}" ${IMG.map?`style="left:${MAP_POS[i][0]}%;top:${MAP_POS[i][1]}%"`:''}>
-    ${open?'🐵':'🔒'} ${n}${open?`<br><small>${st.learned?'📖 已學':''}${st.cleared?' 🏅':''}</small><span class="peaches" data-n="${st.peaches||0}">${peachesHTML(st.peaches||0)}</span>`:''}</button>`; }).join('');
+    ${IMG.mapStation&&IMG.mapStation[i]?`<img class="st-ico" src="${IMG.mapStation[i]}" alt="" draggable="false"><br>`:''}${open?'🐵':'🔒'} ${n}${open?`<br><small>${st.learned?'📖 已學':''}${st.cleared?' 🏅':''}</small><span class="peaches" data-n="${st.peaches||0}">${peachesHTML(st.peaches||0)}</span>`:''}</button>`; }).join('');
   el(`<h1>取經地圖</h1>`+(IMG.map?`<div class="mapimg" style="background-image:url(${IMG.map})">${btns}${mapExtras()}</div>`:`<div class="map">${btns}</div>`)+caveButton());
   setPhase('map'); wireImgFb(); wireCaveButton();
   $$('.station.open').forEach(b=>b.onclick=()=>{ const lv=LEVELS[+b.dataset.i]; pickLevel(lv); say(lv.name); levelMenu(); });
@@ -129,13 +131,13 @@ function mapScreen(){
 }
 function levelMenu(){
   const st=levelState(L.id);
-  el(`<h1>第 ${L.id} 關｜${L.name}</h1>${monHTML('normal','solo')}
+  el(`<h1>第 ${L.id} 關｜${L.name}</h1>${monHTML('normal','solo')}${L.intro?`<div class="say" id="intro">${L.intro}</div>`:''}
   <div class="row"><button class="btn blue big" id="learn">📖 教學場</button>
   ${st.learned?'<button class="btn red big" id="fight">🐒 對戰場</button>':''}</div>
   <button class="btn gray" id="back">◀ 地圖</button>`);
   setPhase('menu'); monIdle($('#mon'));
   if(!st.learned) $('#learn').classList.add('nudge');
-  later(()=>say(st.learned?'想再學一次，還是去打妖怪？':'點一點，我們一起來學注音'), 400);
+  later(()=>say([...(L.intro?[L.intro]:[]), st.learned?'想再學一次，還是去打妖怪？':'點一點，我們一起來學注音']), 400); // 開場旁白排在選單台詞前，同一個 say 不互相打斷
   $('#learn').onclick=()=>tutorial(0);
   if(st.learned) $('#fight').onclick=battleStart;
   $('#back').onclick=mapScreen;
@@ -155,7 +157,7 @@ const showNext=()=>{ const t=$('#ts'); if(t&&IMG.tangseng) t.src=IMG.tangseng.pr
 function tutorial(i){ stepIdx=i; if(i>=STEPS.length) return restPoint(); STEPS[i](); }
 
 function stepPicture(){
-  frame('看圖說話', `<div class="panel">${L.pictureHero==='monster'?monHTML('normal','solo'):`<div class="emo" style="font-size:6.5rem">${L.pictureHero}</div>`}
+  frame('看圖說話', `<div class="panel">${L.pictureHero==='monster'?monHTML('normal','solo'):L.pictureHero==='trapped'?`<img class="hero-trap" src="${IMG.wukong.trapped}" alt="被壓住的悟空" draggable="false">`:`<div class="emo" style="font-size:6.5rem">${L.pictureHero}</div>`}
     <div class="row">${L.sceneItems.map(x=>`<button class="card" data-w="${x.w}"><span class="emo">${x.e}</span><small>${x.w}</small></button>`).join('')}</div></div>`,
     '唐僧：'+L.pictureAsk);
   const sid=sceneId; say([L.pictureAsk, L.sentenceText]).then(()=>{ if(alive(sid)) showNext(); });
@@ -242,8 +244,8 @@ function restPoint(){
 let qi=0, clones=0, wrongs=0, cur=null, locked=false;
 let streak=0, firstOk=0, monkOk=false, battleStaff=false, monkOn=false, lastPeach=null; // 連擊／蟠桃計算（只在這場對戰內有效）
 function battleStart(){
-  qi=0; clones=0; streak=0; firstOk=0; monkOk=false; setBg(L.bgBattle||bgNow());
-  battleStaff=hasStaff(); monkOn=L.id>=2 && hasMonk(); // 進場前就有棒／有唐僧才算
+  qi=0; clones=0; streak=0; firstOk=0; monkOk=false; setBg(L.climb?null:(L.bgBattle||bgNow())); document.body.classList.toggle('climb-bg',!!L.climb);
+  battleStaff=hasStaff(); monkOn=L.id>=2; // 有棒才有連擊特效；第 2 關起對戰一律含唐僧念經（唐僧就在山上）
   el(`<div class="say">${L.monster.intro}</div>${monHTML('cheeky','solo pop')}<button class="btn red big" id="go">開始！</button>`);
   setPhase('battle-intro'); monIdle($('#mon'));
   say(L.monster.intro); $('#go').onclick=()=>{ sfx.ding(); nextQ(); };
@@ -297,16 +299,50 @@ function optionsFor(q){
   if(q.t==='T7'){ const b=L.blends.find(x=>x.ch===q.blend); return {ans:b.a+b.b, opts:shuffle(q.opts), cls:'small'}; }
   return {ans:q.ans, opts:shuffle(q.opts), cls:''};
 }
+// ===== 第 2 關：爬山場景（.climb 自己用 bg-wuzhishan-battle.jpg 的上半部 0–55% 當背景；座標是 .climb 可見區域的 %）=====
+const CLIMB_PATH=[[47.0,90.0],[46.0,80.9],[38.0,72.4],[52.0,64.5],[43.5,53.6],[54.0,41.5],[49.5,31.3],[51.0,25.5],[50.5,22.2]]; // 0=山腳，1..8=八格，8=山頂平台（符咒下方）
+const CLIMB_FACE=['normal','normal','laugh','normal','cheeky','cheeky','laugh','normal','normal']; // 岩岩隨格數的表情（不倒退）
+// 裝飾：at＝走到第幾格才出現；x/y/w 是 % 。小溪圖已含黃花 → 花放左下、溪放右下，兩者水平間距 >30%，不會花疊花
+const CLIMB_DECO=[{k:'flower',at:3,x:33,y:91,w:13},{k:'cloud',at:4,x:20,y:38,w:24},{k:'pine',at:4,x:9,y:68,w:15},{k:'stream',at:5,x:80,y:90,w:30}];
+const climbPos=()=>Math.min(clones, L.climb.n);
+function climbHTML(pos){
+  const [x,y]=CLIMB_PATH[pos], k=pos/L.climb.n, lean=pos>0&&x<CLIMB_PATH[pos-1][0]?-12:12;
+  return `<div class="climb" id="climb" data-pos="${pos}" style="--k:${k};background-image:url(${L.bgBattle})">
+    ${CLIMB_DECO.map(d=>`<img class="cl-deco d-${d.k}${pos>=d.at?' on':''}" data-at="${d.at}" src="${IMG.climb[d.k]}" alt="" draggable="false" style="left:${d.x}%;top:${d.y}%;width:${d.w}%">`).join('')}
+    ${CLIMB_PATH.map(([sx,sy],i)=>`<i class="cl-step${i<=pos?' on':''}${i===0?' base':''}" data-i="${i}" style="left:${sx}%;top:${sy}%"></i>`).join('')}
+    <img class="cl-fu" id="fu2" src="${IMG.talisman}" alt="符咒" draggable="false">
+    <img class="cl-peb" id="peb" src="${IMG.climb.pebble}" alt="" draggable="false">
+    <div class="cl-rock">${monHTML('normal','cl-mon')}</div>
+    <div class="cl-wk">${wkHTML('trapped','cl','wkq')}</div>
+    <div class="cl-ts" id="cts" data-pos="${pos}" style="left:${x}%;top:${y}%;--lean:${lean}deg"><div class="cl-ts-in">${pic(IMG.tangseng.climb,'唐僧','')}</div></div></div>`;
+}
+// 答對：唐僧往下一格——向前微傾（rotate）＋彈跳往上（hop），位置用 transition 走過去
+async function climbTo(pos){
+  const c=$('#climb'), ts=$('#cts'), img=ts&&ts.querySelector('img'); if(!c||!ts) return; const sid=sceneId;
+  const from=+c.dataset.pos, [x,y]=CLIMB_PATH[pos]; c.dataset.pos=pos; ts.dataset.pos=pos; document.body.dataset.climb=pos;
+  c.style.setProperty('--k', pos/L.climb.n); ts.style.setProperty('--lean', (x>=CLIMB_PATH[from][0]?12:-12)+'deg');
+  ts.style.left=x+'%'; ts.style.top=y+'%'; ts.classList.remove('hop'); void ts.offsetWidth; ts.classList.add('hop');
+  $$('.cl-step').forEach(s=>s.classList.toggle('on', +s.dataset.i<=pos));
+  $$('.cl-deco').forEach(d=>d.classList.toggle('on', pos>=+d.dataset.at));
+  if(pos===4){ const pb=$('#peb'); if(pb){ pb.classList.remove('roll'); void pb.offsetWidth; pb.classList.add('roll'); } } // 岩岩調皮：小石子滾過（在右側，不打到唐僧）
+  sfx.whoosh(); monFace($('#mon'), CLIMB_FACE[pos]);
+  await wait(D(800));
+}
 function nextQ(){
   if(qi>=L.battle.length) return monkOn?monkChallenge():victory();
   const q=L.battle[qi]; const p=promptFor(q); cur=optionsFor(q); cur.t=q.t; cur.voice=p.voice; wrongs=0; locked=false;
   window.__ans=cur.ans; // 測試用
-  el(`<div class="count">第 ${qi+1} / ${L.battle.length} 題　🐵 分身 <b id="cnt">${clones}</b> / ${L.battle.length}</div>
-   ${stageHTML('point')}
+  const climbing=!!L.climb, pos=climbing?climbPos():0, n8=climbing?L.climb.n:0, total=L.battle.length+(monkOn?1:0);
+  // #cnt 一律是「已答對題數」（測試鉤子）；爬山時顯示往上爬 n / 8，山頂顯示山頂第 k / 3 題
+  const head=!climbing?`第 ${qi+1} / ${L.battle.length} 題　🐵 分身 <b id="cnt">${clones}</b> / ${L.battle.length}`
+    :qi<n8?`🧗 往上爬 <b id="cnt">${clones}</b> / ${n8}`
+    :`⛰️ 山頂第 ${qi-n8+1} / ${total-n8} 題　<small>已答對 <b id="cnt">${clones}</b> / ${total}</small>`;
+  el(`<div class="count">${head}</div>
+   ${climbing?climbHTML(pos):stageHTML('point')}
    <div class="row prompt"><button class="btn blue" id="rep">${p.show} 🔊</button><div class="say" id="say">${p.text}</div></div>
    <div class="row choices">${cur.opts.map(o=>`<button class="choice ${cur.cls}" data-o="${o}">${cur.labels?cur.labels[o]:o}</button>`).join('')}</div>`);
-  setPhase('battle-q');
-  placeClones(clones); monIdle($('#mon'));
+  setPhase('battle-q'); document.body.dataset.qi=qi; document.body.dataset.climb=pos;
+  if(climbing) monFace($('#mon'), CLIMB_FACE[pos]); else { placeClones(clones); monIdle($('#mon')); }
   if(battleStaff) $('#wkq').insertAdjacentHTML('beforeend','<i class="staff-mini" id="smini"></i>');
   $('#rep').onclick=()=>say(cur.voice); say(cur.voice);
   $$('.choice').forEach(b=>b.onclick=()=>pick(b));
@@ -317,15 +353,25 @@ async function pick(b){
   if(o===cur.ans){
     locked=true; clones++; const first=wrongs===0; if(first){ firstOk++; streak++; } else streak=0;
     const combo=battleStaff && first && streak>=3; if(combo) streak=0; sfx.ding(); burst(b); b.classList.add('glow'); $$('.choice').forEach(c=>{ if(c!==b) c.classList.add('fade'); });
-    const [txt,vo]=PRAISE[Math.random()*PRAISE.length|0]; $('#say').textContent=txt;
-    const v=say(cur.t==='T6'?[o,vo]:[vo]);
+    let [txt,vo]=PRAISE[Math.random()*PRAISE.length|0];
+    if(L.climb && qi<L.climb.n){ vo=L.climb.say[qi+1]||null; txt=vo||'好棒！往上爬一格！'; } // 爬山只有第 2、4、6、8 格念話，其餘只有音效＋動畫
+    $('#say').textContent=txt;
+    const v=say([...(cur.t==='T6'?[o]:[]), ...(vo?[vo]:[])]);
     setPhase('correct-anim');
-    await wkCorrect(wkN, mon); if(!alive(sid)) return;
-    const cs=placeClones(clones,{hideFrom:clones-1});
-    await wkPluck(wkN, [cs[clones-1]], ()=>{ revealClone(cs[clones-1]); const n=$('#cnt'); if(n){ n.textContent=clones; n.parentNode.classList.remove('pop'); void n.offsetWidth; n.parentNode.classList.add('pop'); } });
+    const bump=()=>{ const n=$('#cnt'); if(n){ n.textContent=clones; n.parentNode.classList.remove('pop'); void n.offsetWidth; n.parentNode.classList.add('pop'); } };
+    if(L.climb){ // 爬山：前 8 題唐僧往上一格（悟空在山腳加油）；山頂 2 題只打岩岩，唐僧不動
+      if(qi<L.climb.n) await Promise.all([climbTo(qi+1), wkCheer(wkN)]); else await wkCorrect(wkN, mon);
+      if(!alive(sid)) return; bump();
+    } else {
+      await wkCorrect(wkN, mon); if(!alive(sid)) return;
+      const cs=placeClones(clones,{hideFrom:clones-1});
+      await wkPluck(wkN, [cs[clones-1]], ()=>{ revealClone(cs[clones-1]); bump(); });
+    }
     if(!alive(sid)) return; setPhase('correct-done');
     await sayUpTo(v, 3000); await wait(D(250)); if(!alive(sid)) return;
     if(combo){ await staffBurst(); if(!alive(sid)) return; }
+    if(L.climb && qi===L.climb.n-1){ // 到頂：岩岩全身站出來的短過場
+      monFace(mon,'laugh'); monAnim(mon,'mock',900); $('#say').textContent='到山頂了！岩岩出來了！'; await wait(D(1000)); if(!alive(sid)) return; }
     qi++; nextQ();
   } else {
     wrongs++; streak=0; sfx.boop(); b.classList.add('shake','fade');
@@ -333,6 +379,9 @@ async function pick(b){
     if(wrongs>=2) $$('.choice').forEach(c=>{ if(c.dataset.o===cur.ans) c.classList.add('glow'); });
     setPhase('wrong-anim');
     monMock(mon, wrongs===1?'laugh':'cheeky'); wkConfused(wkN);
+    if(L.climb){ // 唐僧站穩不倒退：只有腳下石階晃一下，岩岩表情之後回到這一格該有的樣子
+      const st=$(`.cl-step[data-i="${climbPos()}"]`); if(st){ st.classList.remove('wob'); void st.offsetWidth; st.classList.add('wob'); }
+      later(()=>{ if(mon&&!mon.dataset.busy) monFace(mon, CLIMB_FACE[climbPos()]); }, 1900); }
     say(wrongs===1?['差一點點！再聽一次',...cur.voice]:cur.voice);
     later(()=>{ if(!locked) setPhase('battle-q'); }, 1400);
   }
@@ -370,12 +419,12 @@ async function victory(){
   say('花果山過關！');
 }
 // ===== 第 2 關結局：唐僧揭開山頂符咒，把悟空從五指山下救出來 =====
-// 山、符咒、山下的悟空目前用 emoji／CSS 暫代（缺圖清單見 CLAUDE.md）
+// 山＝mtn-wuzhishan.png、符咒＝talisman.png、山下悟空＝wukong-trapped.png（跳出後換 happy）
 async function rescue(prevSid){
   setLevel(L.id,{cleared:true, stamps:2}); lastPeach=lastPeach||awardPeaches(); addSticker(L.clearSticker||L.name+'過關了');
   el(`<h1 id="vt">五指山</h1>
    <div class="rescue"><div class="rs-ts">${pic(IMG.tangseng.talk,'唐僧','wukong')}</div>
-    <div class="mtn" id="mtn"><span class="mtn-e">⛰️</span><span class="fu" id="fu">📜</span><div class="trap" id="trap">${wkHTML('stand','sm','wkr')}</div></div></div>
+    <div class="mtn" id="mtn"><img class="mtn-e" src="${IMG.mtnWuzhi}" alt="五指山" draggable="false"><img class="fu" id="fu" src="${IMG.talisman}" alt="符咒" draggable="false"><div class="trap" id="trap">${wkHTML('trapped','sm','wkr')}</div></div></div>
    <div class="say" id="say">唐僧：悟空，師父來救你了。</div><div class="row" id="end"></div>`);
   setPhase('rescue'); const sid=sceneId, wkN=$('#wkr'), ts=$('.rs-ts img');
   await Promise.all([sayUpTo(say('悟空，師父來救你了。'), D(5000)), wait(D(2200))]); if(!alive(sid)) return;
@@ -391,7 +440,7 @@ async function rescue(prevSid){
   await Promise.all([sayUpTo(say('師父！我出來了！'), D(5000)), wait(D(1800))]); if(!alive(sid)) return;
   // 過關
   $('#vt').textContent='五指山過關！'; $('#say').textContent='悟空得救了！蓋上印章，得到貼紙！';
-  $('#end').innerHTML=`${L.stamp?`<img class="stamp mini" src="${L.stamp}" alt="印章">`:'<div class="stamp mini">🏮⛰️</div>'}<div class="stamp mini">🏵️</div>${peachRowHTML()}<button class="btn red" id="again">🔁 再玩一次</button><button class="btn blue" id="map">🗺️ 地圖</button>`;
+  $('#end').innerHTML=`${L.stamp?`<img class="stamp mini" src="${L.stamp}" alt="印章">`:'<div class="stamp mini">🏮⛰️</div>'}${L.sticker?`<img class="stamp mini" src="${L.sticker}" alt="貼紙">`:'<div class="stamp mini">🏵️</div>'}${peachRowHTML()}<button class="btn red" id="again">🔁 再玩一次</button><button class="btn blue" id="map">🗺️ 地圖</button>`;
   $('#again').onclick=battleStart; $('#map').onclick=mapScreen;
   setPhase('victory');
   say('五指山過關！');

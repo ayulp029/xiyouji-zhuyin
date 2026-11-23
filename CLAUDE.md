@@ -31,12 +31,23 @@
 - 第 1 關發音修正（v1.2.3-test）：「癢」念成「養」（ㄧㄤˇ）；兒歌單獨注音改標準同音字（玻摸衣屋，ㄨ用屋並加停頓）；記憶圖詞「一」的 tts_text 用「衣」。單音 ㄧㄨㄅㄇ 仍是教育部錄音；聲音仍是 Yui + eleven_v3 + `[speaking slowly and gently]`。
 
 ## 第 2 關：五指山（v1.3.0-test）
-- 句子：佛祖壓住悟空，悟空想吃葡萄。（壓＝ㄧㄚ、空＝ㄎㄨㄥ、吃＝ㄔ，是對的）。例詞每音兩個；記憶圖詞 ㄚ阿公 ㄛ摩托車（say 摩托車）ㄆ盤子 ㄈ飛機；對比 ㄅ vs ㄆ；拼音教學用 爬 髮 佛。
+- 句子：佛祖壓住悟空，悟空想吃葡萄。（壓＝ㄧㄚ、空＝ㄎㄨㄥ、吃＝ㄔ，是對的）。例詞每音兩個（ㄆ＝螃蟹、盤子）；記憶圖詞 ㄚ阿公 ㄛ摩托車（say 摩托車）ㄆ葡萄（盤子退為例詞）ㄈ飛機；對比 ㄅ vs ㄆ；拼音教學用 爬 髮 佛。
 - 單音 ㄚㄛㄆㄈ：教育部手冊錄音（F22/F23/F2/F4；手冊順序是聲符 F1–F21、韻符 F22–F34＝ㄚ…ㄦ、F35–F37＝ㄧㄨㄩ，不是「介音在韻母前」）。手冊 https://language.moe.gov.tw/001/Upload/files/site_content/M0001/juyin/index.html （CC BY 4.0）。v1.4.2-test 已修正先前 F25/F26 的誤對（舊 ㄚ、ㄛ 檔其實是 ㄝ、ㄞ）。其餘新台詞為 Yui（見 `audio/lines.json` 中 `level:2`）。
 - 結局（與第 1 關不同）：打完岩岩認輸、被「看我的金箍棒！」打中消失 → `rescue()`：山＋山頂符咒、唐僧唸「悟空，師父來救你了。」→ 揭符咒（符飛走、山搖）唸「我把山上的符咒揭開。」→ 悟空跳出來唸「師父！我出來了！」→「五指山過關！」＋印章／貼紙（emoji 暫代）。不用「石頭頭變成乖猴子了」。
 - 地圖：第 1 關過關後第 2 站可點；下一個該去的站發亮跳動並唸「點一點發亮的○○」。
-- 還缺的圖（目前 emoji／CSS 暫代）：五指山背景（沿用花果山草地）、對戰背景、五指山／符咒圖（⛰️📜）、山下的悟空（用 stand 縮小半透明）、第 2 關印章與貼紙、記憶圖 ㄚㄛㄆㄈ（memory-*.png）、例詞圖（阿公 阿姨 摩托車 噢 葡萄 螃蟹 房子 風箏）、拼音圖（爬 髮 佛 婆 八 媽）、地圖第 2 站專屬圖示。岩岩已用定稿第三版。
+- 第 2 關正式美術已接入 `img/`（見下方「第 2 關美術」）。音檔仍缺的旁白／爬山對話（阿姨、噢、風箏、開場旁白、爬山四句）繼續退回裝置 TTS。
 - 還沒有錄音檔的詞（會退回瀏覽器語音）：阿姨、噢、風箏（只出現在例詞資料，目前不會被念）。摩托車（ㄛ 記憶圖詞，教學會播）需有 audio/摩托車.mp3；喔喔叫已不是第 2 關詞，檔仍保留給兒歌與水簾洞舊資料。
+
+## 第 2 關流程（v1.4.12-test）
+- 地圖 10 站：花果山、五指山、鷹愁澗、高老莊、流沙河、五莊觀、白虎嶺、號山、火焰山、雷音寺（`data.js` 的 `STATIONS`／`MAP_POS`）；刪掉黃風嶺、平頂山。
+- 開場旁白：進第 2 關選單時先念「這一關，你陪唐僧去救悟空。」（`LEVEL2.intro`，與選單台詞同一個 `say`）。沒有 mp3，退回裝置語音；別呼叫 ElevenLabs，之後有錄再補檔。
+- 對戰＝爬山 8 ＋ 山頂 3（含念經）共 11 題：`LEVEL2.climb`；`monkOn = L.id>=2`（第一次打就含唐僧念經，不用等過關）。前 8 題每答對唐僧沿 8 格山路走一格（`climbTo`，前傾旋轉＋彈跳，reduced-motion 直接換格）；答錯唐僧站穩、只有石階晃一下；第 9、10 題在山頂打岩岩；第 11 題 `monkChallenge`；結局仍是 `victory()`→`rescue()`。爬山只在第 2、4、6、8 格念「師父好棒！」「哎呀，你爬好快！」「我看到符咒了！」「到山頂了！」（沒有 mp3，退回裝置語音；已列在 `audio/lines.json`，`no_mp3:true`）。
+- 測試鉤子：`#cnt`＝已答對題數；`body.dataset.qi`＝目前題號（0 起，念經＝10）、`body.dataset.climb`＝唐僧在第幾格；`#cts[data-pos]`＝唐僧；phase：`battle-q`、`correct-anim`、`correct-done`、`monk-q`、`monk-done`、`rescue`、`victory`。
+- 教學記憶圖：ㄆ＝葡萄（盤子退為例詞：螃蟹＋盤子）；ㄛ＝摩托車（不是喔喔叫；兒歌仍是「ㄛㄛㄛ，公雞喔喔叫」）。
+- 第 2 關美術（全是正式圖，已接入）：背景 `bg-wuzhishan.jpg`（教學）、`bg-wuzhishan-battle.jpg`（對戰／爬山）；`tangseng-climb.png`（爬山主圖，不用 talk/praise）、`wukong-trapped.png`（山腳／教學第一步／rescue 山下，跳出後換 happy）、`mtn-wuzhishan.png`（rescue 的山）、`talisman.png`、`stamp-level2.png`、`sticker-level2.png`、`map/station-2.png`（地圖第 2 站，`IMG.mapStation`）、`climb-{flower,cloud,pine,stream}.png`、`pebble.png`、`memory-{a,o,p,f}.png`、`ex-{阿公,阿姨,摩托車,噢,螃蟹,盤子,房子,風箏}.png`、`blend-{爬,髮,佛,婆,八,媽}.png`。對照在 `data.js` 的 `IMG`。
+  - **`pebble.png`、`climb-stream.png` 的內容是 v2 版**（檔名不帶 v2；img/ 不放 v1/v2/v3、sample、notes、raw）。小溪兩岸已有黃花，所以花與溪要分開擺：`CLIMB_DECO` 花在左下（x33）、溪在右下（x80），不要把 climb-flower 放到溪旁。
+  - 爬山：`.climb` 自己用 `bgBattle` 的上半（背景 100% 寬、0–55% 高，比例 1080/1056），不靠 body 背景（爬山時 body 是純草綠 `body.climb-bg`、內容靠上對齊）。`CLIMB_PATH` 9 點（%，相對 .climb）沿山路；裝飾依格數出現（花第 3、雲＋松第 4、溪第 5），小石子第 4 格從岩岩右側滾過、不碰唐僧；石階只剩極淡小點；符咒隨格數變大發光。爬山途中悟空只跳一下加油（`wkCheer`），山頂 2 題才揮棒。rescue 用 `mtn-wuzhishan.png`＋`talisman.png`＋`wukong-trapped.png`。
+- `tests/e2e-level2.mjs`：10 站、旁白、教學、爬山 8＋山頂 2＋念經＋rescue＋回地圖看到唐僧；`level2-flow.png` 是爬山中截圖。audio 缺檔 404 與 `img/map|shop|cards/` 的缺圖備援 404 不算失敗。
 
 ## 發音自動檢查
 - 工具在 `tools/pron-check/`（Python venv 在其內，`.cache/` 放模型）。用法見該資料夾 `README.md`：`python -m pron_check.cli check <音檔> --text 髮`、`calibrate`、`level2-new`。報告：`tools/pron-check/reports/REPORT.md`。

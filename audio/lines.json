@@ -1010,6 +1010,46 @@
    "used_as": "水簾洞點詞卡：say([符號×3, '蘑菇'])，詞檔仍是本 key",
    "kind": "cave-card",
    "level": "cave"
+  },
+  {
+   "key": "這一關，你陪唐僧去救悟空。",
+   "tts_text": "這一關，你陪唐僧去救悟空。",
+   "used_as": "開場旁白：點進第 2 關、關卡選單出現時先念（排在選單台詞前）；尚無 mp3，目前用裝置語音（TTS）退回，之後才錄",
+   "kind": "dialogue",
+   "level": 2,
+   "no_mp3": true
+  },
+  {
+   "key": "師父好棒！",
+   "tts_text": "師父好棒！",
+   "used_as": "爬山第 2 格答對；尚無 mp3，目前用裝置語音（TTS）退回，之後才錄",
+   "kind": "dialogue",
+   "level": 2,
+   "no_mp3": true
+  },
+  {
+   "key": "哎呀，你爬好快！",
+   "tts_text": "哎呀，你爬好快！",
+   "used_as": "爬山第 4 格答對；尚無 mp3，目前用裝置語音（TTS）退回，之後才錄",
+   "kind": "dialogue",
+   "level": 2,
+   "no_mp3": true
+  },
+  {
+   "key": "我看到符咒了！",
+   "tts_text": "我看到符咒了！",
+   "used_as": "爬山第 6 格答對；尚無 mp3，目前用裝置語音（TTS）退回，之後才錄",
+   "kind": "dialogue",
+   "level": 2,
+   "no_mp3": true
+  },
+  {
+   "key": "到山頂了！",
+   "tts_text": "到山頂了！",
+   "used_as": "爬山第 8 格（到頂）答對；尚無 mp3，目前用裝置語音（TTS）退回，之後才錄",
+   "kind": "dialogue",
+   "level": 2,
+   "no_mp3": true
   }
  ]
 }

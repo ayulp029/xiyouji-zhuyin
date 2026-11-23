@@ -145,7 +145,7 @@ async function staffBurst(){
   const t=$('#say'); if(t) t.textContent='悟空：看我的金箍棒！'; const v=say('看我的金箍棒！'); sfx.win();
   if(sm) sm.classList.add('big');
   const fx=document.createElement('div'); fx.className='staff-fx'; fx.innerHTML='<i></i>'; document.body.appendChild(fx); setTimeout(()=>fx.remove(),1500);
-  burst($('#arena'),'⭐',10); await wait(D(450)); if(alive(sid)&&mon) monHit(mon);
+  burst($('#arena')||$('#climb'),'⭐',10); await wait(D(450)); if(alive(sid)&&mon) monHit(mon);
   await Promise.all([sayUpTo(v,2000), wait(D(1000))]); if(sm) sm.classList.remove('big');
 }
 // ===== 對戰：唐僧的念經挑戰（第 2 關起、已有唐僧才加；算第 11 題）=====
@@ -153,13 +153,15 @@ function monkChallenge(){
   const pool=LEVELS.filter(lv=>lv.id<=L.id).flatMap(lv=>lv.syms), n=2+(Math.random()*2|0), seq=shuffle(pool).slice(0,n);
   const opts=shuffle([...seq,...shuffle(pool.filter(s=>!seq.includes(s))).slice(0,6-n)]); window.__seq=seq;
   let k=0, tries=0, locked=false; const total=L.battle.length+1;
-  el(`<div class="count">念經挑戰　第 ${total} / ${total} 題</div>
-    <div class="monk">${pic(IMG.tangseng.talk,'唐僧','wukong')}<div class="bubble">🔔 阿彌陀佛～</div></div>
+  // 第 2 關：唐僧在山頂、岩岩在旁邊看（山頂第 3 / 3 題）；#cnt＝已答對題數（測試鉤子）
+  const head=L.climb?`⛰️ 山頂第 ${total-L.climb.n} / ${total-L.climb.n} 題　念經挑戰　<small>已答對 <b id="cnt">${clones}</b> / ${total}</small>`:`念經挑戰　第 ${total} / ${total} 題`;
+  el(`<div class="count">${head}</div>
+    <div class="monk">${pic(IMG.tangseng.talk,'唐僧','wukong')}<div class="bubble">🔔 阿彌陀佛～</div>${L.climb?`<span class="monk-fu">📜</span>${monHTML('normal','mini')}`:''}</div>
     <div class="slots" id="slots">${seq.map(()=>'<span class="slot"></span>').join('')}</div>
     <div class="say" id="say">唐僧在念經，聽仔細，照順序點！</div>
     <div class="row prompt"><button class="btn blue" id="rep">再聽一次 🔊</button></div>
     <div class="row choices">${opts.map(o=>`<button class="choice" data-o="${o}">${o}</button>`).join('')}</div>`);
-  setPhase('monk-q'); const sid=sceneId, slots=$$('.slot'), chs=$$('.choice');
+  setPhase('monk-q'); document.body.dataset.qi=L.battle.length; const sid=sceneId, slots=$$('.slot'), chs=$$('.choice');
   const intro=['唐僧要念經了，聽仔細喔',...seq]; saySyms(intro); $('#rep').onclick=()=>saySyms(seq);
   const reset=()=>{ k=0; slots.forEach(s=>{ s.textContent=''; s.classList.remove('fill'); }); chs.forEach(c=>c.classList.remove('used')); };
   chs.forEach(b=>b.onclick=async()=>{ if(locked) return; const o=b.dataset.o;
