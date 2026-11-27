@@ -1,17 +1,42 @@
-# 語音待辦（v1.4.14-test 更新：已接入 4 句）
+# 語音待辦（v1.4.15-test 更新：已接入 15 句）
 
 記錄時間：2026-11-27 21:23:18（台北時間 Asia/Taipei）
 
 因 Grok 本週用量接近上限，MCP 產音在此停止，不再等待重試。
 聲音：Yui（kGjJqO6wdwRN9iJsoeIC），模型 eleven_multilingual_v2。
-ElevenLabs 已知點數：187.0（剩餘百分比未知，未再查 account 用量以免觸發授權）。
+ElevenLabs 已知點數：606.0（manifest credits_used_known；v1.4.14 時只記 187）（剩餘百分比未知，未再查 account 用量以免觸發授權）。
 flow_id：9ILKMtDcViIMwj0k3yu6
 候選原始檔：`/tmp/xiyouji-level3/raw/`（檔名 `「句子」-c1.mp3` …）；清單：`/tmp/xiyouji-level3/voice-manifest.json`。
 
-## v1.4.14-test 處理結果
-- 已接入（PASS）：這一關，你和悟空一起過河。／你看，小龍在做什麼呀？／小龍愛玩水，大象和老虎來看。／小龍
-- SUSPECT 未接入、需 Freddy 聽（候選在 /tmp/xiyouji-level3/proc）：到小島了！、快到小島了！、踩荷葉，跳過去！、找一找，大象在哪裡？（只有 1 候選，仍缺 2 個）
-- 下方「尚未產生」的句子維持瀏覽器語音；詳見 design/level3-voice-list.md
+## v1.4.15-test 處理結果
+Yui、eleven_multilingual_v2；候選原檔 `/tmp/xiyouji-level3/raw/`，後處理（trim＋loudnorm -19 LUFS＋句末約 0.2 秒靜音）後在 `/tmp/xiyouji-level3/proc2/`，經 `rank_candidates` 挑最佳 PASS 寫入 `audio/<key>.mp3`。兒歌先做「教育部單音×3（間隔 0.15 秒）＋Yui 文本」拼接，用 `--split text_only` 檢查文本段。本輪未呼叫 ElevenLabs（累計 606 點，沿用 manifest）。
+
+#### 已接入（PASS）
+- v1.4.14：這一關，你和悟空一起過河。／你看，小龍在做什麼呀？／小龍愛玩水，大象和老虎來看。／小龍
+- v1.4.15 新增 11 句：ㄊㄊㄊ，兔子跳跳跳（拼接）／找一找，大象在哪裡？（c2；ASR 聽成 zhao4，3-3-3 變調可能誤判）／老虎在哪裡？／大象的大／老虎的老／哪一個是大象的／哪一個是老虎的／路／對不起，我來載你們。／白龍馬，謝謝你。／哇，好多個悟空！水花都停了！好啦好啦，我認輸了！（c3；Whisper 沒聽到 水花，只勉強 PASS，建議聽）
+
+#### SUSPECT／FAIL（各 3 候選、**需 Freddy 親耳聽**；未放檔，遊戲退回瀏覽器語音）
+聽過覺得可以，把 `/tmp/xiyouji-level3/proc2/<句>-cN.mp3` 複製成 `audio/<句>.mp3` 即可，不必改程式。
+- SUSPECT ㄉㄉㄉ，大象鼻子長（最佳 ㄉㄉㄉ，大象鼻子長-c3.mp3）：whisper：預期 xiang4，聽成 zang4（音節不同）
+- SUSPECT ㄋㄋㄋ，牛奶白又白（最佳 ㄋㄋㄋ，牛奶白又白-c1.mp3）：whisper：預期 you4，聽成 you1（聲調不同）
+- SUSPECT ㄌㄌㄌ，老虎吼吼吼（最佳 ㄌㄌㄌ，老虎吼吼吼-c2.mp3）：whisper：預期 hou3，聽成 hou4（聲調不同）
+- SUSPECT 到小島了！（最佳 到小島了！-c1.mp3）：whisper：預期 dao3，聽成 dao4（聲調不同）
+- SUSPECT 嘻嘻，我是鷹愁澗的水水！想過河？先陪我玩注音遊戲！（最佳 嘻嘻，我是鷹愁澗的水水！想過河？先陪我玩注音遊戲！-c1.mp3）：whisper：預期 he2，聽成 he1（聲調不同）
+- SUSPECT 嘻，我的水花好玩吧！（最佳 嘻，我的水花好玩吧！-c2.mp3）：whisper：預期 xi1，聽成 shi2（音節不同）
+- SUSPECT 大（最佳 大-c2.mp3）：breeze：預期 da4，聽成 （沒聽到）（音節不同）
+- SUSPECT 快到小島了！（最佳 快到小島了！-c2.mp3）：whisper：預期 dao3，聽成 dao4（聲調不同）
+- SUSPECT 拿（最佳 拿-c1.mp3）：whisper：預期 na2，聽成 na4（聲調不同）
+- SUSPECT 梨（最佳 梨-c3.mp3）：breeze：預期 li2，聽成 （沒聽到）（音節不同）
+- SUSPECT 泥（最佳 泥-c1.mp3）：whisper：預期 ni2，聽成 ni3（聲調不同）
+- SUSPECT 踩荷葉，跳過去！（最佳 踩荷葉，跳過去！-c3.mp3）：whisper：預期 ye4，聽成 xian2（音節不同）
+- FAIL 兔（最佳 兔-c1.mp3）：whisper：預期 tu4，聽成 （沒聽到）（音節不同）
+- 兒歌 ㄉ／ㄋ／ㄌ 的 ASR 結果不穩（沒聽到或聲調誤判），可能是長前綴干擾，只能人聽。
+- 拼音單字（大 兔 梨 拿 泥）單字 ASR 本來就不可靠，務必人聽聲調。
+
+#### 尚未產檔
+- 鷹愁澗過關！（只有 1 候選，未處理；等補滿 3 個）
+- 以及 `raw/` 沒有的句子（若有）：本輪快照時沒有的檔不處理。
+
 
 ## （原始清單）已有完整 3 個候選
 - 這一關，你和悟空一起過河。（tts：這一關，你和悟空一起過河。；檔：這一關，你和悟空一起過河。-c1.mp3, 這一關，你和悟空一起過河。-c2.mp3, 這一關，你和悟空一起過河。-c3.mp3）
@@ -27,7 +52,7 @@ flow_id：9ILKMtDcViIMwj0k3yu6
 ## 只有部分候選（請用現有檔跑 pron-check；不足 3 個，請列入需 Freddy 聽的清單）
 - 找一找，大象在哪裡？（已有 1/3；檔：找一找，大象在哪裡？-c1.mp3）
 
-## 尚未產生、遊戲暫退回瀏覽器語音
+## （原始清單，已過時；以上方 v1.4.15 結果為準）尚未產生、遊戲暫退回瀏覽器語音
 - 老虎在哪裡？
 - 大象的大
 - 老虎的老

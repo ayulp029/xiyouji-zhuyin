@@ -1089,8 +1089,7 @@
    "used_as": "第3關：教學3",
    "kind": "sentence",
    "level": 3,
-   "no_mp3": true,
-   "note": "有候選但 pron-check SUSPECT，未接入，待 Freddy 親耳聽；暫退回瀏覽器語音"
+   "voice": "Yui eleven_multilingual_v2 (pron-check PASS, v1.4.15)"
   },
   {
    "key": "老虎在哪裡？",
@@ -1098,7 +1097,7 @@
    "used_as": "第3關：教學3",
    "kind": "sentence",
    "level": 3,
-   "no_mp3": true
+   "voice": "Yui eleven_multilingual_v2 (pron-check PASS, v1.4.15)"
   },
   {
    "key": "大象的大",
@@ -1106,7 +1105,7 @@
    "used_as": "第3關：教學4",
    "kind": "sentence",
    "level": 3,
-   "no_mp3": true
+   "voice": "Yui eleven_multilingual_v2 (pron-check PASS, v1.4.15)"
   },
   {
    "key": "老虎的老",
@@ -1114,7 +1113,7 @@
    "used_as": "第3關：教學4",
    "kind": "sentence",
    "level": 3,
-   "no_mp3": true
+   "voice": "Yui eleven_multilingual_v2 (pron-check PASS, v1.4.15)"
   },
   {
    "key": "哪一個是大象的",
@@ -1122,7 +1121,7 @@
    "used_as": "第3關：教學6/對戰；後接 ㄉ",
    "kind": "sentence",
    "level": 3,
-   "no_mp3": true
+   "voice": "Yui eleven_multilingual_v2 (pron-check PASS, v1.4.15)"
   },
   {
    "key": "哪一個是老虎的",
@@ -1130,7 +1129,7 @@
    "used_as": "第3關：對戰 T5；後接 ㄌ",
    "kind": "sentence",
    "level": 3,
-   "no_mp3": true
+   "voice": "Yui eleven_multilingual_v2 (pron-check PASS, v1.4.15)"
   },
   {
    "key": "大",
@@ -1138,7 +1137,8 @@
    "used_as": "第3關：拼音 ㄉㄚ",
    "kind": "sentence",
    "level": 3,
-   "no_mp3": true
+   "no_mp3": true,
+   "note": "有 3 個候選，最佳 SUSPECT，未接入，待 Freddy 親耳聽；暫退回瀏覽器語音（v1.4.15）"
   },
   {
    "key": "兔",
@@ -1146,7 +1146,8 @@
    "used_as": "第3關：拼音 ㄊㄨ",
    "kind": "sentence",
    "level": 3,
-   "no_mp3": true
+   "no_mp3": true,
+   "note": "有 3 個候選，最佳 FAIL，未接入，待 Freddy 親耳聽；暫退回瀏覽器語音（v1.4.15）"
   },
   {
    "key": "梨",
@@ -1154,7 +1155,8 @@
    "used_as": "第3關：拼音 ㄌㄧ",
    "kind": "sentence",
    "level": 3,
-   "no_mp3": true
+   "no_mp3": true,
+   "note": "有 3 個候選，最佳 SUSPECT，未接入，待 Freddy 親耳聽；暫退回瀏覽器語音（v1.4.15）"
   },
   {
    "key": "拿",
@@ -1162,7 +1164,8 @@
    "used_as": "第3關：拼音 ㄋㄚ",
    "kind": "sentence",
    "level": 3,
-   "no_mp3": true
+   "no_mp3": true,
+   "note": "有 3 個候選，最佳 SUSPECT，未接入，待 Freddy 親耳聽；暫退回瀏覽器語音（v1.4.15）"
   },
   {
    "key": "泥",
@@ -1170,7 +1173,8 @@
    "used_as": "第3關：拼音 ㄋㄧ",
    "kind": "sentence",
    "level": 3,
-   "no_mp3": true
+   "no_mp3": true,
+   "note": "有 3 個候選，最佳 SUSPECT，未接入，待 Freddy 親耳聽；暫退回瀏覽器語音（v1.4.15）"
   },
   {
    "key": "路",
@@ -1178,7 +1182,7 @@
    "used_as": "第3關：拼音 ㄌㄨ",
    "kind": "sentence",
    "level": 3,
-   "no_mp3": true
+   "voice": "Yui eleven_multilingual_v2 (pron-check PASS, v1.4.15)"
   },
   {
    "key": "ㄉㄉㄉ，大象鼻子長",
@@ -1186,7 +1190,8 @@
    "used_as": "第3關：兒歌",
    "kind": "sentence",
    "level": 3,
-   "no_mp3": true
+   "no_mp3": true,
+   "note": "有 3 個候選，最佳 SUSPECT，未接入，待 Freddy 親耳聽；暫退回瀏覽器語音（v1.4.15）"
   },
   {
    "key": "ㄊㄊㄊ，兔子跳跳跳",
@@ -1194,7 +1199,7 @@
    "used_as": "第3關：兒歌",
    "kind": "sentence",
    "level": 3,
-   "no_mp3": true
+   "voice": "Yui eleven_multilingual_v2 (pron-check PASS, v1.4.15)；教育部單音×3＋Yui 文本拼接"
   },
   {
    "key": "ㄋㄋㄋ，牛奶白又白",
@@ -1202,7 +1207,8 @@
    "used_as": "第3關：兒歌",
    "kind": "sentence",
    "level": 3,
-   "no_mp3": true
+   "no_mp3": true,
+   "note": "有 3 個候選，最佳 SUSPECT，未接入，待 Freddy 親耳聽；暫退回瀏覽器語音（v1.4.15）"
   },
   {
    "key": "ㄌㄌㄌ，老虎吼吼吼",
@@ -1210,7 +1216,8 @@
    "used_as": "第3關：兒歌",
    "kind": "sentence",
    "level": 3,
-   "no_mp3": true
+   "no_mp3": true,
+   "note": "有 3 個候選，最佳 SUSPECT，未接入，待 Freddy 親耳聽；暫退回瀏覽器語音（v1.4.15）"
   },
   {
    "key": "嘻嘻，我是鷹愁澗的水水！想過河？先陪我玩注音遊戲！",
@@ -1218,7 +1225,8 @@
    "used_as": "第3關：對戰開場",
    "kind": "sentence",
    "level": 3,
-   "no_mp3": true
+   "no_mp3": true,
+   "note": "有 3 個候選，最佳 SUSPECT，未接入，待 Freddy 親耳聽；暫退回瀏覽器語音（v1.4.15）"
   },
   {
    "key": "踩荷葉，跳過去！",
@@ -1227,7 +1235,7 @@
    "kind": "sentence",
    "level": 3,
    "no_mp3": true,
-   "note": "有候選但 pron-check SUSPECT，未接入，待 Freddy 親耳聽；暫退回瀏覽器語音"
+   "note": "有 3 個候選，最佳 SUSPECT，未接入，待 Freddy 親耳聽；暫退回瀏覽器語音（v1.4.15）"
   },
   {
    "key": "嘻，我的水花好玩吧！",
@@ -1235,7 +1243,8 @@
    "used_as": "第3關：過河第4格",
    "kind": "sentence",
    "level": 3,
-   "no_mp3": true
+   "no_mp3": true,
+   "note": "有 3 個候選，最佳 SUSPECT，未接入，待 Freddy 親耳聽；暫退回瀏覽器語音（v1.4.15）"
   },
   {
    "key": "快到小島了！",
@@ -1244,7 +1253,7 @@
    "kind": "sentence",
    "level": 3,
    "no_mp3": true,
-   "note": "有候選但 pron-check SUSPECT，未接入，待 Freddy 親耳聽；暫退回瀏覽器語音"
+   "note": "有 3 個候選，最佳 SUSPECT，未接入，待 Freddy 親耳聽；暫退回瀏覽器語音（v1.4.15）"
   },
   {
    "key": "到小島了！",
@@ -1253,7 +1262,7 @@
    "kind": "sentence",
    "level": 3,
    "no_mp3": true,
-   "note": "有候選但 pron-check SUSPECT，未接入，待 Freddy 親耳聽；暫退回瀏覽器語音"
+   "note": "有 3 個候選，最佳 SUSPECT，未接入，待 Freddy 親耳聽；暫退回瀏覽器語音（v1.4.15）"
   },
   {
    "key": "哇，好多個悟空！水花都停了！好啦好啦，我認輸了！",
@@ -1261,7 +1270,7 @@
    "used_as": "第3關：結局",
    "kind": "sentence",
    "level": 3,
-   "no_mp3": true
+   "voice": "Yui eleven_multilingual_v2 (pron-check PASS, v1.4.15)"
   },
   {
    "key": "對不起，我來載你們。",
@@ -1269,7 +1278,7 @@
    "used_as": "第3關：結局",
    "kind": "sentence",
    "level": 3,
-   "no_mp3": true
+   "voice": "Yui eleven_multilingual_v2 (pron-check PASS, v1.4.15)"
   },
   {
    "key": "白龍馬，謝謝你。",
@@ -1277,7 +1286,7 @@
    "used_as": "第3關：結局",
    "kind": "sentence",
    "level": 3,
-   "no_mp3": true
+   "voice": "Yui eleven_multilingual_v2 (pron-check PASS, v1.4.15)"
   },
   {
    "key": "鷹愁澗過關！",
