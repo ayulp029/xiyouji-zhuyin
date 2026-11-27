@@ -1,6 +1,6 @@
 # 西遊記注音大冒險
 
-給 5 歲、沒學過注音的孩子在 iPad Safari 用手指玩的注音遊戲。目前有第 1 關（花果山，ㄧㄨㄅㄇ）與第 2 關（五指山，ㄚㄛㄆㄈ，複習ㄅㄇㄨ，妖怪岩岩）。孩子不太會讀字，重要的話一定要唸出來。企劃：/workspace/zhuyin-game/design/plan-v3.md
+給 5 歲、沒學過注音的孩子在 iPad Safari 用手指玩的注音遊戲。目前有第 1 關（花果山，ㄧㄨㄅㄇ）、第 2 關（五指山，ㄚㄛㄆㄈ，複習ㄅㄇㄨ，妖怪岩岩）與第 3 關（鷹愁澗，ㄉㄊㄋㄌ，妖怪水水）。孩子不太會讀字，重要的話一定要唸出來。企劃：/workspace/zhuyin-game/design/plan-v3.md
 
 ## 檔案地圖
 - `index.html`：進入點，`data-version`、`app-version`、所有 `?v=` 要一起改（避免 iPad 快取）；音檔 URL 也要帶同樣的 `?v=`（由 `audio.js` 的 `audioUrl` 自動讀 `data-version` 加上）
@@ -55,3 +55,12 @@
 - 教育部注音單音檔（ㄅㄆㄚㄛㄈ 等）要 `--split skip_symbol`（SKIP，不判）；拼接句（教育部單音＋AI 文本）用 `--split text_only`，只查文本段。
 - 這只是輔助，用來挑出「該請 Freddy 聽」的音；校正集很小，不能取代人聽。
 - 檢查流程只讀 `audio/`，不要在裡面改遊戲音檔，也不要呼叫 ElevenLabs。
+
+## 第 3 關：鷹愁澗（v1.4.13-test）
+- `LEVEL3`（data.js）：句子「小龍愛玩水，大象和老虎來看。」；例詞 ㄉ大象/蛋糕 ㄊ兔子/太陽 ㄋ牛奶/小鳥 ㄌ老虎/蘿蔔；比一比 ㄊ vs ㄉ（只用聽、不描述字形）；拼音 大兔梨拿泥路（教學前 3 個）；開場旁白「這一關，你和悟空一起過河。」（回到「跟悟空一起」視角）。
+- 流程：教學 8 步 → 過河 8 題（`L.river`；`riverHTML`/`riverHop`；每答對一片荷葉浮上來、悟空跳一格；答錯腳下荷葉晃、水水噴水，悟空絕不掉水）→ 第 8 題後跳上小島（pos 9）→ 小島 2 題打水水 → 唐僧念經（第 11 題）→ `victory()` 的分身圈＋水水認輸 → `baimaEnding()`：水水變白龍馬、唐僧騎上去「白龍馬，謝謝你。」→ 印章＋貼紙。`PATHSC()` 讓第 2 關爬山與第 3 關過河共用 nextQ/pick/monkChallenge。
+- 測試鉤子：`#rwk[data-pos]`＝悟空所在格（0 岸、1–8 荷葉、9 小島）、`.rv-leaf.on` 數量；phase 多了 `baima`。
+- 地圖：`img/map-10.svg`（`tools-l3/make_placeholders.py` 產生，10 站，`MAP_POS` 已對齊）；隊伍精靈 `img/map/{wukong-staff,tangseng-follow,tangseng-baima}.png`（占位）；第 3 關過關後 `.pm.tang.horse`（唐僧騎白龍馬）。水簾洞多水水（`MON_IN_CAVE.water`）。舊 `img/map.jpg`（11 站）已不用。
+- **第 3 關美術全是占位**（`tools-l3/make_placeholders.py` 輸出同名檔，正式圖覆蓋即可）；必須重畫的只有水水 4 表情與荷葉河面背景，見 `design/level3-art-brief.md`。
+- **語音：本輪沒生成**（找不到 ElevenLabs API key）。第 3 關新句與第 2 關缺檔（旁白、爬山四句、阿姨／噢／風箏）都退回瀏覽器語音；清單與補錄規則在 `design/level3-voice-list.md`。ㄉㄊㄋㄌ 與大象／兔子／牛奶／老虎已有檔。
+- 測試：`SHOT_DIR=… node tests/e2e-level3.mjs`（只測第 3 關；`level3-flow.png` 是過河中截圖）。

@@ -1050,6 +1050,238 @@
    "kind": "dialogue",
    "level": 2,
    "no_mp3": true
+  },
+  {
+   "key": "這一關，你和悟空一起過河。",
+   "tts_text": "這一關，你和悟空一起過河。",
+   "used_as": "第3關：開場旁白",
+   "kind": "sentence",
+   "level": 3,
+   "no_mp3": true
+  },
+  {
+   "key": "你看，小龍在做什麼呀？",
+   "tts_text": "你看，小龍在做什麼呀？",
+   "used_as": "第3關：教學1",
+   "kind": "sentence",
+   "level": 3,
+   "no_mp3": true
+  },
+  {
+   "key": "小龍愛玩水，大象和老虎來看。",
+   "tts_text": "小龍愛玩水，大象和老虎來看。",
+   "used_as": "第3關：教學1/2 句子",
+   "kind": "sentence",
+   "level": 3,
+   "no_mp3": true
+  },
+  {
+   "key": "小龍",
+   "tts_text": "小龍",
+   "used_as": "第3關：教學1點圖卡",
+   "kind": "sentence",
+   "level": 3,
+   "no_mp3": true
+  },
+  {
+   "key": "找一找，大象在哪裡？",
+   "tts_text": "找一找，大象在哪裡？",
+   "used_as": "第3關：教學3",
+   "kind": "sentence",
+   "level": 3,
+   "no_mp3": true
+  },
+  {
+   "key": "老虎在哪裡？",
+   "tts_text": "老虎在哪裡？",
+   "used_as": "第3關：教學3",
+   "kind": "sentence",
+   "level": 3,
+   "no_mp3": true
+  },
+  {
+   "key": "大象的大",
+   "tts_text": "大象的大",
+   "used_as": "第3關：教學4",
+   "kind": "sentence",
+   "level": 3,
+   "no_mp3": true
+  },
+  {
+   "key": "老虎的老",
+   "tts_text": "老虎的老",
+   "used_as": "第3關：教學4",
+   "kind": "sentence",
+   "level": 3,
+   "no_mp3": true
+  },
+  {
+   "key": "哪一個是大象的",
+   "tts_text": "哪一個是大象的",
+   "used_as": "第3關：教學6/對戰；後接 ㄉ",
+   "kind": "sentence",
+   "level": 3,
+   "no_mp3": true
+  },
+  {
+   "key": "哪一個是老虎的",
+   "tts_text": "哪一個是老虎的",
+   "used_as": "第3關：對戰 T5；後接 ㄌ",
+   "kind": "sentence",
+   "level": 3,
+   "no_mp3": true
+  },
+  {
+   "key": "大",
+   "tts_text": "大",
+   "used_as": "第3關：拼音 ㄉㄚ",
+   "kind": "sentence",
+   "level": 3,
+   "no_mp3": true
+  },
+  {
+   "key": "兔",
+   "tts_text": "兔",
+   "used_as": "第3關：拼音 ㄊㄨ",
+   "kind": "sentence",
+   "level": 3,
+   "no_mp3": true
+  },
+  {
+   "key": "梨",
+   "tts_text": "梨",
+   "used_as": "第3關：拼音 ㄌㄧ",
+   "kind": "sentence",
+   "level": 3,
+   "no_mp3": true
+  },
+  {
+   "key": "拿",
+   "tts_text": "拿",
+   "used_as": "第3關：拼音 ㄋㄚ",
+   "kind": "sentence",
+   "level": 3,
+   "no_mp3": true
+  },
+  {
+   "key": "泥",
+   "tts_text": "泥",
+   "used_as": "第3關：拼音 ㄋㄧ",
+   "kind": "sentence",
+   "level": 3,
+   "no_mp3": true
+  },
+  {
+   "key": "路",
+   "tts_text": "路",
+   "used_as": "第3關：拼音 ㄌㄨ",
+   "kind": "sentence",
+   "level": 3,
+   "no_mp3": true
+  },
+  {
+   "key": "ㄉㄉㄉ，大象鼻子長",
+   "tts_text": "ㄉㄉㄉ，大象鼻子長",
+   "used_as": "第3關：兒歌",
+   "kind": "sentence",
+   "level": 3,
+   "no_mp3": true
+  },
+  {
+   "key": "ㄊㄊㄊ，兔子跳跳跳",
+   "tts_text": "ㄊㄊㄊ，兔子跳跳跳",
+   "used_as": "第3關：兒歌",
+   "kind": "sentence",
+   "level": 3,
+   "no_mp3": true
+  },
+  {
+   "key": "ㄋㄋㄋ，牛奶白又白",
+   "tts_text": "ㄋㄋㄋ，牛奶白又白",
+   "used_as": "第3關：兒歌",
+   "kind": "sentence",
+   "level": 3,
+   "no_mp3": true
+  },
+  {
+   "key": "ㄌㄌㄌ，老虎吼吼吼",
+   "tts_text": "ㄌㄌㄌ，老虎吼吼吼",
+   "used_as": "第3關：兒歌",
+   "kind": "sentence",
+   "level": 3,
+   "no_mp3": true
+  },
+  {
+   "key": "嘻嘻，我是鷹愁澗的水水！想過河？先陪我玩注音遊戲！",
+   "tts_text": "嘻嘻，我是鷹愁澗的水水！想過河？先陪我玩注音遊戲！",
+   "used_as": "第3關：對戰開場",
+   "kind": "sentence",
+   "level": 3,
+   "no_mp3": true
+  },
+  {
+   "key": "踩荷葉，跳過去！",
+   "tts_text": "踩荷葉，跳過去！",
+   "used_as": "第3關：過河第2格",
+   "kind": "sentence",
+   "level": 3,
+   "no_mp3": true
+  },
+  {
+   "key": "嘻，我的水花好玩吧！",
+   "tts_text": "嘻，我的水花好玩吧！",
+   "used_as": "第3關：過河第4格",
+   "kind": "sentence",
+   "level": 3,
+   "no_mp3": true
+  },
+  {
+   "key": "快到小島了！",
+   "tts_text": "快到小島了！",
+   "used_as": "第3關：過河第6格",
+   "kind": "sentence",
+   "level": 3,
+   "no_mp3": true
+  },
+  {
+   "key": "到小島了！",
+   "tts_text": "到小島了！",
+   "used_as": "第3關：過河第8格",
+   "kind": "sentence",
+   "level": 3,
+   "no_mp3": true
+  },
+  {
+   "key": "哇，好多個悟空！水花都停了！好啦好啦，我認輸了！",
+   "tts_text": "哇，好多個悟空！水花都停了！好啦好啦，我認輸了！",
+   "used_as": "第3關：結局",
+   "kind": "sentence",
+   "level": 3,
+   "no_mp3": true
+  },
+  {
+   "key": "對不起，我來載你們。",
+   "tts_text": "對不起，我來載你們。",
+   "used_as": "第3關：結局",
+   "kind": "sentence",
+   "level": 3,
+   "no_mp3": true
+  },
+  {
+   "key": "白龍馬，謝謝你。",
+   "tts_text": "白龍馬，謝謝你。",
+   "used_as": "第3關：結局",
+   "kind": "sentence",
+   "level": 3,
+   "no_mp3": true
+  },
+  {
+   "key": "鷹愁澗過關！",
+   "tts_text": "鷹愁澗過關！",
+   "used_as": "第3關：過關",
+   "kind": "sentence",
+   "level": 3,
+   "no_mp3": true
   }
  ]
 }

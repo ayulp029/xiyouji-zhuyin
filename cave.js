@@ -12,6 +12,7 @@ function wireImgFb(root=app){
 }
 const hasStaff=()=>levelState(1).cleared;      // 金箍棒：第 1 關過關後
 const hasMonk=()=>levelState(2).cleared;       // 唐僧：第 2 關過關後
+const hasHorse=()=>levelState(3).cleared;      // 白龍馬：第 3 關過關後（唐僧改騎白龍馬）
 const owns=id=>caveState().owned.includes(id);
 // 悟空身上的換裝（帽子、戰袍）：有 img/shop/<id>.png 用圖，沒檔用 emoji
 function gearHTML(){
@@ -27,7 +28,7 @@ function mapExtras(){
     const cleared=LEVELS.filter(lv=>levelState(lv.id).cleared).length, p=Math.min(cleared, STATIONS.length-1);
     const [x,y]=MAP_POS[p], prev=MAP_POS[Math.max(0,p-1)], dir=prev[0]>x?1:-1, cl=v=>Math.max(9,Math.min(91,v));
     party=`<div class="party" id="party">`+
-      (monk?`<div class="pm tang" style="left:${cl(x+dir*35)}%;top:${y+7}%"><img src="${MAPIMG.tangFollow}" data-fb="${IMG.tangseng.rest}" alt="唐僧" draggable="false"></div>`:'')+
+      (monk?`<div class="pm tang${hasHorse()?' horse':''}" style="left:${cl(x+dir*35)}%;top:${y+7}%"><img src="${hasHorse()?MAPIMG.tangBaima:MAPIMG.tangFollow}" data-fb="${IMG.tangseng.rest}" alt="${hasHorse()?'唐僧騎白龍馬':'唐僧'}" draggable="false"></div>`:'')+
       `<div class="pm wk-m gwk" style="left:${cl(x+dir*19)}%;top:${y+7}%"><img src="${MAPIMG.wukongStaff}" data-fb="${IMG.wukong.stand}" alt="悟空拿金箍棒" draggable="false">${gearHTML()}</div></div>`;
   }
   return party;
@@ -46,7 +47,8 @@ const friendsN=n=>Math.min(7, Math.floor(n/5));
 const cardOf=s=>CARDS.find(c=>c.s===s);
 const cardImg=c=>`<img src="img/cards/${c.s}.png" data-emo="${c.e}" alt="${c.w}" draggable="false">`;
 function caveFriendHTML(i){ const [l,t]=FR_POS[i]; return `<span class="friend" data-i="${i}" style="left:${l}%;top:${t}%">🐵</span>`; }
-const MON_IN_CAVE={ stone:{name:'石頭頭', lv:1, face:()=>IMG.monster.tame, pool:()=>LEVEL1.syms}, rock:{name:'岩岩', lv:2, face:()=>IMG.rock.tame, pool:()=>LEVEL2.syms} };
+const MON_IN_CAVE={ stone:{name:'石頭頭', lv:1, face:()=>IMG.monster.tame, pool:()=>LEVEL1.syms}, rock:{name:'岩岩', lv:2, face:()=>IMG.rock.tame, pool:()=>LEVEL2.syms},
+  water:{name:'水水', lv:3, face:()=>IMG.water.tame, pool:()=>LEVEL3.syms} };
 function caveScreen(){
   stopAll(); setBg(IMG.bg);
   const cs=caveState(), n=Object.keys(cs.heard).length, fr=friendsN(n), all=n>=CARDS.length, staff=hasStaff();
@@ -154,9 +156,9 @@ function monkChallenge(){
   const opts=shuffle([...seq,...shuffle(pool.filter(s=>!seq.includes(s))).slice(0,6-n)]); window.__seq=seq;
   let k=0, tries=0, locked=false; const total=L.battle.length+1;
   // 第 2 關：唐僧在山頂、岩岩在旁邊看（山頂第 3 / 3 題）；#cnt＝已答對題數（測試鉤子）
-  const head=L.climb?`⛰️ 山頂第 ${total-L.climb.n} / ${total-L.climb.n} 題　念經挑戰　<small>已答對 <b id="cnt">${clones}</b> / ${total}</small>`:`念經挑戰　第 ${total} / ${total} 題`;
+  const sc=L.climb||L.river, head=sc?`${L.river?'🏝️ 小島':'⛰️ 山頂'}第 ${total-sc.n} / ${total-sc.n} 題　念經挑戰　<small>已答對 <b id="cnt">${clones}</b> / ${total}</small>`:`念經挑戰　第 ${total} / ${total} 題`;
   el(`<div class="count">${head}</div>
-    <div class="monk">${pic(IMG.tangseng.talk,'唐僧','wukong')}<div class="bubble">🔔 阿彌陀佛～</div>${L.climb?`<span class="monk-fu">📜</span>${monHTML('normal','mini')}`:''}</div>
+    <div class="monk">${pic(IMG.tangseng.talk,'唐僧','wukong')}<div class="bubble">🔔 阿彌陀佛～</div>${sc?`<span class="monk-fu">${L.river?'🪷':'📜'}</span>${monHTML('normal','mini')}`:''}</div>
     <div class="slots" id="slots">${seq.map(()=>'<span class="slot"></span>').join('')}</div>
     <div class="say" id="say">唐僧在念經，聽仔細，照順序點！</div>
     <div class="row prompt"><button class="btn blue" id="rep">再聽一次 🔊</button></div>
