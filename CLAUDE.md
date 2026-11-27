@@ -56,11 +56,11 @@
 - 這只是輔助，用來挑出「該請 Freddy 聽」的音；校正集很小，不能取代人聽。
 - 檢查流程只讀 `audio/`，不要在裡面改遊戲音檔，也不要呼叫 ElevenLabs。
 
-## 第 3 關：鷹愁澗（v1.4.13-test）
+## 第 3 關：鷹愁澗（v1.4.14-test）
 - `LEVEL3`（data.js）：句子「小龍愛玩水，大象和老虎來看。」；例詞 ㄉ大象/蛋糕 ㄊ兔子/太陽 ㄋ牛奶/小鳥 ㄌ老虎/蘿蔔；比一比 ㄊ vs ㄉ（只用聽、不描述字形）；拼音 大兔梨拿泥路（教學前 3 個）；開場旁白「這一關，你和悟空一起過河。」（回到「跟悟空一起」視角）。
 - 流程：教學 8 步 → 過河 8 題（`L.river`；`riverHTML`/`riverHop`；每答對一片荷葉浮上來、悟空跳一格；答錯腳下荷葉晃、水水噴水，悟空絕不掉水）→ 第 8 題後跳上小島（pos 9）→ 小島 2 題打水水 → 唐僧念經（第 11 題）→ `victory()` 的分身圈＋水水認輸 → `baimaEnding()`：水水變白龍馬、唐僧騎上去「白龍馬，謝謝你。」→ 印章＋貼紙。`PATHSC()` 讓第 2 關爬山與第 3 關過河共用 nextQ/pick/monkChallenge。
 - 測試鉤子：`#rwk[data-pos]`＝悟空所在格（0 岸、1–8 荷葉、9 小島）、`.rv-leaf.on` 數量；phase 多了 `baima`。
 - 地圖：`img/map-10.svg`（`tools-l3/make_placeholders.py` 產生，10 站，`MAP_POS` 已對齊）；隊伍精靈 `img/map/{wukong-staff,tangseng-follow,tangseng-baima}.png`（占位）；第 3 關過關後 `.pm.tang.horse`（唐僧騎白龍馬）。水簾洞多水水（`MON_IN_CAVE.water`）。舊 `img/map.jpg`（11 站）已不用。
 - **第 3 關美術全是占位**（`tools-l3/make_placeholders.py` 輸出同名檔，正式圖覆蓋即可）；必須重畫的只有水水 4 表情與荷葉河面背景，見 `design/level3-art-brief.md`。
-- **語音：本輪沒生成**（找不到 ElevenLabs API key）。第 3 關新句與第 2 關缺檔（旁白、爬山四句、阿姨／噢／風箏）都退回瀏覽器語音；清單與補錄規則在 `design/level3-voice-list.md`。ㄉㄊㄋㄌ 與大象／兔子／牛奶／老虎已有檔。
+- **語音（v1.4.14-test）**：已接入 4 句 Yui（multilingual_v2，pron-check PASS）：這一關，你和悟空一起過河。／你看，小龍在做什麼呀？／小龍愛玩水，大象和老虎來看。／小龍。有候選但 SUSPECT、未放檔（退回瀏覽器語音，待 Freddy 聽）：到小島了！、快到小島了！、踩荷葉，跳過去！、找一找，大象在哪裡？（僅 1 候選）。其餘第 3 關新句與第 2 關缺檔（旁白、爬山四句、阿姨／噢／風箏）仍沒錄，同樣退回瀏覽器語音；清單與補錄規則在 `design/level3-voice-list.md`、`design/voice-todo.md`。第 3 關用 eleven_multilingual_v2（第 1、2 關是 eleven_v3），ElevenLabs 累計已用 187 點。
 - 測試：`SHOT_DIR=… node tests/e2e-level3.mjs`（只測第 3 關；`level3-flow.png` 是過河中截圖）。

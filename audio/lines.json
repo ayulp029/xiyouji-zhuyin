@@ -1057,7 +1057,7 @@
    "used_as": "第3關：開場旁白",
    "kind": "sentence",
    "level": 3,
-   "no_mp3": true
+   "voice": "Yui eleven_multilingual_v2 (pron-check PASS, v1.4.14)"
   },
   {
    "key": "你看，小龍在做什麼呀？",
@@ -1065,7 +1065,7 @@
    "used_as": "第3關：教學1",
    "kind": "sentence",
    "level": 3,
-   "no_mp3": true
+   "voice": "Yui eleven_multilingual_v2 (pron-check PASS, v1.4.14)"
   },
   {
    "key": "小龍愛玩水，大象和老虎來看。",
@@ -1073,7 +1073,7 @@
    "used_as": "第3關：教學1/2 句子",
    "kind": "sentence",
    "level": 3,
-   "no_mp3": true
+   "voice": "Yui eleven_multilingual_v2 (pron-check PASS, v1.4.14)"
   },
   {
    "key": "小龍",
@@ -1081,7 +1081,7 @@
    "used_as": "第3關：教學1點圖卡",
    "kind": "sentence",
    "level": 3,
-   "no_mp3": true
+   "voice": "Yui eleven_multilingual_v2 (pron-check PASS, v1.4.14)"
   },
   {
    "key": "找一找，大象在哪裡？",
@@ -1089,7 +1089,8 @@
    "used_as": "第3關：教學3",
    "kind": "sentence",
    "level": 3,
-   "no_mp3": true
+   "no_mp3": true,
+   "note": "有候選但 pron-check SUSPECT，未接入，待 Freddy 親耳聽；暫退回瀏覽器語音"
   },
   {
    "key": "老虎在哪裡？",
@@ -1225,7 +1226,8 @@
    "used_as": "第3關：過河第2格",
    "kind": "sentence",
    "level": 3,
-   "no_mp3": true
+   "no_mp3": true,
+   "note": "有候選但 pron-check SUSPECT，未接入，待 Freddy 親耳聽；暫退回瀏覽器語音"
   },
   {
    "key": "嘻，我的水花好玩吧！",
@@ -1241,7 +1243,8 @@
    "used_as": "第3關：過河第6格",
    "kind": "sentence",
    "level": 3,
-   "no_mp3": true
+   "no_mp3": true,
+   "note": "有候選但 pron-check SUSPECT，未接入，待 Freddy 親耳聽；暫退回瀏覽器語音"
   },
   {
    "key": "到小島了！",
@@ -1249,7 +1252,8 @@
    "used_as": "第3關：過河第8格",
    "kind": "sentence",
    "level": 3,
-   "no_mp3": true
+   "no_mp3": true,
+   "note": "有候選但 pron-check SUSPECT，未接入，待 Freddy 親耳聽；暫退回瀏覽器語音"
   },
   {
    "key": "哇，好多個悟空！水花都停了！好啦好啦，我認輸了！",
