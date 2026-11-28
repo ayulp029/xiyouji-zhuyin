@@ -1,4 +1,4 @@
-# 語音待辦（v1.4.15-test 更新：已接入 15 句）
+# 語音待辦（v1.4.16-test 更新：累計接入 18 句）
 
 記錄時間：2026-11-27 21:23:18（台北時間 Asia/Taipei）
 
@@ -7,6 +7,13 @@
 ElevenLabs 已知點數：606.0（manifest credits_used_known；v1.4.14 時只記 187）（剩餘百分比未知，未再查 account 用量以免觸發授權）。
 flow_id：9ILKMtDcViIMwj0k3yu6
 候選原始檔：`/tmp/xiyouji-level3/raw/`（檔名 `「句子」-c1.mp3` …）；清單：`/tmp/xiyouji-level3/voice-manifest.json`。
+
+## v1.4.16-test 新增（本週最後一輪）
+manifest `credits_used_known` 717.0 點；本輪未呼叫 ElevenLabs。後處理同上（proc3），`rank_candidates` 結果：
+- 已接入（PASS）：師父好棒！（c1）／這一關，你陪唐僧去救悟空。（c1）／鷹愁澗過關！（c3；whisper 聽成 guan3，勉強 PASS，建議聽）
+- SUSPECT 3 候選皆是，**請 Freddy 聽**（未放檔，退回瀏覽器語音；候選在 `/tmp/xiyouji-level3/proc3/`）：哎呀，你爬好快！（爬 聽成 pa4）／我看到符咒了！（咒 聽成 zhou1／zhao1）
+- 上一輪 SUSPECT／FAIL 沒有重排，清單見下方 v1.4.15 段落。
+- 尚未產檔（等下週）：到山頂了！、阿姨、噢、風箏；第 2 關旁白已接入 1 句、爬山四句只接入 1 句（師父好棒！）。
 
 ## v1.4.15-test 處理結果
 Yui、eleven_multilingual_v2；候選原檔 `/tmp/xiyouji-level3/raw/`，後處理（trim＋loudnorm -19 LUFS＋句末約 0.2 秒靜音）後在 `/tmp/xiyouji-level3/proc2/`，經 `rank_candidates` 挑最佳 PASS 寫入 `audio/<key>.mp3`。兒歌先做「教育部單音×3（間隔 0.15 秒）＋Yui 文本」拼接，用 `--split text_only` 檢查文本段。本輪未呼叫 ElevenLabs（累計 606 點，沿用 manifest）。
@@ -34,7 +41,7 @@ Yui、eleven_multilingual_v2；候選原檔 `/tmp/xiyouji-level3/raw/`，後處�
 - 拼音單字（大 兔 梨 拿 泥）單字 ASR 本來就不可靠，務必人聽聲調。
 
 #### 尚未產檔
-- 鷹愁澗過關！（只有 1 候選，未處理；等補滿 3 個）
+- 鷹愁澗過關！（v1.4.16 已接入）
 - 以及 `raw/` 沒有的句子（若有）：本輪快照時沒有的檔不處理。
 
 

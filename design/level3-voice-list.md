@@ -43,3 +43,9 @@ Yui、eleven_multilingual_v2；候選原檔 `/tmp/xiyouji-level3/raw/`，後處�
 
 ## 沒有 PASS 的句子
 見上方 SUSPECT／FAIL 清單。
+
+
+## v1.4.16-test 狀態
+- 新接入（PASS）：鷹愁澗過關！（c3，勉強 PASS，建議聽）。
+- 第 2 關補檔：這一關，你陪唐僧去救悟空。、師父好棒！已接入；哎呀，你爬好快！、我看到符咒了！ 3 候選皆 SUSPECT（待 Freddy 聽）；到山頂了！尚未產檔。
+- 其餘 SUSPECT／FAIL 同 v1.4.15（見 voice-todo.md），仍退回瀏覽器語音。

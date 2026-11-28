@@ -1014,18 +1014,18 @@
   {
    "key": "這一關，你陪唐僧去救悟空。",
    "tts_text": "這一關，你陪唐僧去救悟空。",
-   "used_as": "開場旁白：點進第 2 關、關卡選單出現時先念（排在選單台詞前）；尚無 mp3，目前用裝置語音（TTS）退回，之後才錄",
+   "used_as": "開場旁白：點進第 2 關、關卡選單出現時先念（排在選單台詞前）",
    "kind": "dialogue",
    "level": 2,
-   "no_mp3": true
+   "voice": "Yui eleven_multilingual_v2 (pron-check PASS, c1, v1.4.16)"
   },
   {
    "key": "師父好棒！",
    "tts_text": "師父好棒！",
-   "used_as": "爬山第 2 格答對；尚無 mp3，目前用裝置語音（TTS）退回，之後才錄",
+   "used_as": "爬山第 2 格答對",
    "kind": "dialogue",
    "level": 2,
-   "no_mp3": true
+   "voice": "Yui eleven_multilingual_v2 (pron-check PASS, c1, v1.4.16)"
   },
   {
    "key": "哎呀，你爬好快！",
@@ -1033,7 +1033,8 @@
    "used_as": "爬山第 4 格答對；尚無 mp3，目前用裝置語音（TTS）退回，之後才錄",
    "kind": "dialogue",
    "level": 2,
-   "no_mp3": true
+   "no_mp3": true,
+   "note": "有 3 個候選，皆 SUSPECT（爬 聲調），未接入，待 Freddy 親耳聽；候選在 /tmp/xiyouji-level3/proc3/；暫退回瀏覽器語音（v1.4.16）"
   },
   {
    "key": "我看到符咒了！",
@@ -1041,7 +1042,8 @@
    "used_as": "爬山第 6 格答對；尚無 mp3，目前用裝置語音（TTS）退回，之後才錄",
    "kind": "dialogue",
    "level": 2,
-   "no_mp3": true
+   "no_mp3": true,
+   "note": "有 3 個候選，皆 SUSPECT（爬 聲調），未接入，待 Freddy 親耳聽；候選在 /tmp/xiyouji-level3/proc3/；暫退回瀏覽器語音（v1.4.16）"
   },
   {
    "key": "到山頂了！",
@@ -1294,7 +1296,7 @@
    "used_as": "第3關：過關",
    "kind": "sentence",
    "level": 3,
-   "no_mp3": true
+   "voice": "Yui eleven_multilingual_v2 (pron-check PASS, c3, v1.4.16)"
   }
  ]
 }
